@@ -1,0 +1,46 @@
+@import './node_modules/bootstrap-sass/assets/stylesheets/bootstrap-sprockets';
+@import './node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+
+// Ensure nav bar doesn't get malformed from <Link> components
+.app-navbar {
+  .nav a[role="button"] {
+    display: none;
+  }
+}
+
+#loading-template {
+  display: none;
+}
+
+.loading #loading-template {
+  display: block;
+  font-weight: bold;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.torrent-item {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.torrent-item {
+  display: flex;
+  align-items: center;
+}
+
+.anime-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  &:before {
+    content: none;
+  }
+}
+
+.anime-item {
+  img {
+    width: 100%;
+  }
+}
