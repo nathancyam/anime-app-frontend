@@ -58,7 +58,7 @@ export default Reflux.createStore({
         });
     }
 
-    return anime.toArray();
+    return this.trigger(anime.toArray());
   },
 
   onGetAll() {

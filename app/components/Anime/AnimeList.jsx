@@ -1,5 +1,4 @@
 import React from 'react';
-import AnimeItem from './AnimeItem';
 import AnimeStore, { Actions } from '../../stores/AnimeStore';
 
 export default class AnimeList extends React.Component {
@@ -93,7 +92,7 @@ export default class AnimeList extends React.Component {
               return <AnimeItem
                 key={`anime-${index}`}
                 anime={el}
-                mediaRoot="http://anime.itsme.dio" />
+                mediaRoot="http://anime.itsme.dio" />;
             })
           }
           </div>
