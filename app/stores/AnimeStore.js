@@ -1,7 +1,18 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
+import _ from 'lodash';
 
 let anime = new Immutable.List([]);
+let filters = {};
+let generateFilter = (filterProp, filterValue, predicateFn) => {
+  if (predicateFn) {
+    filters[filterProp] = predicateFn;
+  } else {
+    filters[filterProp] = (el) => {
+      return el[filterProp] === filterValue;
+    };
+  }
+};
 
 function getAnime() {
   return new Promise((resolve, reject) => {
@@ -54,19 +65,43 @@ export default Reflux.createStore({
     this.getAnime();
   },
 
+  triggerFilterAnime() {
+    let filterCollection = _.values(filters)
+      .reduce((prev, curr) => {
+        return prev.filter(curr);
+      }, anime);
+
+    this.trigger(filterCollection);
+  },
+
   onFilterByName(name) {
-    let filterAnime = anime.filter((el) => {
+    generateFilter('title', '', (el) => {
       return Boolean(el.title.match(new RegExp(`${name}`, 'i')));
-    })
-    this.trigger(filterAnime);
+    });
+    this.triggerFilterAnime();
+  },
+
+  setBooleanFilter(property, value) {
+    if (value === "") {
+      delete filters[property];
+      return this.triggerFilterAnime();
+    }
+
+    if (value === "true") {
+      generateFilter(property, true);
+    } else {
+      generateFilter(property, undefined);
+    }
+
+    return this.triggerFilterAnime();
   },
 
   onFilterByComplete(isComplete) {
-
+    this.setBooleanFilter('is_complete', isComplete);
   },
 
   onFilterByWatching(isWatching) {
-
+    this.setBooleanFilter('is_watching', isWatching);
   },
 
   onReset() {

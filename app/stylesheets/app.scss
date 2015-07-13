@@ -32,7 +32,6 @@
 .anime-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
 
   &:before {
     content: none;
@@ -40,7 +39,31 @@
 }
 
 .anime-item {
+  overflow: hidden;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  margin: 2rem 0;
+
   img {
+    position: relative;
     width: 100%;
+  }
+  .content {
+    padding: 1rem;
+  }
+  hr {
+    margin: 1rem 0;
+  }
+  .title {
+    line-height: 3rem;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  .icon-container,
+  .subgroup {
+    display: inline-block;
+  }
+  .subgroup {
+    font-weight: bold;
+    float: right;
   }
 }
