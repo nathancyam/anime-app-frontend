@@ -37,6 +37,10 @@ export default class AnimeList extends React.Component {
     Actions.filterByComplete(event.target.value);
   }
 
+  onRefresh() {
+    Actions.getAll();
+  }
+
   onFilterByWatching(event) {
     Actions.filterByWatching(event.target.value);
   }
@@ -49,10 +53,17 @@ export default class AnimeList extends React.Component {
             <div className="col-xs-12">
               <form className="form-horizontal">
                 <div className="form-group">
-                  <div className="col-xs-12">
+                  <div className="col-xs-10">
                     <input className="form-control" type="text"
                       placeholder="Filter By Name"
                       onChange={this.onFilterByName} />
+                  </div>
+                  <div className="col-xs-2">
+                    <button className="btn btn-primary btn-block"
+                      onClick={this.onRefresh}>
+                      <i style={{padding: "0 5px"}} className="fa fa-refresh"></i>
+                      <span className="hidden-xs">Sync</span>
+                    </button>
                   </div>
                 </div>
                 <div className="form-group">
