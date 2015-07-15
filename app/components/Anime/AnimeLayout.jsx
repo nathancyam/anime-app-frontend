@@ -7,6 +7,7 @@ export default class AnimeLayout extends React.Component {
   constructor(props) {
     super(props);
     this.onAnimeItemLoad = this.onAnimeItemLoad.bind(this);
+    this.reset = this.reset.bind(this);
     this.state = { anime: {} };
   }
 
@@ -21,6 +22,10 @@ export default class AnimeLayout extends React.Component {
 
   onAnimeItemLoad(anime) {
     this.setState({ anime });
+  }
+
+  reset() {
+    Actions.reset(this.props.params.animeId);
   }
 
   render() {
@@ -41,6 +46,14 @@ export default class AnimeLayout extends React.Component {
             <img className="anime-image" src={`http://anime.itsme.dio/${anime.image_url}`} />
             <div className="content">
               <h1>{anime.title}</h1>
+              <div className="row">
+                <div className="col-xs-12">
+                  <button className="btn btn-primary"
+                    onClick={this.reset}>
+                    <i className="fa fa-refresh"></i>Sync
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

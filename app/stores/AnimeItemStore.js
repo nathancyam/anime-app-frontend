@@ -6,7 +6,8 @@ import Immutable from 'immutable';
 let animeItems = new Immutable.Map({});
 
 export var Actions = Reflux.createActions([
-  'findById'
+  'findById',
+  'reset'
 ]);
 
 /**
@@ -44,6 +45,11 @@ function getAnimeEpisodes(id) {
 
 export default Reflux.createStore({
   listenables: [Actions],
+
+  onReset(id) {
+    animeItems = animeItems.remove(id);
+    return Actions.findById(id);
+  },
 
   onFindById(id) {
     let anime = animeItems.get(id) || {};
