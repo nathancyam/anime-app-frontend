@@ -24,7 +24,7 @@ function getAnime() {
       .catch((err) => {
         console.log(err);
         return reject(err);
-      })
+      });
   });
 }
 

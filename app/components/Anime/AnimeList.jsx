@@ -1,5 +1,36 @@
-import React from 'react';
+import React from 'react/addons';
+import AnimeItem from './AnimeItem';
 import AnimeStore, { Actions } from '../../stores/AnimeStore';
+
+class CompleteAnimeFilter extends React.Component {
+  render() {
+    return (
+      <div className="col-xs-12 col-md-6">
+        <select className="form-control"
+                onChange={this.props.onFilterByComplete}>
+          <option value="">Select Complete</option>
+          <option value={true}>Complete</option>
+          <option value={false}>Incomplete</option>
+        </select>
+      </div>
+    );
+  }
+}
+
+class WatchingAnimeFilter extends React.Component {
+  render() {
+    return (
+      <div className="col-xs-12 col-md-6">
+        <select className="form-control"
+                onChange={this.props.onFilterByWatching}>
+          <option value="">Select Watching</option>
+          <option value={true}>Watching</option>
+          <option value={false}>Not Watching</option>
+        </select>
+      </div>
+    );
+  }
+}
 
 export default class AnimeList extends React.Component {
 
@@ -66,35 +97,21 @@ export default class AnimeList extends React.Component {
                   </div>
                 </div>
                 <div className="form-group">
-                  <div className="col-xs-12 col-md-6">
-                    <select className="form-control"
-                      onChange={this.onFilterByComplete}>
-                      <option value="">Select Complete</option>
-                      <option value={true}>Complete</option>
-                      <option value={false}>Incomplete</option>
-                    </select>
-                  </div>
-                  <div className="col-xs-12 col-md-6">
-                    <select className="form-control"
-                      onChange={this.onFilterByWatching}>
-                      <option value="">Select Watching</option>
-                      <option value={true}>Watching</option>
-                      <option value={false}>Not Watching</option>
-                    </select>
-                  </div>
+                  <CompleteAnimeFilter onFilterByComplete={this.onFilterByComplete} />
+                  <WatchingAnimeFilter onFilterByWatching={this.onFilterByWatching} />
                 </div>
               </form>
             </div>
           </div>
           <div className="row anime-row">
-          {
-            this.state.list.map((el, index) => {
-              return <AnimeItem
-                key={`anime-${index}`}
-                anime={el}
-                mediaRoot="http://anime.itsme.dio" />;
-            })
-          }
+            {
+              this.state.list.map((el, index) => {
+                return <AnimeItem
+                  key={`anime-${index}-item`}
+                  anime={el}
+                  mediaRoot="http://anime.itsme.dio" />;
+              })
+            }
           </div>
         </div>
       </div>

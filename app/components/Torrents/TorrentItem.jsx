@@ -32,9 +32,9 @@ export default class TorrentItem extends React.Component {
 
     return (
       <div className="row torrent-item">
-        <div className="col-xs-4">{torrent.name}</div>
-        <div className="col-xs-4">{torrent.href}</div>
-        <div className="col-xs-4">
+        <div className="col-xs-12 col-md-4 name">{torrent.name}</div>
+        <div className="col-xs-12 col-md-4 link">{torrent.href}</div>
+        <div className="col-xs-12 col-md-4">
           <button className="btn btn-primary"
             onClick={this.onAddTorrent}>
             <i className={faClass}></i>

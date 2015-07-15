@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import { Link } from 'react-router';
 
 class AnimeStatus extends React.Component {
   render() {
@@ -39,21 +40,23 @@ export default class AnimeItem extends React.Component {
   render() {
     return (
       <div className="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-        <div className="anime-item">
-          <img src={`${this.props.mediaRoot}${this.props.anime.image_url}`} />
-          <div className="content">
-            <div className="title">{this.props.anime.title}</div>
-            <hr />
-            <div>
-              <AnimeStatus
-                anime={this.props.anime}
-                statusProperties={{
-                  'is_watching': 'fa-eye',
-                  'is_complete': 'fa-check'
-                }} />
+        <Link className="anime-item-link" to="anime_item" params={{animeId: this.props.anime._id }}>
+          <div className="anime-item">
+            <img src={`${this.props.mediaRoot}${this.props.anime.image_url}`} />
+            <div className="content">
+              <div className="title">{this.props.anime.title}</div>
+              <hr />
+              <div>
+                <AnimeStatus
+                  anime={this.props.anime}
+                  statusProperties={{
+                    'is_watching': 'fa-eye',
+                    'is_complete': 'fa-check'
+                  }} />
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
     );
   }

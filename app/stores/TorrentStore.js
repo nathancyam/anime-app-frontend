@@ -20,7 +20,7 @@ function makeTorrentSearchRequest(searchTerm) {
       })
       .catch((err) => {
         return reject(err);
-      })
+      });
   });
 }
 
@@ -85,11 +85,12 @@ export default Reflux.createStore({
     this.trigger(torrentStore);
 
     addTorrentToServer(torrent)
-      .then((response) => {
+      .then(() => {
         torrentStore = torrentStore.update(torrentIndex, updateFn('added'));
         this.trigger(torrentStore);
       })
       .catch((err) => {
+        console.log(err);
         torrentStore = torrentStore.update(torrentIndex, updateFn('error'));
         this.trigger(torrentStore);
       });

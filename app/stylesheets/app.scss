@@ -22,11 +22,28 @@
 .torrent-item {
   padding-top: 1rem;
   padding-bottom: 1rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  margin: 2rem 0;
+
+  &:before {
+    content: none;
+  }
 }
 
 .torrent-item {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+
+  .name, .link {
+    padding-bottom: 1rem;
+  }
+
+  .name {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
 }
 
 .anime-row {
@@ -38,10 +55,51 @@
   }
 }
 
+.animegroup-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.example-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+}
+.example-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+}
+.example-appear {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+}
+
+.anime-item-link,
+.anime-item-link:hover {
+  color: black;
+  text-decoration: none;
+}
+
 .anime-item {
   overflow: hidden;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   margin: 2rem 0;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   img {
     position: relative;
@@ -65,5 +123,17 @@
   .subgroup {
     font-weight: bold;
     float: right;
+  }
+}
+
+.anime-item-page {
+  .anime-image {
+    width: 100%;
+  }
+  .left {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+  .content {
+    padding: 1rem;
   }
 }

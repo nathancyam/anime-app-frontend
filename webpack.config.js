@@ -20,13 +20,15 @@ var common = {
       {
         test: /\.scss$/,
         loader: 'style!css!sass?sourceMap'
-      },
+      }
     ]
   },
   plugins: [
     new HtmlwebpackPlugin({
       title: 'Anime App',
-    }),
+      template: 'assets/app-index.html',
+      inject: false
+    })
   ]
 };
 
@@ -40,7 +42,7 @@ if (TARGET === 'build') {
           // use babel loader with Stage 1 features
           loader: 'babel?stage=1',
           // operate only on our app directory
-          include: path.resolve(ROOT_PATH, 'app'),
+          include: path.resolve(ROOT_PATH, 'app')
         }
       ]
     },
@@ -48,7 +50,7 @@ if (TARGET === 'build') {
       new webpack.DefinePlugin({
         'process.env': {
           // This has effect on the react lib size
-          'NODE_ENV': JSON.stringify('production'),
+          'NODE_ENV': JSON.stringify('production')
         }
       }),
       new webpack.optimize.UglifyJsPlugin({
