@@ -52,6 +52,12 @@ export default class TorrentList extends React.Component {
                   value={this.state.searchTerm}
                   placeholder="Search Nyaatorrents"
                   onChange={this.onSearchFieldChange} />
+                <span style={{
+                    position: 'absolute',
+                    top: '0.75rem',
+                    right: '3rem',
+                    color: 'grey'
+                  }}>{`${this.state.results.length} results found`}</span>
               </div>
             </form>
           </div>
