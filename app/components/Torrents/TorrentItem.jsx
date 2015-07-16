@@ -1,6 +1,27 @@
 import React from 'react';
 import { Actions } from '../../stores/TorrentStore';
 
+class TorrenStatus extends React.Component {
+  render() {
+    switch (this.props.status) {
+      case 'adding':
+        faClass = "fa fa-circle-o-notch fa-spin";
+        break;
+      case 'added':
+        faClass = "fa fa-check";
+        break;
+      case 'error':
+        faClass = "fa fa-times";
+        break;
+      default:
+        faClass = "fa fa-plus";
+        break;
+    }
+    return <i className={faClass}></i>;
+  }
+}
+
+
 export default class TorrentItem extends React.Component {
   constructor(props) {
     super(props);
@@ -15,21 +36,6 @@ export default class TorrentItem extends React.Component {
     const torrent = this.props.torrent;
     let faClass;
 
-    switch (torrent.status) {
-      case 'adding':
-        faClass = "fa fa-circle-o-notch fa-spin";
-        break;
-      case 'added':
-        faClass = "fa fa-check";
-        break;
-      case 'error':
-        faClass = "fa fa-times";
-        break;
-      default:
-        faClass = "fa fa-plus";
-        break;
-    }
-
     return (
       <div className="row torrent-item">
         <div className="col-xs-12 col-md-4 name">{torrent.name}</div>
@@ -37,7 +43,7 @@ export default class TorrentItem extends React.Component {
         <div className="col-xs-12 col-md-4">
           <button className="btn btn-primary"
             onClick={this.onAddTorrent}>
-            <i className={faClass}></i>
+            <TorrentStatus status={torrent.status} />
           </button>
         </div>
       </div>

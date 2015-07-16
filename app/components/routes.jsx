@@ -3,7 +3,7 @@ import React from 'react';
 import Layout from './Layout';
 import TorrentList from './Torrents';
 import AnimeList from './Anime/AnimeList';
-import AnimeLayout from './Anime/AnimeLayout';
+import AnimeLayout from './Anime/Item';
 
 export default (
   <Route handler={Layout}>
