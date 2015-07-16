@@ -48,6 +48,7 @@ export default class AnimeList extends React.Component {
   }
 
   componentWillUnmount() {
+    Actions.reset();
     this.unsubscribe();
   }
 

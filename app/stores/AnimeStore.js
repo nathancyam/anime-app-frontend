@@ -105,6 +105,7 @@ export default Reflux.createStore({
   },
 
   onReset() {
+    filters = {};
     this.trigger(anime);
   }
 });
