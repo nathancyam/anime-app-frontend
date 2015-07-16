@@ -1,20 +1,22 @@
 import React from 'react';
 import { Actions } from '../../stores/TorrentStore';
 
-class TorrenStatus extends React.Component {
+class TorrentStatus extends React.Component {
   render() {
+    let faClass = "fa";
+
     switch (this.props.status) {
       case 'adding':
-        faClass = "fa fa-circle-o-notch fa-spin";
+        faClass = `${faClass} fa-circle-o-notch fa-spin`;
         break;
       case 'added':
-        faClass = "fa fa-check";
+        faClass = `${faClass} fa-check`;
         break;
       case 'error':
-        faClass = "fa fa-times";
+        faClass = `${faClass} fa-times`;
         break;
       default:
-        faClass = "fa fa-plus";
+        faClass = `${faClass} fa-plus`;
         break;
     }
     return <i className={faClass}></i>;
