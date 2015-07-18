@@ -38,7 +38,10 @@ function getAnimeItem(id) {
  * @returns {Promise}
  */
 function getAnimeEpisodes(id) {
-  return makeRequest(`http://anime.itsme.dio/episodes/anime/${id}`);
+  return makeRequest(`http://anime.itsme.dio/episodes/anime/${id}`).
+    then((result) => {
+      return Promise.resolve({ episodes: result });
+    });
 }
 
 export default Reflux.createStore({
@@ -55,18 +58,15 @@ export default Reflux.createStore({
       return this.trigger(anime);
     }
 
-    getAnimeItem(id)
-      .then((response) => {
-        anime = _.assign(anime, response);
-        return getAnimeEpisodes(id);
-      })
-      .then((episodes) => {
-        anime = _.assign(anime, { episodes });
-        animeItems.set(id, anime);
-        this.trigger(anime);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return Promise.all([
+      getAnimeItem(id),
+      getAnimeEpisodes(id)
+    ]).then((responseValue) => {
+      anime = responseValue.reduce(_.assign, anime);
+      animeItems = animeItems.set(id, anime);
+      this.trigger(anime);
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 });
