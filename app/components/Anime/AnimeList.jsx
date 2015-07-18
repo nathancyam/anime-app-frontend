@@ -1,6 +1,7 @@
 import React from 'react/addons';
 import AnimeItem from './AnimeItem';
 import AnimeStore, { Actions } from '../../stores/AnimeStore';
+import { hostname } from '../../stores/Constants';
 
 class CompleteAnimeFilter extends React.Component {
   render() {
@@ -110,7 +111,7 @@ export default class AnimeList extends React.Component {
                 return <AnimeItem
                   key={`anime-${index}-item`}
                   anime={el}
-                  mediaRoot="http://anime.itsme.dio" />;
+                  mediaRoot={hostname} />;
               })
             }
           </div>
