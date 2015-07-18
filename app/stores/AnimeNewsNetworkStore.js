@@ -33,7 +33,7 @@ export default Reflux.createStore({
   listenables: [Actions],
 
   /**
-   * @param {String} title
+   * @param {String} anime
    */
   async onSearchAnimeDetails(anime) {
     let result = annStore.get(anime._id) || {};

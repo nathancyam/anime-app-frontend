@@ -12,6 +12,7 @@ export default class AnimeLayout extends React.Component {
   constructor(props) {
     super(props);
     this.onAnimeItemLoad = this.onAnimeItemLoad.bind(this);
+    this.onSubGroupSave = this.onSubGroupSave.bind(this);
     this.reset = this.reset.bind(this);
     this.state = { anime: {} };
   }
@@ -27,6 +28,14 @@ export default class AnimeLayout extends React.Component {
 
   onAnimeItemLoad(anime) {
     this.setState({ anime });
+  }
+
+  /**
+   * @param {String} subGroup
+   */
+  onSubGroupSave(subGroup) {
+    let anime = _.assign({}, { _id: this.state.anime._id }, { "designated_subgroup": subGroup });
+    Actions.saveAnime(anime);
   }
 
   reset() {
@@ -62,7 +71,10 @@ export default class AnimeLayout extends React.Component {
         <div className="col-xs-12 col-md-8">
           <div className="row">
             <div className="col-xs-12">
-              <ManageAnime reset={this.reset} />
+              <ManageAnime
+                reset={this.reset}
+                anime={anime}
+                onSubGroupSave={this.onSubGroupSave} />
             </div>
             <div className="col-xs-12">
               <Accordion defaultActiveKey="2">
