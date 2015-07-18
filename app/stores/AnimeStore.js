@@ -1,6 +1,7 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
 import _ from 'lodash';
+import { hostname } from './Constants';
 
 let anime = new Immutable.List([]);
 let filters = {};
@@ -16,7 +17,7 @@ let generateFilter = (filterProp, filterValue, predicateFn) => {
 
 function getAnime() {
   return new Promise((resolve, reject) => {
-    fetch('http://anime.itsme.dio/anime')
+    fetch(`${hostname}/anime`)
       .then((response) => response.json())
       .then((jsonResponse) => {
         return resolve(jsonResponse);

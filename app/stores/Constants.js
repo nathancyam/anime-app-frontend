@@ -1,0 +1,1 @@
+export var hostname = "http://anime.itsme.dio";

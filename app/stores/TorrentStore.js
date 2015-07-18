@@ -1,8 +1,9 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
 import _ from 'lodash';
+import { hostname } from './Constants';
 
-const API_BASE_URL = 'http://anime.itsme.dio';
+const API_BASE_URL = hostname;
 const ApiEndPoints = {
   search: `${API_BASE_URL}/nyaatorrents/search?name=`,
   addTorrent: `${API_BASE_URL}/torrent/add`

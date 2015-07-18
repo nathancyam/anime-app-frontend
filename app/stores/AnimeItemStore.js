@@ -1,5 +1,6 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
+import { hostname } from './Constants';
 
 let animeItems = new Immutable.Map({});
 
@@ -32,7 +33,7 @@ function makeRequest(url) {
  */
 async function saveAnime(anime) {
   try {
-    let response = await fetch('http://anime.itsme.dio/anime',
+    let response = await fetch(`${hostname}/anime`,
       {
         method: 'POST',
         headers: {
@@ -54,7 +55,7 @@ async function saveAnime(anime) {
  * @returns {Promise}
  */
 function getAnimeItem(id) {
-  return makeRequest(`http://anime.itsme.dio/anime/${id}`);
+  return makeRequest(`${hostname}/anime/${id}`);
 }
 
 /**
@@ -62,7 +63,7 @@ function getAnimeItem(id) {
  * @returns {Promise}
  */
 function getAnimeEpisodes(id) {
-  return makeRequest(`http://anime.itsme.dio/episodes/anime/${id}`).
+  return makeRequest(`${hostname}/episodes/anime/${id}`).
     then((episodes) => {
       return Promise.resolve({ episodes });
     });

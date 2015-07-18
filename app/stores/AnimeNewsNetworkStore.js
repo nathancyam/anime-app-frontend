@@ -1,8 +1,9 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
 import _ from 'lodash';
+import { hostname } from './Constants';
 
-const ANN_SEARCH_URI = 'http://anime.itsme.dio/ann/search';
+const ANN_SEARCH_URI = `${hostname}/ann/search`;
 let annStore = new Immutable.Map({});
 
 /**
