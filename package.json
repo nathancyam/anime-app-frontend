@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "TARGET=build webpack",
-    "start": "TARGET=dev webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback"
+    "start": "TARGET=dev webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
+    "serve": "TARGET=dev webpack-dev-server --host 0.0.0.0"
   },
   "author": "",
   "license": "ISC",
