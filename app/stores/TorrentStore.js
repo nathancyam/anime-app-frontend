@@ -10,6 +10,7 @@ const ApiEndPoints = {
 
 let timer = 0;
 let torrentStore = new Immutable.List([]);
+let activePage = 1;
 
 function makeTorrentSearchRequest(searchTerm) {
   return new Promise((resolve, reject) => {
@@ -46,7 +47,8 @@ function addTorrentToServer(torrent) {
 
 export var Actions = Reflux.createActions([
   'enterSearchTerm',
-  'addTorrent'
+  'addTorrent',
+  'changeTorrentPagination'
 ]);
 
 export default Reflux.createStore({
@@ -61,11 +63,14 @@ export default Reflux.createStore({
       makeTorrentSearchRequest(searchTerm)
         .then((results) => {
           torrentStore = new Immutable.List(results);
-          this.trigger(torrentStore.toArray());
+          this.triggerListeners(torrentStore.toArray());
         });
     }, 500);
   },
 
+  /**
+   * @param  {Object} torrent
+   */
   onAddTorrent(torrent) {
     let torrentIndex;
     torrentStore.forEach((el, index) => {
@@ -82,17 +87,37 @@ export default Reflux.createStore({
 
     torrentStore = torrentStore.update(torrentIndex, updateFn('adding'));
 
-    this.trigger(torrentStore);
+    this.triggerListeners(torrentStore);
 
     addTorrentToServer(torrent)
       .then(() => {
         torrentStore = torrentStore.update(torrentIndex, updateFn('added'));
-        this.trigger(torrentStore);
+        this.triggerListeners(torrentStore);
       })
       .catch((err) => {
         console.log(err);
         torrentStore = torrentStore.update(torrentIndex, updateFn('error'));
-        this.trigger(torrentStore);
+        this.triggerListeners(torrentStore);
       });
+  },
+
+  /**
+   * @param  {Number} page
+   */
+  onChangeTorrentPagination(page) {
+    activePage = page;
+    let fromMark = (page - 1) * 10;
+    let torrents = torrentStore.skip(fromMark).take(10);
+    this.triggerListeners(torrents);
+  },
+
+  triggerListeners(results) {
+    return this.trigger(
+      {
+        results,
+        activePage,
+        numberOfResults: torrentStore.size
+      }
+    );
   }
 });

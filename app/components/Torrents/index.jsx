@@ -1,6 +1,14 @@
 import React from 'react';
 import TorrentStore, { Actions } from '../../stores/TorrentStore';
 import TorrentItem from './TorrentItem';
+import { Pagination } from 'react-bootstrap';
+
+class TorrentPagination extends React.Component {
+  render () {
+    return (
+      <Pagination bsSize="medium" {...this.props} /> );
+  }
+}
 
 export default class TorrentList extends React.Component {
   constructor(props) {
@@ -9,6 +17,8 @@ export default class TorrentList extends React.Component {
     this.startSearch = this.startSearch.bind(this);
     this.state = {
       results: [],
+      numberOfResults: 0,
+      activePage: 1,
       searchTerm: this.props.initialSearchTerm || ''
     };
   }
@@ -25,7 +35,7 @@ export default class TorrentList extends React.Component {
   }
 
   onSearchResultChange(results) {
-    this.setState({ results });
+    this.setState(results);
   }
 
   onSearchFieldChange(event) {
@@ -34,11 +44,16 @@ export default class TorrentList extends React.Component {
     }
   }
 
+  onPaginationChange(event, key) {
+    Actions.changeTorrentPagination(key.eventKey);
+  }
+
   startSearch() {
     Actions.enterSearchTerm(this.state.searchTerm);
   }
 
   render() {
+    const results = this.state.results;
     let loadingClass = this.state.results.size === 0 ? 'loading' : '';
 
     return (
@@ -57,7 +72,7 @@ export default class TorrentList extends React.Component {
                     top: '0.75rem',
                     right: '3rem',
                     color: 'grey'
-                  }}>{`${this.state.results.length} results found`}</span>
+                  }}>{`${this.state.numberOfResults} results found`}</span>
               </div>
             </form>
           </div>
@@ -67,8 +82,12 @@ export default class TorrentList extends React.Component {
             <div id="loading-template">
               <p>No results :(</p>
             </div>
+            <TorrentPagination
+              items={Math.floor(this.state.numberOfResults / 10) + 1}
+              activePage={this.state.activePage}
+              onSelect={this.onPaginationChange} />
             {
-              this.state.results.map((result, index) => {
+              results.map((result, index) => {
                 return <TorrentItem key={`torrent-${index}`}
                   torrent={result} />;
               })

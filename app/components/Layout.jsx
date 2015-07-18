@@ -10,16 +10,15 @@ export default class Layout extends React.Component {
           <CollapsibleNav eventKey={0}>
             <Nav navbar>
               <NavItem eventKey={1}>
-                <Link to="torrents">Torrents</Link>
+                <Link to="anime">Anime</Link>
               </NavItem>
               <NavItem eventKey={2}>
-                <Link to="anime">Anime</Link>
+                <Link to="torrents">Torrents</Link>
               </NavItem>
             </Nav>
           </CollapsibleNav>
         </Navbar>
         <div className="application container">
-          <h1>Anime App</h1>
           <RouteHandler />
         </div>
       </div>

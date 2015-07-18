@@ -1,8 +1,11 @@
 import React from 'react';
+import { Accordion, Panel } from 'react-bootstrap';
 import AnimeItemStore, { Actions } from '../../../stores/AnimeItemStore';
 import _ from 'lodash';
 import EpisodeList from './EpisodeList';
+import ManageAnime from './Manage';
 import TorrentList from '../../Torrents';
+import AnimeNewsNetwork from '../Ann';
 
 export default class AnimeLayout extends React.Component {
 
@@ -50,10 +53,7 @@ export default class AnimeLayout extends React.Component {
               <h1>{anime.title}</h1>
               <div className="row">
                 <div className="col-xs-12">
-                  <button className="btn btn-primary"
-                    onClick={this.reset}>
-                    <i className="fa fa-refresh"></i>Sync
-                  </button>
+                  <AnimeNewsNetwork anime={anime} />
                 </div>
               </div>
             </div>
@@ -62,10 +62,25 @@ export default class AnimeLayout extends React.Component {
         <div className="col-xs-12 col-md-8">
           <div className="row">
             <div className="col-xs-12">
-              <EpisodeList episodes={anime.episodes} />
+              <ManageAnime reset={this.reset} />
             </div>
             <div className="col-xs-12">
-              <TorrentList initialSearchTerm={anime.title} />
+              <Accordion defaultActiveKey="2">
+                <Panel header="Episodes" eventKey="1">
+                  <div className="row">
+                    <div className="col-xs-12">
+                      <EpisodeList episodes={anime.episodes} />
+                    </div>
+                  </div>
+                </Panel>
+                <Panel header="Torrents" eventKey="2">
+                  <div className="row">
+                    <div className="col-xs-12">
+                      <TorrentList initialSearchTerm={anime.title} />
+                    </div>
+                  </div>
+                </Panel>
+              </Accordion>
             </div>
           </div>
         </div>

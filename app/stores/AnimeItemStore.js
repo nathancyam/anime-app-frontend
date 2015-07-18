@@ -1,5 +1,3 @@
-"use strict";
-
 import Reflux from 'reflux';
 import Immutable from 'immutable';
 
@@ -71,5 +69,4 @@ export default Reflux.createStore({
         console.log(err);
       });
   }
-})
-
+});

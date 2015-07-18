@@ -21,7 +21,7 @@ class AnimeStatus extends React.Component {
         {
           Object.keys(icons).map((icon, index) => {
             return <i className={`fa ${icons[icon]}`}
-                    key={`${icon}-${index}`}></i>
+                    key={`${icon}-${index}`}></i>;
           })
         }
         </div>
