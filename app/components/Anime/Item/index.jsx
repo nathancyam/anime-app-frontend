@@ -6,6 +6,7 @@ import EpisodeList from './EpisodeList';
 import ManageAnime from './Manage';
 import TorrentList from '../../Torrents';
 import AnimeNewsNetwork from '../Ann';
+import { hostname } from '../../../stores/Constants';
 
 export default class AnimeLayout extends React.Component {
 
@@ -57,7 +58,7 @@ export default class AnimeLayout extends React.Component {
       <div className="row anime-item-page">
         <div className="col-xs-12 col-md-4">
           <div className="left">
-            <img className="anime-image" src={`http://anime.itsme.dio/${anime.image_url}`} />
+            <img className="anime-image" src={`${hostname}/${anime.image_url}`} />
             <div className="content">
               <h1>{anime.title}</h1>
               <div className="row">
