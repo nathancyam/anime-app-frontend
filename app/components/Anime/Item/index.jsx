@@ -12,7 +12,7 @@ export default class AnimeLayout extends React.Component {
   constructor(props) {
     super(props);
     this.onAnimeItemLoad = this.onAnimeItemLoad.bind(this);
-    this.onSubGroupSave = this.onSubGroupSave.bind(this);
+    this.onAnimePropertyChange = this.onAnimePropertyChange.bind(this);
     this.reset = this.reset.bind(this);
     this.state = { anime: {} };
   }
@@ -31,10 +31,10 @@ export default class AnimeLayout extends React.Component {
   }
 
   /**
-   * @param {String} subGroup
+   * @param {Object} propertyChange
    */
-  onSubGroupSave(subGroup) {
-    let anime = _.assign({}, { _id: this.state.anime._id }, { "designated_subgroup": subGroup });
+  onAnimePropertyChange(propertyChange) {
+    let anime = _.assign({}, { _id: this.state.anime._id }, propertyChange);
     Actions.saveAnime(anime);
   }
 
@@ -74,7 +74,7 @@ export default class AnimeLayout extends React.Component {
               <ManageAnime
                 reset={this.reset}
                 anime={anime}
-                onSubGroupSave={this.onSubGroupSave} />
+                onAnimePropertyChange={this.onAnimePropertyChange} />
             </div>
             <div className="col-xs-12">
               <Accordion defaultActiveKey="2">

@@ -33,9 +33,25 @@ export var Actions = Reflux.createActions([
   'filterByName',
   'filterByComplete',
   'filterByWatching',
+  'resetAnimeById',
   'reset',
   'getAll'
 ]);
+
+/**
+ * Sorts the anime list alphabetically
+ */
+function sortAnimeAlpha() {
+  anime = anime.sort((firstEl, secondEl) => {
+    if (firstEl.title < secondEl.title) {
+      return -1;
+    }
+    if (firstEl.title > secondEl.title) {
+      return 1;
+    }
+    return 0;
+  });
+}
 
 export default Reflux.createStore({
   listenables: [Actions],
@@ -45,16 +61,7 @@ export default Reflux.createStore({
       getAnime()
         .then((result) => {
           anime = new Immutable.List(result);
-          anime = anime.sort((firstEl, secondEl) => {
-            if (firstEl.title < secondEl.title) {
-              return -1;
-            }
-            if (firstEl.title > secondEl.title) {
-              return 1;
-            }
-            return 0;
-          });
-
+          sortAnimeAlpha();
           this.trigger(anime.toArray());
         });
     }
@@ -103,6 +110,19 @@ export default Reflux.createStore({
 
   onFilterByWatching(isWatching) {
     this.setBooleanFilter('is_watching', isWatching);
+  },
+
+  onResetAnimeById(id) {
+    anime = anime.filter((anime) => anime._id !== id);
+    this.trigger(anime);
+
+    return getAnime()
+      .then((jsonResponse) => {
+        let replaceAnime = jsonResponse.filter((animeItem) => animeItem._id === id).shift();
+        anime = anime.unshift(replaceAnime);
+        sortAnimeAlpha()
+        this.trigger(anime);
+      });
   },
 
   onReset() {

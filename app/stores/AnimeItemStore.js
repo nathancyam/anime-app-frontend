@@ -1,6 +1,7 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
 import { hostname } from './Constants';
+import { Actions as AnimeActions } from './AnimeStore';
 
 let animeItems = new Immutable.Map({});
 
@@ -43,8 +44,7 @@ async function saveAnime(anime) {
         body: JSON.stringify(anime)
       }
     );
-    let jsonResponse = await response.json();
-    return jsonResponse;
+    return await response.json();
   } catch (err) {
     console.log(err);
   }
@@ -81,11 +81,12 @@ export default Reflux.createStore({
   },
 
   /**
-   * @param {Object} anime
+   * @param {Object} animeDiff
    */
-  async onSaveAnime(anime) {
-    await saveAnime(anime);
-    Actions.reset(anime._id);
+  async onSaveAnime(animeDiff) {
+    await saveAnime(animeDiff);
+    Actions.reset(animeDiff._id);
+    AnimeActions.resetAnimeById(animeDiff._id);
   },
 
   /**

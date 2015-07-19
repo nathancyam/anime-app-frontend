@@ -28,3 +28,7 @@ export default class EpisodeList extends React.Component {
     );
   }
 }
+
+EpisodeList.propTypes = {
+  episodes: React.PropTypes.array
+};
