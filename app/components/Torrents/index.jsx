@@ -85,7 +85,9 @@ export default class TorrentList extends React.Component {
             <TorrentPagination
               items={Math.floor(this.state.numberOfResults / 10) + 1}
               activePage={this.state.activePage}
-              onSelect={this.onPaginationChange} />
+              onSelect={this.onPaginationChange}
+              prev={true}
+              next={true} />
             {
               results.map((result, index) => {
                 return <TorrentItem key={`torrent-${index}`}
