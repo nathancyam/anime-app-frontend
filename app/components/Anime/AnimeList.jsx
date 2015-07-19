@@ -69,8 +69,9 @@ export default class AnimeList extends React.Component {
     Actions.filterByComplete(event.target.value);
   }
 
-  onRefresh() {
-    Actions.getAll();
+  onRefresh(event) {
+    event.preventDefault();
+    Actions.forceUpdate();
   }
 
   onFilterByWatching(event) {
@@ -93,8 +94,9 @@ export default class AnimeList extends React.Component {
                   <div className="col-xs-2">
                     <button className="btn btn-primary btn-block"
                       onClick={this.onRefresh}>
-                      <i style={{padding: "0 5px"}} className="fa fa-refresh"></i>
-                      <span className="hidden-xs">Sync</span>
+                      <i className="fa fa-refresh"></i>
+                      <span className="hidden-xs"
+                        style={{paddingLeft: "5px"}}>Sync</span>
                     </button>
                   </div>
                 </div>

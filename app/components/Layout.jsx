@@ -7,7 +7,9 @@ export default class Layout extends React.Component {
   render() {
     return (
       <div>
-        <Navbar className="app-navbar" brand='Anime App' toggleNavKey={0}>
+        <Navbar className="app-navbar"
+                brand={<Link to="index">Anime App</Link>}
+                toggleNavKey={0}>
           <CollapsibleNav eventKey={0}>
             <Nav navbar>
               <NavItem eventKey={1}>

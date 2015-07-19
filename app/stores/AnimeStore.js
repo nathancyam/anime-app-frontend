@@ -35,6 +35,7 @@ export var Actions = Reflux.createActions([
   'filterByWatching',
   'resetAnimeById',
   'reset',
+  'forceUpdate',
   'getAll'
 ]);
 
@@ -56,8 +57,8 @@ function sortAnimeAlpha() {
 export default Reflux.createStore({
   listenables: [Actions],
 
-  getAnime() {
-    if (anime.size === 0) {
+  getAnime(forceReload) {
+    if (anime.size === 0 || forceReload) {
       getAnime()
         .then((result) => {
           anime = new Immutable.List(result);
@@ -71,6 +72,10 @@ export default Reflux.createStore({
 
   onGetAll() {
     this.getAnime();
+  },
+
+  onForceUpdate() {
+    this.getAnime(true);
   },
 
   triggerFilterAnime() {

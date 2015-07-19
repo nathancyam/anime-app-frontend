@@ -64,7 +64,7 @@ export default Reflux.createStore({
       makeTorrentSearchRequest(searchTerm)
         .then((results) => {
           torrentStore = new Immutable.List(results);
-          this.triggerListeners(torrentStore.toArray());
+          return this.onChangeTorrentPagination(1);
         });
     }, 500);
   },

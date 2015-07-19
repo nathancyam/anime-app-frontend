@@ -11,7 +11,7 @@ class Icon extends React.Component {
         className="btn btn-primary"
         onClick={this.props.onIconClick}>
         <i className={icon}></i>
-        {iconText}
+        <span className="icon-text">{iconText}</span>
       </button>
     );
   }
@@ -70,49 +70,60 @@ export default class ManageAnime extends React.Component {
     const anime = this.props.anime;
 
     return (
-      <div id="manage_anime">
-        <form className="form-inline">
-          <div className="form-group">
-            <Icon
-              initialSwitchState={anime.is_watching ? "on" : "off"}
-              onIconClick={this.onWatchingChange}
-              switchState={{
-                on: {
-                  icon: "fa fa-eye",
-                  iconText: "Watching"
-                },
-                off: {
-                  icon: "fa fa-eye-slash",
-                  iconText: "Not Watching"
-                }
-              }} />
-            <button className="btn btn-primary"
-              onClick={this.props.reset}>
-              <i className="fa fa-refresh"></i>Sync
-            </button>
-            <Icon
-              initialSwitchState={anime.is_complete ? "on" : "off"}
-              onIconClick={this.onCompleteChange}
-              switchState={{
-                on: {
-                  icon: "fa fa-check",
-                  iconText: "Complete"
-                },
-                off: {
-                  icon: "fa fa-cross",
-                  iconText: "Incomplete"
-                }
-              }} />
-            <input type="text" className="form-control"
-                   value={this.state.subgroup}
-                   onChange={this.onSubGroupChange} />
-            <button className="btn btn-success"
-              onClick={this.onSubGroupSave}>
-              <i className="fa fa-save"></i>
-              Save Subgroup
-            </button>
+      <div>
+        <div className="manage_anime">
+          <form className="form-inline">
+            <div className="manage-container form-group">
+              <div className="manage-btn-container">
+                <Icon
+                  initialSwitchState={anime.is_watching ? "on" : "off"}
+                  onIconClick={this.onWatchingChange}
+                  switchState={{
+                    on: {
+                      icon: "fa fa-eye",
+                      iconText: "Watching"
+                    },
+                    off: {
+                      icon: "fa fa-eye-slash",
+                      iconText: "Not Watching"
+                    }
+                  }} />
+                <button className="btn btn-primary"
+                  onClick={this.props.reset}>
+                  <i className="fa fa-refresh"></i>
+                  <span className="icon-text">Sync</span>
+                </button>
+                <Icon
+                  initialSwitchState={anime.is_complete ? "on" : "off"}
+                  onIconClick={this.onCompleteChange}
+                  switchState={{
+                    on: {
+                      icon: "fa fa-check",
+                      iconText: "Complete"
+                    },
+                    off: {
+                      icon: "fa fa-cross",
+                      iconText: "Incomplete"
+                    }
+                  }} />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div>
+          <div className="manage_anime">
+            <div className="subgroup">
+              <input type="text" className="form-control subgroup-name"
+                     value={this.state.subgroup}
+                     onChange={this.onSubGroupChange} />
+              <button className="btn btn-success"
+                onClick={this.onSubGroupSave}>
+                <i className="fa fa-save"></i>
+                <span className="icon-text">Save Subgroup</span>
+              </button>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     );
   }
