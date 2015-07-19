@@ -43,7 +43,7 @@ export default class ManageAnime extends React.Component {
 
   onSubGroupSave(event) {
     event.preventDefault();
-    this.props.onSubGroupSave(this.state.subgroup);
+    this.props.onAnimePropertyChange({designated_subgroup: this.state.subgroup});
   }
 
   onWatchingChange(event) {
@@ -92,6 +92,7 @@ export default class ManageAnime extends React.Component {
             </button>
             <Icon
               initialSwitchState={anime.is_complete ? "on" : "off"}
+              onIconClick={this.onCompleteChange}
               switchState={{
                 on: {
                   icon: "fa fa-check",

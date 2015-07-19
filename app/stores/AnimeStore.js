@@ -120,7 +120,7 @@ export default Reflux.createStore({
       .then((jsonResponse) => {
         let replaceAnime = jsonResponse.filter((animeItem) => animeItem._id === id).shift();
         anime = anime.unshift(replaceAnime);
-        sortAnimeAlpha()
+        sortAnimeAlpha();
         this.trigger(anime);
       });
   },
