@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, CollapsibleNav, Nav, NavItem } from 'react-bootstrap';
 import { RouteHandler, Link } from 'react-router';
+import Notifications from './Notifications';
 
 export default class Layout extends React.Component {
   render() {
@@ -19,6 +20,7 @@ export default class Layout extends React.Component {
           </CollapsibleNav>
         </Navbar>
         <div className="application container">
+          <Notifications />
           <RouteHandler />
         </div>
       </div>

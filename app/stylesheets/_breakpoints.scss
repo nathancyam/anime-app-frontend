@@ -1,0 +1,14 @@
+@mixin bp($point) {
+    @if $point == xs {
+        @media (min-width: $screen-xs-min) { @content ; }
+    }
+    @else if $point == sm {
+        @media (min-width: $screen-sm-min) { @content ; }
+    }
+    @else if $point == md {
+        @media (min-width: $screen-md-min) { @content ; }
+    }
+    @else if $point == lg {
+        @media (max-width: $screen-lg-min) { @content ; }
+    }
+}
