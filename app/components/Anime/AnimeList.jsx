@@ -2,6 +2,7 @@ import React from 'react/addons';
 import AnimeItem from './AnimeItem';
 import AnimeStore, { Actions } from '../../stores/AnimeStore';
 import { hostname } from '../../stores/Constants';
+import fetch from 'isomorphic-fetch';
 
 class CompleteAnimeFilter extends React.Component {
   render() {
@@ -41,6 +42,23 @@ export default class AnimeList extends React.Component {
     this.onFilterByComplete = this.onFilterByComplete.bind(this);
     this.onFilterByWatching = this.onFilterByWatching.bind(this);
     this.state = {list: []};
+  }
+
+  static fetchData(params) {
+    console.log('fetching data');
+    return new Promise((resolve, reject) => {
+      fetch(`http://anime.itsme.dio/anime`)
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+          return resolve({
+            animeStore: jsonResponse
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          return reject(err);
+        });
+    });
   }
 
   componentDidMount() {

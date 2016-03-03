@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { hostname, fetchApi } from './Constants';
 
 let anime = new Immutable.List([]);
+
 let filters = {};
 let generateFilter = (filterProp, filterValue, predicateFn) => {
   if (predicateFn) {
@@ -16,6 +17,12 @@ let generateFilter = (filterProp, filterValue, predicateFn) => {
 };
 
 function getAnime() {
+  __INITIAL_DATA__ = __INITIAL_DATA__ || {};
+  if (__INITIAL_DATA__.animeStore) {
+    debugger;
+    return Promise.resolve(__INITIAL_DATA__.animeStore);
+  }
+
   return new Promise((resolve, reject) => {
     fetchApi(`${hostname}/anime`)
       .then((response) => response.json())

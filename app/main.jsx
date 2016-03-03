@@ -7,10 +7,7 @@ import routes from './components/routes';
 main();
 
 function main() {
-  var app = document.createElement('div');
-  document.body.appendChild(app);
-
   Router.run(routes, Router.HistoryLocation, (Root) => {
-    React.render(<Root />, app);
+    React.render(<Root />, document.getElementById('app'));
   });
 }
