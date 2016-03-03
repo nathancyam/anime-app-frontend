@@ -27,6 +27,10 @@ function makeTorrentSearchRequest(searchTerm) {
 }
 
 function addTorrentToServer(torrent) {
+  if (torrent.href.indexOf('http') !== 0) {
+    torrent.href = `http://${torrent.href}`;
+  }
+
   return new Promise((resolve, reject) => {
     fetchApi(ApiEndPoints.addTorrent, {
       method: "POST",
