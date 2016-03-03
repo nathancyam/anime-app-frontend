@@ -1,5 +1,5 @@
 export var hostname = "http://anime.itsme.dio";
-export var fetch = (url, headers = {}) => {
+export var fetchApi = (url, headers = {}) => {
   let defaults = {
     headers: {
       'Authorization': 'Basic YW5pbWVhcHA6TTJ3SVNveVBmUA==',

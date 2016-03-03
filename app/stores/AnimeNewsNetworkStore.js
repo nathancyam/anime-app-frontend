@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
 import _ from 'lodash';
-import { hostname, fetch } from './Constants';
+import { hostname, fetchApi } from './Constants';
 import { Actions as AnimeItemActions } from './AnimeItemStore';
 import { Actions as AnimeActions } from './AnimeStore';
 
@@ -21,7 +21,7 @@ async function searchAnn(anime) {
   }
 
   try {
-    let response = await fetch(searchUri);
+    let response = await fetchApi(searchUri);
     return await response.json();
   } catch (err) {
     console.log(err);
@@ -36,7 +36,7 @@ async function searchAnn(anime) {
 async function setAnimeImage(anime, annResponse) {
   const imageUpdateURI = `${ANN_IMAGE_POST_URI}/${anime._id}`;
   try {
-    let response = fetch(imageUpdateURI,
+    let response = fetchApi(imageUpdateURI,
       {
         method: 'POST',
         body: JSON.stringify({

@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
 import _ from 'lodash';
-import { hostname, fetch } from './Constants';
+import { hostname, fetchApi } from './Constants';
 
 const API_BASE_URL = hostname;
 const ApiEndPoints = {
@@ -15,7 +15,7 @@ let activePage = 1;
 
 function makeTorrentSearchRequest(searchTerm) {
   return new Promise((resolve, reject) => {
-    fetch(ApiEndPoints.search + searchTerm)
+    fetchApi(ApiEndPoints.search + searchTerm)
       .then((response) => response.json())
       .then((jsonResponse) => {
         return resolve(jsonResponse);
@@ -28,7 +28,7 @@ function makeTorrentSearchRequest(searchTerm) {
 
 function addTorrentToServer(torrent) {
   return new Promise((resolve, reject) => {
-    fetch(ApiEndPoints.addTorrent, {
+    fetchApi(ApiEndPoints.addTorrent, {
       method: "POST",
       body: JSON.stringify({ torrentUrl: torrent.href })
     })

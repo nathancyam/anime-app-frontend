@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
-import { hostname, fetch } from './Constants';
+import { hostname, fetchApi } from './Constants';
 import { Actions as AnimeActions } from './AnimeStore';
 
 let animeItems = new Immutable.Map({});
@@ -17,7 +17,7 @@ export var Actions = Reflux.createActions([
  */
 function makeRequest(url) {
   return new Promise((resolve, reject) => {
-    fetch(url)
+    fetchApi(url)
       .then((response) => response.json())
       .then((jsonResponse) => {
         return resolve(jsonResponse);
@@ -34,7 +34,7 @@ function makeRequest(url) {
  */
 async function saveAnime(anime) {
   try {
-    let response = await fetch(`${hostname}/anime`,
+    let response = await fetchApi(`${hostname}/anime`,
       {
         method: 'POST',
         body: JSON.stringify(anime)
