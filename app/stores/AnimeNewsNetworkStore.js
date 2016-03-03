@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
 import _ from 'lodash';
-import { hostname } from './Constants';
+import { hostname, fetch } from './Constants';
 import { Actions as AnimeItemActions } from './AnimeItemStore';
 import { Actions as AnimeActions } from './AnimeStore';
 
@@ -39,10 +39,6 @@ async function setAnimeImage(anime, annResponse) {
     let response = fetch(imageUpdateURI,
       {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({
           animeId: anime._id,
           imageUrl: annResponse.images[0]

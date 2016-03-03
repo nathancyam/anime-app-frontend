@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
-import { hostname } from './Constants';
+import { hostname, fetch } from './Constants';
 import { Actions as AnimeActions } from './AnimeStore';
 
 let animeItems = new Immutable.Map({});
@@ -37,10 +37,6 @@ async function saveAnime(anime) {
     let response = await fetch(`${hostname}/anime`,
       {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify(anime)
       }
     );

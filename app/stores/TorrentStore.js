@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
 import _ from 'lodash';
-import { hostname } from './Constants';
+import { hostname, fetch } from './Constants';
 
 const API_BASE_URL = hostname;
 const ApiEndPoints = {
@@ -30,10 +30,6 @@ function addTorrentToServer(torrent) {
   return new Promise((resolve, reject) => {
     fetch(ApiEndPoints.addTorrent, {
       method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
       body: JSON.stringify({ torrentUrl: torrent.href })
     })
     .then((response) => response.json())

@@ -1,7 +1,7 @@
 import Reflux from 'reflux';
 import Immutable from 'immutable';
 import _ from 'lodash';
-import { hostname } from './Constants';
+import { hostname, fetch } from './Constants';
 
 let anime = new Immutable.List([]);
 let filters = {};
