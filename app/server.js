@@ -3,13 +3,14 @@
 
 import express from 'express';
 import httpProxy from 'http-proxy';
-import routes from './routes.jsx';
+import routes from './routes';
 import React from 'react';
 import fs from 'fs';
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 
 let app = express();
+let apiProxy = httpProxy.createProxyServer({});
 
 function renderPage(html, data) {
 
@@ -36,35 +37,33 @@ function renderPage(html, data) {
   `;
 }
 
-app.use('/bundle.js', (req, res, next) => {
+app.use('/bundle.js', (req, res) => {
   return fs.createReadStream(`${__dirname}/../build/bundle.js`).pipe(res);
+});
+
+app.use('/api', (req, res) => {
+  apiProxy.web(req, res, { target: 'http://localhost:3000' });
 });
 
 app.use('*', (req, res) => {
 
   match({ routes: routes, location: req.url }, (err, redirect, props) => {
-    console.log(props);
+    const promises = props.components
+      .filter(component => { return component.fetchData })
+      .map(component => { return component.fetchData(props.params) });
 
-    let appHtml = renderToString(<RouterContext {...props} />);
-    return res.send(renderPage(appHtml, {}));
+    Promise.all(promises)
+      .then(data => {
+        let appHtml = renderToString(<RouterContext {...props} />);
+        return res.send(renderPage(appHtml, data));
+      })
+      .catch(err => {
+        console.error(err);
+        return res.status(500).send(err);
+      });
   });
-
-  //Router.run(routes, req.path, (Component, state) => {
-  //
-  //  let promises = state.routes.filter((route) => {
-  //    return route.handler.fetchData;
-  //  }).map((routeToFetch) => {
-  //    return routeToFetch.handler.fetchData(state.params);
-  //  });
-  //
-  //  Promise.all(promises)
-  //    .then((data) => {
-  //      let html = React.renderToString(<Component data={data} />);
-  //      return res.send(renderPage(html, data));
-  //    });
-  //});
 });
 
 app.listen(1337, () => {
-  console.log('listening');
+  console.log('Render server listening on port 1337.');
 });

@@ -40,7 +40,7 @@ export default class AnimeItem extends React.Component {
   render() {
     return (
       <div className="col-xs-12 col-sm-4 col-md-3 col-lg-2">
-        <Link className="anime-item-link" to="anime_item" params={{animeId: this.props.anime._id }}>
+        <Link className="anime-item-link" to={`/anime/${this.props.anime._id}`}>
           <div className="anime-item">
             <img src={`${this.props.mediaRoot}${this.props.anime.image_url}`} />
             <div className="content">

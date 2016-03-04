@@ -3,7 +3,7 @@ var path = require('path');
 
 module.exports = {
 
-  entry: path.resolve(__dirname, 'app', 'server.js'),
+  entry: ['babel-polyfill', path.resolve(__dirname, 'app', 'server.js')],
 
   output: {
     filename: 'server.bundle.js'

@@ -6,7 +6,7 @@ var TARGET = process.env.TARGET;
 var ROOT_PATH = path.resolve(__dirname);
 
 var common = {
-  entry: [path.resolve(ROOT_PATH, 'app/main')],
+  entry: ['babel-polyfill', path.resolve(ROOT_PATH, 'app/main')],
   resolve: {
     extensions: ['', '.js', '.jsx']
   },

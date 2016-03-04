@@ -1,4 +1,6 @@
-export var hostname = "http://localhost:3000";
+import fetch from 'isomorphic-fetch';
+
+export var hostname = "http://localhost:1337/api";
 export var fetchApi = (url, headers = {}) => {
   let defaults = {
     headers: {

@@ -16,11 +16,12 @@ let generateFilter = (filterProp, filterValue, predicateFn) => {
   }
 };
 
-function getAnime() {
-  __INITIAL_DATA__ = __INITIAL_DATA__ || {};
-  if (__INITIAL_DATA__.animeStore) {
-    debugger;
-    return Promise.resolve(__INITIAL_DATA__.animeStore);
+export function getAnime() {
+  if (typeof window !== 'undefined') {
+    __INITIAL_DATA__ = __INITIAL_DATA__ || {};
+    if (__INITIAL_DATA__.animeStore) {
+      return Promise.resolve(__INITIAL_DATA__.animeStore);
+    }
   }
 
   return new Promise((resolve, reject) => {

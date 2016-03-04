@@ -1,6 +1,6 @@
-import React from 'react/addons';
+import React from 'react';
 import AnimeItem from './AnimeItem';
-import AnimeStore, { Actions } from '../../stores/AnimeStore';
+import AnimeStore, { Actions, getAnime } from '../../stores/AnimeStore';
 import { hostname } from '../../stores/Constants';
 import fetch from 'isomorphic-fetch';
 
@@ -44,11 +44,9 @@ export default class AnimeList extends React.Component {
     this.state = {list: []};
   }
 
-  static fetchData(params) {
-    console.log('fetching data');
+  static fetchData() {
     return new Promise((resolve, reject) => {
-      fetch(`http://anime.itsme.dio/anime`)
-        .then((response) => response.json())
+      getAnime()
         .then((jsonResponse) => {
           return resolve({
             animeStore: jsonResponse
