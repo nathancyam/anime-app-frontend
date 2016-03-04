@@ -30,7 +30,7 @@ if (TARGET === 'build') {
       loaders: [
         {
           // test for both js and jsx
-          test: /\.jsx?$/,
+          test: /\.js?$/,
           // use babel loader with Stage 1 features
           loader: 'babel-loader',
           // operate only on our app directory
@@ -62,7 +62,7 @@ if (TARGET === 'dev') {
     module: {
       loaders: [
         {
-          test: /\.jsx?$/,
+          test: /\.js?$/,
           loaders: ['react-hot', 'babel-loader'],
           include: path.resolve(ROOT_PATH, 'app')
         }
