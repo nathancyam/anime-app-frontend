@@ -1,7 +1,6 @@
 var path = require('path');
 var merge = require('webpack-merge');
 var webpack = require('webpack');
-var HtmlwebpackPlugin = require('html-webpack-plugin');
 
 var TARGET = process.env.TARGET;
 var ROOT_PATH = path.resolve(__dirname);
@@ -22,14 +21,7 @@ var common = {
         loader: 'style!css!sass?sourceMap'
       }
     ]
-  },
-  plugins: [
-    new HtmlwebpackPlugin({
-      title: 'Anime App',
-      template: 'assets/app-index.html',
-      inject: false
-    })
-  ]
+  }
 };
 
 if (TARGET === 'build') {
@@ -40,7 +32,7 @@ if (TARGET === 'build') {
           // test for both js and jsx
           test: /\.jsx?$/,
           // use babel loader with Stage 1 features
-          loader: 'babel?optional[]=runtime&stage=1',
+          loader: 'babel-loader',
           // operate only on our app directory
           include: path.resolve(ROOT_PATH, 'app')
         }
@@ -71,7 +63,7 @@ if (TARGET === 'dev') {
       loaders: [
         {
           test: /\.jsx?$/,
-          loaders: ['react-hot', 'babel?optional[]=runtime&stage=1'],
+          loaders: ['react-hot', 'babel-loader'],
           include: path.resolve(ROOT_PATH, 'app')
         }
       ]

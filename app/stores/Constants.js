@@ -1,4 +1,4 @@
-export var hostname = "http://anime.itsme.dio";
+export var hostname = "http://localhost:3000";
 export var fetchApi = (url, headers = {}) => {
   let defaults = {
     headers: {

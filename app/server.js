@@ -3,10 +3,11 @@
 
 import express from 'express';
 import httpProxy from 'http-proxy';
-import Router from 'react-router';
-import routes from './components/routes';
+import routes from './routes.jsx';
 import React from 'react';
 import fs from 'fs';
+import { renderToString } from 'react-dom/server'
+import { match, RouterContext } from 'react-router'
 
 let app = express();
 
@@ -39,21 +40,29 @@ app.use('/bundle.js', (req, res, next) => {
   return fs.createReadStream(`${__dirname}/../build/bundle.js`).pipe(res);
 });
 
-app.use('*', (req, res, next) => {
-  Router.run(routes, req.path, (Component, state) => {
+app.use('*', (req, res) => {
 
-    let promises = state.routes.filter((route) => {
-      return route.handler.fetchData;
-    }).map((routeToFetch) => {
-      return routeToFetch.handler.fetchData(state.params);
-    });
+  match({ routes: routes, location: req.url }, (err, redirect, props) => {
+    console.log(props);
 
-    Promise.all(promises)
-      .then((data) => {
-        let html = React.renderToString(<Component data={data} />);
-        return res.send(renderPage(html, data));
-      });
+    let appHtml = renderToString(<RouterContext {...props} />);
+    return res.send(renderPage(appHtml, {}));
   });
+
+  //Router.run(routes, req.path, (Component, state) => {
+  //
+  //  let promises = state.routes.filter((route) => {
+  //    return route.handler.fetchData;
+  //  }).map((routeToFetch) => {
+  //    return routeToFetch.handler.fetchData(state.params);
+  //  });
+  //
+  //  Promise.all(promises)
+  //    .then((data) => {
+  //      let html = React.renderToString(<Component data={data} />);
+  //      return res.send(renderPage(html, data));
+  //    });
+  //});
 });
 
 app.listen(1337, () => {
