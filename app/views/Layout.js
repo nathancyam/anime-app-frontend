@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, CollapsibleNav, Nav, NavItem } from 'react-bootstrap';
 import { RouteHandler, Link } from 'react-router';
-import Notifications from './Notifications';
+import Notifications from '../components/Notifications';
 
 export default class Layout extends React.Component {
   render() {

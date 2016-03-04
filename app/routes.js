@@ -1,9 +1,9 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-import Layout from './components/Layout';
-import TorrentList from './components/Torrents';
-import AnimeList from './components/Anime/AnimeList';
-import AnimeLayout from './components/Anime/Item';
+import Layout from './views/Layout';
+import TorrentList from './views/TorrentList';
+import AnimeList from './views/AnimeList';
+import AnimeLayout from './views/AnimeItem';
 
 module.exports = (
   <Route path="/" component={Layout}>

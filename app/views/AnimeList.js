@@ -1,7 +1,7 @@
 import React from 'react';
 import AnimeItem from './AnimeItem';
-import AnimeStore, { Actions, getAnime } from '../../stores/AnimeStore';
-import { hostname } from '../../stores/Constants';
+import AnimeStore, { Actions, getAnime } from '../stores/AnimeStore';
+import { hostname } from '../stores/Constants';
 import fetch from 'isomorphic-fetch';
 
 class CompleteAnimeFilter extends React.Component {

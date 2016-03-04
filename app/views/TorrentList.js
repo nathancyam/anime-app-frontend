@@ -1,6 +1,6 @@
 import React from 'react';
-import TorrentStore, { Actions } from '../../stores/TorrentStore';
-import TorrentItem from './TorrentItem';
+import TorrentStore, { Actions } from '../stores/TorrentStore';
+import TorrentItem from '../components/Torrents/TorrentItem';
 import { Pagination } from 'react-bootstrap';
 
 class TorrentPagination extends React.Component {

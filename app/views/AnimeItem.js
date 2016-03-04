@@ -1,12 +1,12 @@
 import React from 'react';
 import { Accordion, Panel } from 'react-bootstrap';
-import AnimeItemStore, { Actions } from '../../../stores/AnimeItemStore';
 import _ from 'lodash';
-import EpisodeList from './EpisodeList';
-import ManageAnime from './Manage';
-import TorrentList from '../../Torrents';
-import AnimeNewsNetwork from '../Ann';
-import { hostname } from '../../../stores/Constants';
+import AnimeItemStore, { Actions } from '../stores/AnimeItemStore';
+import { hostname } from '../stores/Constants';
+import EpisodeList from '../components/Anime/Item/EpisodeList';
+import ManageAnime from '../components/Anime/Item/Manage';
+import TorrentList from './TorrentList';
+import AnimeNewsNetwork from '../components/Anime/Ann';
 
 export default class AnimeLayout extends React.Component {
 
