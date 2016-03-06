@@ -1,25 +1,38 @@
 import React from 'react';
 import { Navbar, CollapsibleNav, Nav, NavItem } from 'react-bootstrap';
-import { RouteHandler, Link } from 'react-router';
+import LoginStatus from '../components/Account/LoginStatus';
+import { Link } from 'react-router';
 import Notifications from '../components/Notifications';
 
 export default class Layout extends React.Component {
   render() {
     return (
       <div>
-        <Navbar className="app-navbar"
-                brand={<Link to="/">Anime App</Link>}
-                toggleNavKey={0}>
-          <CollapsibleNav eventKey={0}>
-            <Nav navbar>
+        <Navbar className="app-navbar">
+          <Navbar.Header>
+            <Navbar.Brand>
+              <Link to="/">Anime App</Link>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav>
               <NavItem eventKey={1}>
-                <Link to="/anime">Anime</Link>
+                <Link to="/anime"><i className="fa fa-tv" /> Anime</Link>
               </NavItem>
               <NavItem eventKey={2}>
-                <Link to="/torrents">Torrents</Link>
+                <Link to="/torrents"><i className="fa fa-download" /> Torrents</Link>
+              </NavItem>
+              <NavItem eventKey={3}>
+                <Link to="/settings"><i className="fa fa-cogs" /> Settings</Link>
               </NavItem>
             </Nav>
-          </CollapsibleNav>
+            <Nav pullRight>
+              <NavItem eventKey={1}>
+                <LoginStatus />
+              </NavItem>
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
         <div className="application container">
           <Notifications />

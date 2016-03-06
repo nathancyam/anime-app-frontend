@@ -1,5 +1,5 @@
 import React from 'react';
-import AnimeItem from './AnimeItem';
+import ListItem from '../components/Anime/ListItem';
 import AnimeStore, { Actions, getAnime } from '../stores/AnimeStore';
 import { hostname } from '../stores/Constants';
 import fetch from 'isomorphic-fetch';
@@ -126,7 +126,7 @@ export default class AnimeList extends React.Component {
           <div className="row anime-row">
             {
               this.state.list.map((el, index) => {
-                return <AnimeItem
+                return <ListItem
                   key={`anime-${index}-item`}
                   anime={el}
                   mediaRoot={hostname} />;

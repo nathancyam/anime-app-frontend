@@ -9,7 +9,9 @@
     "build:client": "TARGET=build webpack",
     "build": "npm run build:client && npm run build:server",
     "start:prod": "npm run build && node server.bundle.js",
-    "start:dev": "TARGET=dev webpack-dev-server --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
+    "start:dev": "TARGET=dev webpack-dev-server --content-base build/ --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
+    "watch:server": "webpack --watch --config webpack.server.config.js",
+    "watch:client": "TARGET=build webpack --watch",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "serve": "TARGET=dev webpack-dev-server --host 0.0.0.0 --history-api-fallback"
   },
@@ -27,6 +29,7 @@
     "eslint": "^2.2.0",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.2.0",
+    "nodemon": "^1.9.1",
     "react-dom": "^0.14.7",
     "react-hot-loader": "^1.2.8",
     "sass-loader": "^3.1.2",
@@ -45,7 +48,10 @@
     "lodash": "^4.6.1",
     "react": "^0.14.7",
     "react-bootstrap": "^0.28.3",
+    "react-redux": "^4.4.0",
     "react-router": "^2.0.0",
+    "react-router-redux": "^4.0.0",
+    "redux": "^3.3.1",
     "reflux": "^0.3.0"
   }
 }

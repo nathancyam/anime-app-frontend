@@ -36,7 +36,7 @@ AnimeStatus.propTypes = {
   statusProperties: React.PropTypes.object
 };
 
-export default class AnimeItem extends React.Component {
+export default class ListItem extends React.Component {
   render() {
     return (
       <div className="col-xs-12 col-sm-4 col-md-3 col-lg-2">
@@ -62,6 +62,6 @@ export default class AnimeItem extends React.Component {
   }
 }
 
-AnimeItem.propTypes = {
+ListItem.propTypes = {
   anime: React.PropTypes.object
 };
