@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Navbar, CollapsibleNav, Nav, NavItem } from 'react-bootstrap';
 import LoginStatus from '../components/Account/LoginStatus';
 import { Link } from 'react-router';
 import Notifications from '../components/Notifications';
 
+
 export default class Layout extends React.Component {
+
   render() {
+    const isLoggedIn = this.context.store
+      .getState()
+      .user
+      .get('isLoggedIn');
+
     return (
       <div>
         <Navbar className="app-navbar">
@@ -29,7 +36,7 @@ export default class Layout extends React.Component {
             </Nav>
             <Nav pullRight>
               <NavItem eventKey={1}>
-                <LoginStatus />
+                <LoginStatus isLoggedIn={isLoggedIn} />
               </NavItem>
             </Nav>
           </Navbar.Collapse>
@@ -42,3 +49,7 @@ export default class Layout extends React.Component {
     );
   }
 }
+
+Layout.contextTypes = {
+  store: PropTypes.object
+};

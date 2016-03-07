@@ -7,35 +7,25 @@ import routes from './routes';
 import React from 'react';
 import fs from 'fs';
 import { renderToString } from 'react-dom/server'
-import { match, RouterContext } from 'react-router'
+import { match, RouterContext, createMemoryHistory } from 'react-router'
+import { configureStore } from './stores/Redux';
+import { Provider } from 'react-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { renderPage } from './helpers';
 
 let app = express();
 let apiProxy = httpProxy.createProxyServer({});
 
-function renderPage(html, data) {
+/* fetch data promise */
+async function fetchData (renderProps) {
+  let connectComponent = renderProps.components[renderProps.components.length - 1];
+  let activeComponent = connectComponent.WrappedComponent;
 
-  data = data.reduce((aggregrate, curr) => {
-    return Object.assign({}, aggregrate, curr);
-  }, {});
-
-  return `
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-        <title>Title</title>
-      </head>
-      <body>
-        <div id="app">${html}</div>
-        <script src="/bundle.js"></script>
-        <script type="text/javascript">
-          __INITIAL_DATA__ = ${JSON.stringify(data)};
-        </script>
-      </body>
-    </html>
-  `;
+  if (activeComponent.fetchData) {
+    return await activeComponent.fetchData(renderProps);
+  } else {
+    return false;
+  }
 }
 
 app.use('/bundle.js', (req, res) => {
@@ -47,21 +37,30 @@ app.use('/api', (req, res) => {
 });
 
 app.use('*', (req, res) => {
+  if (req.baseUrl === '/favicon.ico') {
+    return res.status(404).send();
+  }
 
-  match({ routes: routes, location: req.url }, (err, redirect, props) => {
-    const promises = props.components
-      .filter(component => { return component.fetchData })
-      .map(component => { return component.fetchData(props.params) });
+  const memoryHistory = createMemoryHistory(req.baseUrl);
+  let store = configureStore(memoryHistory);
+  const history = syncHistoryWithStore(memoryHistory, store);
 
-    Promise.all(promises)
-      .then(data => {
-        let appHtml = renderToString(<RouterContext {...props} />);
-        return res.send(renderPage(appHtml, data));
-      })
-      .catch(err => {
-        console.error(err);
-        return res.status(500).send(err);
+  match({ history, routes , location: req.baseUrl }, (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message)
+    } else if (redirectLocation) {
+      res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+    } else if (renderProps) {
+      fetchData(renderProps).then(initialData => {
+        store = configureStore(memoryHistory, initialData);
+        const content = renderToString(
+          <Provider store={store}>
+            <RouterContext {...renderProps}/>
+          </Provider>
+        );
+        return res.status(200).send(renderPage(content, initialData));
       });
+    }
   });
 });
 

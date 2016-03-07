@@ -1,12 +1,20 @@
 import './stylesheets/app.scss';
 
-import React from 'react';
-import { Router, browserHistory } from 'react-router';
-import { render } from 'react-dom';
-import routes from './routes';
+import React from 'react'
+import { render } from 'react-dom'
 
-main();
+import { Provider } from 'react-redux'
+import { Router, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+import { configureStore, DevTools } from './stores/Redux';
+import routes from './routes'
 
-function main() {
-  render(<Router history={browserHistory} routes={routes} />, document.getElementById('app'));
-}
+const store = configureStore(browserHistory, window.__INITIAL_DATA__);
+const history = syncHistoryWithStore(browserHistory, store);
+
+render(
+  <Provider store={store}>
+    <Router history={history} routes={routes} />
+  </Provider>,
+  document.getElementById('app')
+);

@@ -1,5 +1,5 @@
-@import './node_modules/bootstrap-sass/assets/stylesheets/bootstrap-sprockets';
-@import './node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap-sprockets';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
 @import 'breakpoints';
 
 // Ensure nav bar doesn't get malformed from <Link> components

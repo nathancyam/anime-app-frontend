@@ -38,6 +38,15 @@ if (TARGET === 'build') {
         }
       ]
     },
+    resolve: {
+      alias: {
+        react: path.resolve(__dirname, './node_modules/react')
+      },
+      fallback: path.resolve(__dirname, './node_modules')
+    },
+    resolveLoader: {
+      fallback: path.resolve(__dirname, './node_modules')
+    },
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
