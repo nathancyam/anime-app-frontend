@@ -17,8 +17,8 @@ export default class EpisodeList extends React.Component {
             episodes.map((episode, index) => {
               return (
                 <tr key={`episode-${index}`}>
-                  <td>{episode.fileName}</td>
-                  <td>{episode.number}</td>
+                  <td>{episode.get('fileName')}</td>
+                  <td>{episode.get('number')}</td>
                 </tr>
               );
             })

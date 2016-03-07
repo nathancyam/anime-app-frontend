@@ -16,7 +16,10 @@ import { renderPage } from './helpers';
 let app = express();
 let apiProxy = httpProxy.createProxyServer({});
 
-/* fetch data promise */
+/**
+ * @param {Object} renderProps
+ * @returns {Promise.<Object>}
+ */
 async function fetchData (renderProps) {
   let connectComponent = renderProps.components[renderProps.components.length - 1];
   let activeComponent = connectComponent.WrappedComponent;

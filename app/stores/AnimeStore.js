@@ -31,7 +31,7 @@ export function getAnime() {
         return resolve(jsonResponse);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         return reject(err);
       });
   });

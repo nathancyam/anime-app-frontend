@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 class AnimeStatus extends React.Component {
   render() {
+    let subgroup = this.props.anime.get('designated_subgroup');
     let icons = Object.keys(this.props.statusProperties)
       .filter((el) => {
         return Boolean(this.props.anime[el]);
@@ -25,7 +26,7 @@ class AnimeStatus extends React.Component {
           })
         }
         </div>
-        <div className="subgroup">{this.props.anime.designated_subgroup}</div>
+        <div className="subgroup">{subgroup}</div>
       </div>
     );
   }
@@ -37,14 +38,20 @@ AnimeStatus.propTypes = {
 };
 
 export default class ListItem extends React.Component {
+
   render() {
+    const { anime } = this.props;
+    const animeId = anime.get('_id');
+    const title = anime.get('title');
+    const imageUrl = anime.get('image_url');
+
     return (
       <div className="col-xs-12 col-sm-4 col-md-3 col-lg-2">
-        <Link className="anime-item-link" to={`/anime/${this.props.anime._id}`}>
+        <Link className="anime-item-link" to={`/anime/${animeId}`}>
           <div className="anime-item">
-            <img src={`${this.props.mediaRoot}${this.props.anime.image_url}`} />
+            <img src={`${this.props.mediaRoot}${imageUrl}`} />
             <div className="content">
-              <div className="title">{this.props.anime.title}</div>
+              <div className="title">{title}</div>
               <hr />
               <div>
                 <AnimeStatus

@@ -24,7 +24,7 @@ async function searchAnn(anime) {
     let response = await fetchApi(searchUri);
     return await response.json();
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -47,7 +47,7 @@ async function setAnimeImage(anime, annResponse) {
     );
     return await response.json();
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 

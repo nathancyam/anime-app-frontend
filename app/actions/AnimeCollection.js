@@ -1,7 +1,7 @@
 /**
  * Created by nathanyam on 6/03/2016.
  */
-import { hostname } from '../stores/Constants';
+import { hostname, fetchApi } from '../stores/Constants';
 
 function fetchAnimeCollection() {
   return new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ function fetchAnimeCollection() {
         return resolve(jsonResponse);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         return reject(err);
       });
   });
@@ -37,7 +37,6 @@ export function receivedAnime(collection) {
 
 export const FILTER_BY_NAME = 'FILTER_BY_NAME';
 export function filterByName(name) {
-  console.log(name);
   return {
     type: FILTER_BY_NAME,
     name

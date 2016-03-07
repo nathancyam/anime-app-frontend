@@ -1,6 +1,6 @@
-/**
- * Created by nathanyam on 6/03/2016.
- */
+import fetch from 'isomorphic-fetch';
+
+export var hostname = "http://localhost:1337/api";
 
 /**
  * @param {String} html
@@ -35,3 +35,18 @@ export function isLoggedIn() {
   return getStore().getState(user);
 }
 
+/**
+ * @param {String} url
+ * @param {Object} headers
+ */
+export var fetchApi = (url, headers = {}) => {
+  let defaults = {
+    headers: {
+      'Authorization': 'Basic YW5pbWVhcHA6TTJ3SVNveVBmUA==',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch(url, Object.assign({}, defaults, headers));
+};

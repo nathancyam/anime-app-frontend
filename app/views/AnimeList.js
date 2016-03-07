@@ -81,7 +81,7 @@ export default class AnimeList extends Component {
               anime.map((el, index) => {
                 return <ListItem
                   key={`anime-${index}-item`}
-                  anime={el.toJS()}
+                  anime={el}
                   mediaRoot={hostname} />;
               })
             }

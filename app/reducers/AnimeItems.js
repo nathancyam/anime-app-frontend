@@ -41,7 +41,7 @@ async function saveAnime(anime) {
     );
     return await response.json();
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -103,7 +103,7 @@ export default Reflux.createStore({
         this.trigger(anime);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }
 });

@@ -96,7 +96,7 @@ export default Reflux.createStore({
         this.triggerListeners(torrentStore);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         torrentStore = torrentStore.update(torrentIndex, updateFn('error'));
         this.triggerListeners(torrentStore);
       });
