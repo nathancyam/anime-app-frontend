@@ -8,16 +8,18 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { anime, filters } from '../reducers/AnimeCollection';
 import { user } from '../reducers/Auth';
 import { episodes } from '../reducers/Episode';
+import { animeNewsNetwork } from '../reducers/AnimeNewsNetwork';
 import Immutable from 'immutable';
 
 export function configureStore(history, initialState) {
   let newState = initialState;
-  const immutableState = ['anime', 'episodes'];
+  const immutableState = ['anime', 'episodes', 'animeNewsNetwork'];
 
   const reducer = combineReducers({
     routing: routerReducer,
     anime,
     episodes,
+    animeNewsNetwork,
     filters,
     user
   });

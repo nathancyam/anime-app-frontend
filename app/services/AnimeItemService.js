@@ -3,7 +3,18 @@
  */
 
 import { hostname, fetchApi } from '../helpers';
+import { makeAnnRequest } from '../actions/AnimeNewsNetwork';
 import Immutable from 'immutable';
+
+/**
+ * @param {Map} collection
+ * @param {String} animeId
+ * @returns {Object}
+ */
+function getAnimeFromCollection(collection, animeId) {
+  return collection.filter(el => el.get('_id') == animeId)
+    .reduce((carry, item) => item);
+}
 
 class AnimeItemService {
 
@@ -28,31 +39,27 @@ class AnimeItemService {
   /**
    * @returns {Promise.<Object>}
    */
-  getAnimeItemData() {
-    return new Promise((resolve, reject) => {
-      const promises = [
-        this.getAnimeResponse(),
-        this.getAnimeEpisodes()
-      ];
+  async getAnimeItemData() {
+    const promises = [
+      this.getAnimeResponse(),
+      this.getAnimeEpisodes()
+    ];
 
-      Promise.all(promises)
-        .then(results => {
-          const [ anime, animeEpisodes ] = results;
-          const episodes = {
-            [this.animeId]: animeEpisodes
-          };
+    const [anime, animeEpisodes ] = await Promise.all(promises);
+    const episodes = {
+      [this.animeId]: animeEpisodes
+    };
+    const payload = {
+      anime: Immutable.fromJS(anime),
+      episodes: Immutable.fromJS(episodes)
+    };
+    const animeObj = getAnimeFromCollection(payload.anime, this.animeId);
+    const annResponse = await makeAnnRequest(animeObj.get('title'));
+    const animeNewsNetwork = Immutable.fromJS({
+      [this.animeId]: annResponse
+    });
 
-          const payload = {
-            anime: Immutable.fromJS(anime),
-            episodes: Immutable.fromJS(episodes)
-          };
-          return resolve(payload);
-        })
-        .catch(err => {
-          console.error(err);
-          return reject(err);
-        });
-    })
+    return Object.assign({}, payload, { animeNewsNetwork });
   }
 
   getAnimeResponse() {
