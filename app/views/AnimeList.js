@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import ListItem from '../components/Anime/ListItem';
-import AnimeStore, { Actions, getAnime } from '../stores/AnimeStore';
+import { factory } from '../services/AnimeCollectionService';
 import Immutable from 'immutable';
-import { hostname } from '../stores/Constants';
+import { hostname } from '../helpers';
 
 const FilterComponent = ({ filterLabels, onFilterCallback }) => {
   const _onFilterCallback = (event) => {
@@ -25,16 +25,10 @@ export default class AnimeList extends Component {
 
   static fetchData() {
     return new Promise((resolve, reject) => {
-      getAnime()
-        .then((jsonResponse) => {
-          return resolve({
-            anime: Immutable.fromJS(jsonResponse)
-          });
-        })
-        .catch((err) => {
-          console.error(err);
-          return reject(err);
-        });
+      factory()
+        .getAnime()
+        .then(jsonResponse => resolve({ anime: Immutable.fromJS(jsonResponse) }))
+        .catch(error => reject(error));
     });
   }
 

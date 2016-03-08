@@ -2,9 +2,8 @@
  * Created by nathanyam on 7/03/2016.
  */
 
-import { hostname, fetchApi } from '../helpers';
+import BaseService from './BaseService';
 import { makeAnnRequest } from '../actions/AnimeNewsNetwork';
-import Immutable from 'immutable';
 
 /**
  * @param {Map} collection
@@ -16,12 +15,13 @@ function getAnimeFromCollection(collection, animeId) {
     .reduce((carry, item) => item);
 }
 
-class AnimeItemService {
+class AnimeItemService extends BaseService {
 
   /**
    * @param {String} animeId
    */
   constructor(animeId) {
+    super();
     this.animeId = animeId;
   }
 
@@ -29,11 +29,11 @@ class AnimeItemService {
    * @returns {String}
    */
   getEpisodeUrl() {
-    return `${hostname}/episodes/anime/${this.animeId}`;
+    return `${this.hostname}/episodes/anime/${this.animeId}`;
   }
 
   getAnimeUrl() {
-    return `${hostname}/anime`;
+    return `${this.hostname}/anime`;
   }
 
   /**
@@ -50,12 +50,13 @@ class AnimeItemService {
       [this.animeId]: animeEpisodes
     };
     const payload = {
-      anime: Immutable.fromJS(anime),
-      episodes: Immutable.fromJS(episodes)
+      anime: this.makeImmutable(anime),
+      episodes: this.makeImmutable(episodes)
     };
+
     const animeObj = getAnimeFromCollection(payload.anime, this.animeId);
     const annResponse = await makeAnnRequest(animeObj.get('title'));
-    const animeNewsNetwork = Immutable.fromJS({
+    const animeNewsNetwork = this.makeImmutable({
       [this.animeId]: annResponse
     });
 
@@ -63,20 +64,16 @@ class AnimeItemService {
   }
 
   getAnimeResponse() {
-    return AnimeItemService.makeRequest(this.getAnimeUrl());
-  }
-
-  getAnimeNewsNetwork() {
-    return Promise.resolve({ details: `${this.animeId}aldsfl` });
+    return this.makeRequest(this.getAnimeUrl());
   }
 
   getAnimeEpisodes() {
-    return AnimeItemService.makeRequest(this.getEpisodeUrl());
+    return this.makeRequest(this.getEpisodeUrl());
   }
 
-  static async makeRequest(url) {
+  async makeRequest(url) {
     try {
-      let response = await fetchApi(url);
+      let response = await this.fetchApi(url);
       return await response.json();
     } catch (error) {
       console.error(error);

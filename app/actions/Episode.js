@@ -1,4 +1,4 @@
-import { hostname, fetchApi } from '../stores/Constants';
+import { hostname, fetchApi } from '../helpers';
 
 /**
  * @param {String} url

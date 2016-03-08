@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 
 export default class AnimeNewsNetwork extends Component {
 
   render () {
     const annResponse = this.props.result;
-    if (annResponse.getIn(['_meta', 'isFetching'])) {
+    if (annResponse.count() === 0) {
       return (
         <div className="row">
           <div className="col-xs-12">
             <i className="fa fa-circle-o-notch fa-spin"
               style={{
                 fontSize: "4rem"
-              }}></i>
+              }} />
           </div>
         </div>
       );
@@ -84,3 +84,7 @@ export default class AnimeNewsNetwork extends Component {
     );
   }
 }
+
+AnimeNewsNetwork.PropTypes = {
+  result: PropTypes.object
+};

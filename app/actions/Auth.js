@@ -2,7 +2,7 @@
  * Created by nathanyam on 5/03/2016.
  */
 
-import { hostname, fetchApi } from '../stores/Constants';
+import { hostname, fetchApi } from '../helpers';
 
 async function loginRequest(user, password) {
   let response = await fetchApi(`${hostname}/login`, {

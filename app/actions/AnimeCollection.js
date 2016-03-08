@@ -1,7 +1,7 @@
 /**
  * Created by nathanyam on 6/03/2016.
  */
-import { hostname, fetchApi } from '../stores/Constants';
+import { hostname, fetchApi } from '../helpers';
 
 function fetchAnimeCollection() {
   return new Promise((resolve, reject) => {

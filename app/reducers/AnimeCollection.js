@@ -1,5 +1,4 @@
 import Immutable from 'immutable';
-import { combineReducers } from 'redux';
 import {
   FETCH_ANIME,
   RECEIVED_ANIME,
@@ -9,7 +8,7 @@ import {
 } from '../actions/AnimeCollection';
 
 /**
- * @param {Immutable.Map} state
+ * @param {Map} state
  * @param {Object} action
  * @returns {*|any|Map<K, V>|Map<string, V>}
  */
@@ -30,7 +29,7 @@ export const anime = (state = Immutable.Map(), action) => {
 };
 
 /**
- * @param {Immutable.Map} state
+ * @param {Map} state
  * @param {Object} action
  * @returns {*|any|Map<K, V>|Map<string, V>}
  */
