@@ -1,26 +1,13 @@
 /**
  * Created by nathanyam on 6/03/2016.
  */
-import { hostname, fetchApi } from '../helpers';
-
-function fetchAnimeCollection() {
-  return new Promise((resolve, reject) => {
-    fetchApi(`${hostname}/anime`)
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        return resolve(jsonResponse);
-      })
-      .catch((err) => {
-        console.error(err);
-        return reject(err);
-      });
-  });
-}
+import { factory } from '../services/AnimeCollectionService';
 
 export const FETCH_ANIME = 'FETCH_ANIME';
 export function fetchAnime() {
   return dispatch => {
-    fetchAnimeCollection()
+    factory()
+      .getAnime()
       .then(result => {
         dispatch(receivedAnime(result));
       })

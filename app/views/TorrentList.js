@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import TorrentItem from '../components/Torrents/TorrentItem';
 import { Pagination } from 'react-bootstrap';
 
@@ -17,7 +17,7 @@ const ResultCounter = ({ numberOfResults, isFetching }) => {
   }
 };
 
-class TorrentPagination extends React.Component {
+class TorrentPagination extends Component {
   render () {
     return (
       <Pagination bsSize="medium" {...this.props} /> );
@@ -30,10 +30,13 @@ export default class TorrentList extends React.Component {
     this.props.onQueryChange(event.target.value);
   }
 
+  componentWillUnmount() {
+    this.props.onResetTorrents();
+  }
+
   render() {
     const { torrents, searchTerm, isFetching, onAddTorrent } = this.props;
     const numberOfResults = torrents.count();
-    let loadingClass = numberOfResults === 0 ? 'loading' : '';
 
     return (
       <div className="torrent-listing">
@@ -74,3 +77,9 @@ export default class TorrentList extends React.Component {
     );
   }
 }
+
+TorrentList.PropTypes = {
+  onAddTorrent: PropTypes.func,
+  onRemoveTorrents: PropTypes.func,
+  torrents: PropTypes.object
+};

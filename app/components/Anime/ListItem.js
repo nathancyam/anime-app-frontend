@@ -7,7 +7,7 @@ class AnimeStatus extends React.Component {
     let subgroup = this.props.anime.get('designated_subgroup');
     let icons = Object.keys(this.props.statusProperties)
       .filter((el) => {
-        return Boolean(this.props.anime[el]);
+        return Boolean(this.props.anime.get(el));
       })
       .map((el) => {
         return {
@@ -21,8 +21,7 @@ class AnimeStatus extends React.Component {
         <div className="icon-container">
         {
           Object.keys(icons).map((icon, index) => {
-            return <i className={`fa ${icons[icon]}`}
-                    key={`${icon}-${index}`}></i>;
+            return <i className={`fa ${icons[icon]}`} key={`${icon}-${index}`} />;
           })
         }
         </div>

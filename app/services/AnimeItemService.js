@@ -3,6 +3,7 @@
  */
 
 import BaseService from './BaseService';
+import { factory as torrentService} from './TorrentService';
 import { makeAnnRequest } from '../actions/AnimeNewsNetwork';
 
 /**
@@ -22,6 +23,7 @@ class AnimeItemService extends BaseService {
    */
   constructor(animeId) {
     super();
+    this.torrentService = torrentService();
     this.animeId = animeId;
   }
 
@@ -32,11 +34,9 @@ class AnimeItemService extends BaseService {
     return `/episodes/anime/${this.animeId}`;
   }
 
-  getAnimeUrl() {
-    return `/anime`;
-  }
-
   /**
+   * Only should run on the server. Needs to return an object that is a subset of the state reducer.
+   *
    * @returns {Promise.<Object>}
    */
   async getAnimeItemData() {
@@ -50,21 +50,28 @@ class AnimeItemService extends BaseService {
       [this.animeId]: animeEpisodes
     };
     const payload = {
-      anime: this.makeImmutable(anime),
+      anime: this.makeImmutable({ isFetching: false, anime: anime }),
       episodes: this.makeImmutable(episodes)
     };
 
-    const animeObj = getAnimeFromCollection(payload.anime, this.animeId);
-    const annResponse = await makeAnnRequest(animeObj.get('title'));
+    const animeObj = getAnimeFromCollection(payload.anime.get('anime'), this.animeId);
+    const title = animeObj.get('title');
+    const torrentListing = await this.torrentService.search(title);
+    const torrents = this.makeImmutable({
+      _meta: { isFetching: false },
+      torrents: torrentListing,
+      query: title
+    });
+    const annResponse = await makeAnnRequest(title);
     const animeNewsNetwork = this.makeImmutable({
       [this.animeId]: annResponse
     });
 
-    return Object.assign({}, payload, { animeNewsNetwork });
+    return Object.assign({}, payload, { animeNewsNetwork }, { torrents });
   }
 
   getAnimeResponse() {
-    return this.makeRequest(this.getAnimeUrl());
+    return this.makeRequest('/anime');
   }
 
   getAnimeEpisodes() {

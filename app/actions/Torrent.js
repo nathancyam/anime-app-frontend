@@ -38,14 +38,12 @@ export function fetchingTorrents(value) {
   };
 }
 
-export const ADD_TORRENT = 'ADD_TORRENT';
 export function addTorrent(torrent) {
   return dispatch => {
     dispatch(addingTorrent(torrent));
     factory()
       .addTorrent(torrent.get('href'))
       .then(() => {
-        console.log('added torrent');
         dispatch(addedTorrent(torrent));
       })
       .catch(error => dispatch(errorAddingTorrent(error, torrent)));
@@ -82,5 +80,12 @@ export function enteringQuery(query) {
   return {
     type: ENTERING_QUERY,
     query
+  }
+}
+
+export const RESET_TORRENT = 'RESET_TORRENT';
+export function resetTorrents() {
+  return {
+    type: RESET_TORRENT
   }
 }

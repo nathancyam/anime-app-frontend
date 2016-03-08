@@ -3,13 +3,13 @@ import AnimeItem from '../views/AnimeItem';
 import Immutable from 'immutable';
 import { fetchAnimeEpisodes } from '../actions/Episode';
 import { fetchAnimeNewsNetworkDetails } from '../actions/AnimeNewsNetwork';
-import { searchTorrents, enteringQuery } from '../actions/Torrent';
-import { addTorrent } from '../actions/Torrent';
+import { searchTorrents, enteringQuery, addTorrent, resetTorrents } from '../actions/Torrent';
 
 
 const mapStateToProps = ({ anime, episodes, animeNewsNetwork, torrents }, { params }) => {
   const animeId = params.animeId;
-  const selectedAnime = anime.filter(el => el.get('_id') == animeId)
+  const selectedAnime = anime.get('anime')
+    .filter(el => el.get('_id') == animeId)
     .reduce((carry, item) => item);
 
   const selectedEpisodes = episodes.has(animeId)
@@ -44,6 +44,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onAddTorrent(torrent) {
       dispatch(addTorrent(torrent));
+    },
+    onResetTorrents() {
+      dispatch(resetTorrents());
     }
   };
 };

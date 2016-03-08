@@ -12,7 +12,7 @@ import {
  * @param {Object} action
  * @returns {*|any|Map<K, V>|Map<string, V>}
  */
-export const anime = (state = Immutable.Map(), action) => {
+export const anime = (state = Immutable.fromJS({ isFetching: false, anime: [] }), action) => {
   switch (action.type) {
     case FETCH_ANIME:
       state = state.set('isFetching', true);

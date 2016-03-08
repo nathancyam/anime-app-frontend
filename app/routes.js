@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import Layout from './views/Layout';
-import TorrentList from './views/TorrentList';
+import TorrentList from './containers/TorrentList';
 import Settings from './views/Settings';
 import AnimeList from './containers/AnimeList';
 import AnimeItem from './containers/AnimeItem';

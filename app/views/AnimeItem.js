@@ -23,9 +23,11 @@ export default class AnimeItem extends Component {
       getAnimeEpisodes,
       getAnimeNewsNetworkResponse,
       anime,
-      animeNewsNetwork
+      animeNewsNetwork,
+      searchTorrents
     } = this.props;
 
+    searchTorrents(anime.get('title'));
     getAnimeEpisodes(anime.get('_id'));
     if (animeNewsNetwork.count() === 0) {
       getAnimeNewsNetworkResponse(anime.get('title'), anime.get('_id'));
@@ -39,7 +41,8 @@ export default class AnimeItem extends Component {
       animeNewsNetwork,
       torrents,
       searchTorrents,
-      onAddTorrent
+      onAddTorrent,
+      onResetTorrents
     } = this.props;
     const imageUrl = anime.get('image_url');
 
@@ -81,6 +84,7 @@ export default class AnimeItem extends Component {
                   <div className="row">
                     <div className="col-xs-12">
                       <TorrentList
+                        onResetTorrents={onResetTorrents}
                         onAddTorrent={onAddTorrent}
                         onQueryChange={searchTorrents}
                         isFetching={torrents.getIn(['_meta', 'isFetching'])}
@@ -106,5 +110,6 @@ AnimeItem.PropTypes = {
   animeNewsNetwork: PropTypes.object,
   getAnimeEpisodes: PropTypes.func,
   getAnimeNewsNetworkResponse: PropTypes.func,
-  searchTorrents: PropTypes.func
+  searchTorrents: PropTypes.func,
+  onResetTorrents: PropTypes.func
 };

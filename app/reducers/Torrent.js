@@ -10,7 +10,8 @@ import {
   ENTERING_QUERY,
   ADDING_TORRENT,
   ADDED_TORRENT,
-  ERROR_ADDING_TORRENT
+  ERROR_ADDING_TORRENT,
+  RESET_TORRENT
 } from '../actions/Torrent';
 
 const initialState = Immutable.fromJS(
@@ -80,6 +81,11 @@ export const torrents = (state = initialState, action) => {
         state.get('torrents'),
         action.torrent.get('href')
       ));
+      return state;
+
+    case RESET_TORRENT:
+      state = state.set('torrents', Immutable.List());
+      state = state.set('query', '');
       return state;
 
     default:

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ListItem from '../components/Anime/ListItem';
 import { factory } from '../services/AnimeCollectionService';
-import Immutable from 'immutable';
 import { hostname } from '../helpers';
 
 const FilterComponent = ({ filterLabels, onFilterCallback }) => {
@@ -27,9 +26,13 @@ export default class AnimeList extends Component {
     return new Promise((resolve, reject) => {
       factory()
         .getAnime()
-        .then(jsonResponse => resolve({ anime: Immutable.fromJS(jsonResponse) }))
+        .then(anime => resolve({ anime: { isFetching: false, anime } }))
         .catch(error => reject(error));
     });
+  }
+
+  componentDidMount() {
+    this.props.fetchAnime();
   }
 
   render() {
@@ -72,7 +75,7 @@ export default class AnimeList extends Component {
           </div>
           <div className="row anime-row">
             {
-              anime.map((el, index) => {
+              anime.get('anime').map((el, index) => {
                 return <ListItem
                   key={`anime-${index}-item`}
                   anime={el}
