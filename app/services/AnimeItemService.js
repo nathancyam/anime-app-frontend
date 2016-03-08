@@ -29,11 +29,11 @@ class AnimeItemService extends BaseService {
    * @returns {String}
    */
   getEpisodeUrl() {
-    return `${this.hostname}/episodes/anime/${this.animeId}`;
+    return `/episodes/anime/${this.animeId}`;
   }
 
   getAnimeUrl() {
-    return `${this.hostname}/anime`;
+    return `/anime`;
   }
 
   /**

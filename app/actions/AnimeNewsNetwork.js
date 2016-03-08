@@ -4,7 +4,7 @@
 
 import { hostname, fetchApi } from '../helpers';
 
-const ANN_SEARCH_URI = `${hostname}/ann/search`;
+const ANN_SEARCH_URI = `/ann/search`;
 const ANN_IMAGE_POST_URI = `${hostname}/anime/image`;
 
 export async function makeAnnRequest(query, isId = false) {

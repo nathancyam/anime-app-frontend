@@ -80,5 +80,9 @@ export default class AnimeItem extends Component {
 }
 
 AnimeItem.PropTypes = {
-  getAnimeEpisodes: PropTypes.func
+  anime: PropTypes.object,
+  episodes: PropTypes.object,
+  animeNewsNetwork: PropTypes.object,
+  getAnimeEpisodes: PropTypes.func,
+  getAnimeNewsNetworkResponse: PropTypes.func
 };

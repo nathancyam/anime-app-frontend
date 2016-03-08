@@ -8,7 +8,7 @@ class AnimeCollectionService extends BaseService {
 
   async getAnime() {
     try {
-      const response = await this.fetchApi(`${this.hostname}/anime`);
+      const response = await this.fetchApi('/anime');
       const jsonResponse = await response.json();
       return this.makeImmutable(jsonResponse);
     } catch (error) {
@@ -18,4 +18,6 @@ class AnimeCollectionService extends BaseService {
 
 }
 
-export const factory = () => new AnimeCollectionService();
+export const factory = () => {
+  return new AnimeCollectionService();
+};

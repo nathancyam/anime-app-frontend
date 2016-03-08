@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-export var hostname = "http://localhost:1337/api";
+export const hostname = "http://localhost:1337/api";
 
 /**
  * @param {String} html
@@ -48,5 +48,5 @@ export var fetchApi = (url, headers = {}) => {
     }
   };
 
-  return fetch(url, Object.assign({}, defaults, headers));
+  return fetch(`${hostname}${url}`, Object.assign({}, defaults, headers));
 };
