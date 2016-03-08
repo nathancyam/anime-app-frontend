@@ -9,16 +9,18 @@ import { anime, filters } from '../reducers/AnimeCollection';
 import { user } from '../reducers/Auth';
 import { episodes } from '../reducers/Episode';
 import { animeNewsNetwork } from '../reducers/AnimeNewsNetwork';
+import { torrents } from '../reducers/Torrent';
 import Immutable from 'immutable';
 
 export function configureStore(history, initialState) {
   let newState = initialState;
-  const immutableState = ['anime', 'episodes', 'animeNewsNetwork'];
+  const immutableState = ['anime', 'episodes', 'animeNewsNetwork', 'torrents'];
 
   const reducer = combineReducers({
     routing: routerReducer,
     anime,
     episodes,
+    torrents,
     animeNewsNetwork,
     filters,
     user

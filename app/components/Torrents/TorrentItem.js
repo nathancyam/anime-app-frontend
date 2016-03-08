@@ -19,33 +19,29 @@ class TorrentStatus extends React.Component {
         faClass = `${faClass} fa-plus`;
         break;
     }
-    return <i className={faClass}></i>;
+    return <i className={faClass} />;
   }
 }
 
 
 export default class TorrentItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onAddTorrent = this.onAddTorrent.bind(this);
-  }
 
-  onAddTorrent() {
-    Actions.addTorrent(this.props.torrent);
+  onAddTorrent(event) {
+    event.preventDefault();
+    this.props.onAddTorrent(this.props.torrent);
   }
 
   render() {
-    const torrent = this.props.torrent;
-    let faClass;
+    const { torrent, onAddTorrent } = this.props;
 
     return (
       <div className="row torrent-item">
-        <div className="col-xs-12 col-md-4 name">{torrent.name}</div>
-        <div className="col-xs-12 col-md-4 link">{torrent.href}</div>
+        <div className="col-xs-12 col-md-4 name">{torrent.get('name')}</div>
+        <div className="col-xs-12 col-md-4 link">{torrent.get('href')}</div>
         <div className="col-xs-12 col-md-4">
           <button className="btn btn-primary"
-            onClick={this.onAddTorrent}>
-            <TorrentStatus status={torrent.status} />
+            onClick={this.onAddTorrent.bind(this)}>
+            <TorrentStatus status={torrent.get('status')} />
           </button>
         </div>
       </div>

@@ -3,9 +3,11 @@ import AnimeItem from '../views/AnimeItem';
 import Immutable from 'immutable';
 import { fetchAnimeEpisodes } from '../actions/Episode';
 import { fetchAnimeNewsNetworkDetails } from '../actions/AnimeNewsNetwork';
+import { searchTorrents, enteringQuery } from '../actions/Torrent';
+import { addTorrent } from '../actions/Torrent';
 
 
-const mapStateToProps = ({ anime, episodes, animeNewsNetwork }, { params }) => {
+const mapStateToProps = ({ anime, episodes, animeNewsNetwork, torrents }, { params }) => {
   const animeId = params.animeId;
   const selectedAnime = anime.filter(el => el.get('_id') == animeId)
     .reduce((carry, item) => item);
@@ -19,9 +21,10 @@ const mapStateToProps = ({ anime, episodes, animeNewsNetwork }, { params }) => {
     : Immutable.Map();
 
   return {
-    episodes: selectedEpisodes,
     anime: selectedAnime,
-    animeNewsNetwork: annEntry
+    animeNewsNetwork: annEntry,
+    episodes: selectedEpisodes,
+    torrents: torrents
   };
 };
 
@@ -32,6 +35,15 @@ const mapDispatchToProps = (dispatch) => {
     },
     getAnimeNewsNetworkResponse(query, animeId) {
       dispatch(fetchAnimeNewsNetworkDetails(query, animeId));
+    },
+    searchTorrents(query) {
+      dispatch(searchTorrents(query));
+    },
+    enteringQuery(query) {
+      dispatch(enteringQuery(query));
+    },
+    onAddTorrent(torrent) {
+      dispatch(addTorrent(torrent));
     }
   };
 };

@@ -1,7 +1,21 @@
 import React from 'react';
-import TorrentStore, { Actions } from '../stores/TorrentStore';
 import TorrentItem from '../components/Torrents/TorrentItem';
 import { Pagination } from 'react-bootstrap';
+
+const ResultCounter = ({ numberOfResults, isFetching }) => {
+  const styles = {
+    position: 'absolute',
+    top: '0.75rem',
+    right: '3rem',
+    color: 'grey'
+  };
+
+  if (isFetching) {
+    return <span style={styles}><i className="fa fa-spin fa-circle-o-notch" /></span>;
+  } else {
+    return <span style={styles}>{`${numberOfResults} results found`}</span>;
+  }
+};
 
 class TorrentPagination extends React.Component {
   render () {
@@ -11,50 +25,15 @@ class TorrentPagination extends React.Component {
 }
 
 export default class TorrentList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onSearchFieldChange = this.onSearchFieldChange.bind(this);
-    this.startSearch = this.startSearch.bind(this);
-    this.state = {
-      results: [],
-      numberOfResults: 0,
-      activePage: 1,
-      searchTerm: this.props.initialSearchTerm || ''
-    };
-  }
 
-  componentDidMount() {
-    this.unsubscribe = TorrentStore.listen(this.onSearchResultChange.bind(this));
-    if (this.state.searchTerm.length > 0) {
-      this.startSearch(this.state.searchTerm);
-    }
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  onSearchResultChange(results) {
-    this.setState(results);
-  }
-
-  onSearchFieldChange(event) {
-    if (event.target.value !== '') {
-      this.setState({ searchTerm: event.target.value }, this.startSearch);
-    }
-  }
-
-  onPaginationChange(event, key) {
-    Actions.changeTorrentPagination(key.eventKey);
-  }
-
-  startSearch() {
-    Actions.enterSearchTerm(this.state.searchTerm);
+  onQueryChange(event) {
+    this.props.onQueryChange(event.target.value);
   }
 
   render() {
-    const results = this.state.results;
-    let loadingClass = this.state.results.size === 0 ? 'loading' : '';
+    const { torrents, searchTerm, isFetching, onAddTorrent } = this.props;
+    const numberOfResults = torrents.count();
+    let loadingClass = numberOfResults === 0 ? 'loading' : '';
 
     return (
       <div className="torrent-listing">
@@ -64,33 +43,28 @@ export default class TorrentList extends React.Component {
               <div className="form-group">
                 <input className="form-control"
                   type="text"
-                  value={this.state.searchTerm}
+                  value={searchTerm}
                   placeholder="Search Nyaatorrents"
-                  onChange={this.onSearchFieldChange} />
-                <span style={{
-                    position: 'absolute',
-                    top: '0.75rem',
-                    right: '3rem',
-                    color: 'grey'
-                  }}>{`${this.state.numberOfResults} results found`}</span>
+                  onChange={this.onQueryChange.bind(this)} />
+                <ResultCounter
+                  isFetching={isFetching}
+                  numberOfResults={numberOfResults} />
               </div>
             </form>
           </div>
         </div>
         <div className="row">
-          <div className={`col-xs-12 ${loadingClass}`}>
-            <div id="loading-template">
-              <p>No results :(</p>
-            </div>
+          <div className={`col-xs-12`}>
             <TorrentPagination
-              items={Math.floor(this.state.numberOfResults / 10) + 1}
-              activePage={this.state.activePage}
-              onSelect={this.onPaginationChange}
+              items={Math.floor(numberOfResults / 10) + 1}
+              activePage={1}
               prev={true}
               next={true} />
             {
-              results.map((result, index) => {
-                return <TorrentItem key={`torrent-${index}`}
+              torrents.map((result, index) => {
+                return <TorrentItem
+                  onAddTorrent={onAddTorrent}
+                  key={`torrent-${index}`}
                   torrent={result} />;
               })
             }

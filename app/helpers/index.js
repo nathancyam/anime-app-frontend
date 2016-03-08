@@ -40,6 +40,12 @@ export function isLoggedIn() {
  * @param {Object} headers
  */
 export var fetchApi = (url, headers = {}) => {
+  if (url.indexOf('/torrent/add') !== -1) {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve({ json() { Promise.resolve('json') } }), 5000);
+    });
+  }
+
   let defaults = {
     headers: {
       'Authorization': 'Basic YW5pbWVhcHA6TTJ3SVNveVBmUA==',
