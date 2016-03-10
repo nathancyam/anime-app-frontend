@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import AnimeList from '../views/AnimeList';
+import Immutable from 'immutable';
 import {
   fetchAnime,
   filterByComplete,
@@ -15,6 +16,7 @@ const filterCollectionByName = (collection, name) => {
 
 const mapStateToProps = (state) => {
   return {
+    _meta: Immutable.fromJS({ title: 'Anime Collection '}),
     anime: state.anime,
     filters: state.filters
   }

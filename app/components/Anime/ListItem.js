@@ -61,6 +61,13 @@ export default class ListItem extends React.Component {
                   }} />
               </div>
             </div>
+            <div className="anime-item-footer">
+              <div className="btn-group">
+                <button type="button" className="btn btn-danger"><i className="fa fa-trash" /></button>
+                <button type="button" className="btn btn-info"><i className="fa fa-archive" /></button>
+                <button type="button" className="btn btn-warning"><i className="fa fa-star" /></button>
+              </div>
+            </div>
           </div>
         </Link>
       </div>

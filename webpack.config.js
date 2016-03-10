@@ -8,7 +8,10 @@ var ROOT_PATH = path.resolve(__dirname);
 var common = {
   entry: ['babel-polyfill', path.resolve(ROOT_PATH, 'app/main')],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    alias: {
+      react: path.resolve(__dirname, './node_modules/react')
+    },
+    fallback: path.resolve(__dirname, './node_modules')
   },
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
@@ -21,6 +24,9 @@ var common = {
         loader: 'style!css!sass?sourceMap'
       }
     ]
+  },
+  resolveLoader: {
+    fallback: path.resolve(__dirname, './node_modules')
   }
 };
 
@@ -30,22 +36,15 @@ if (TARGET === 'build') {
       loaders: [
         {
           // test for both js and jsx
-          test: /\.js?$/,
+          test: /\.js$/,
           // use babel loader with Stage 1 features
           loader: 'babel-loader',
           // operate only on our app directory
-          include: path.resolve(ROOT_PATH, 'app')
+          include: [
+            path.resolve(ROOT_PATH, 'app')
+          ]
         }
       ]
-    },
-    resolve: {
-      alias: {
-        react: path.resolve(__dirname, './node_modules/react')
-      },
-      fallback: path.resolve(__dirname, './node_modules')
-    },
-    resolveLoader: {
-      fallback: path.resolve(__dirname, './node_modules')
     },
     plugins: [
       new webpack.DefinePlugin({

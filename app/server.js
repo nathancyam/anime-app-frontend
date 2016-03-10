@@ -8,7 +8,7 @@ import React from 'react';
 import fs from 'fs';
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext, createMemoryHistory } from 'react-router'
-import { configureStore } from './stores/Redux';
+import { configureStore } from './stores';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { renderPage } from './helpers';
@@ -27,7 +27,7 @@ async function fetchData (renderProps) {
   if (activeComponent.fetchData) {
     return await activeComponent.fetchData(renderProps);
   } else {
-    return false;
+    return Promise.resolve({});
   }
 }
 
@@ -54,15 +54,19 @@ app.use('*', (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      fetchData(renderProps).then(initialData => {
-        store = configureStore(memoryHistory, initialData);
-        const content = renderToString(
-          <Provider store={store}>
-            <RouterContext {...renderProps}/>
-          </Provider>
-        );
-        return res.status(200).send(renderPage(content, initialData));
-      });
+      fetchData(renderProps)
+        .then(initialData => {
+          store = configureStore(memoryHistory, initialData);
+          const content = renderToString(
+            <Provider store={store}>
+              <RouterContext {...renderProps}/>
+            </Provider>
+          );
+          return res.status(200).send(renderPage(content, initialData));
+        })
+        .catch(error => {
+          return res.status(500).send(error);
+        });
     }
   });
 });

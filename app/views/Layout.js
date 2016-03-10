@@ -2,8 +2,6 @@ import React, { PropTypes } from 'react';
 import { Navbar, CollapsibleNav, Nav, NavItem } from 'react-bootstrap';
 import LoginStatus from '../components/Account/LoginStatus';
 import { Link } from 'react-router';
-import Notifications from '../components/Notifications';
-
 
 export default class Layout extends React.Component {
 
@@ -42,7 +40,6 @@ export default class Layout extends React.Component {
           </Navbar.Collapse>
         </Navbar>
         <div className="application container">
-          <Notifications />
           {this.props.children}
         </div>
       </div>

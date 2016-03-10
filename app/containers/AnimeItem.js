@@ -9,8 +9,7 @@ import { searchTorrents, enteringQuery, addTorrent, resetTorrents } from '../act
 const mapStateToProps = ({ anime, episodes, animeNewsNetwork, torrents }, { params }) => {
   const animeId = params.animeId;
   const selectedAnime = anime.get('anime')
-    .filter(el => el.get('_id') == animeId)
-    .reduce((carry, item) => item);
+    .find(el => el.get('_id') == animeId);
 
   const selectedEpisodes = episodes.has(animeId)
     ? episodes.get(animeId)
@@ -21,6 +20,7 @@ const mapStateToProps = ({ anime, episodes, animeNewsNetwork, torrents }, { para
     : Immutable.Map();
 
   return {
+    _meta: Immutable.fromJS({ title: selectedAnime.get('title') }),
     anime: selectedAnime,
     animeNewsNetwork: annEntry,
     episodes: selectedEpisodes,

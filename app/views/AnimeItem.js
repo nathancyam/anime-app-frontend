@@ -7,6 +7,14 @@ import AnimeNewsNetwork from '../components/Anime/Ann';
 import { hostname } from '../helpers';
 import { factory } from '../services/AnimeItemService';
 
+const AnimeImage = ({ imageUrl, className }) => {
+  if (!imageUrl) {
+    imageUrl = 'media/images/404.png';
+  }
+
+  return <img className={className} src={`${hostname}/${imageUrl}`} />;
+};
+
 export default class AnimeItem extends Component {
 
   static fetchData(state) {
@@ -24,9 +32,11 @@ export default class AnimeItem extends Component {
       getAnimeNewsNetworkResponse,
       anime,
       animeNewsNetwork,
-      searchTorrents
+      searchTorrents,
+      _meta
     } = this.props;
 
+    document.title = _meta.get('title');
     searchTorrents(anime.get('title'));
     getAnimeEpisodes(anime.get('_id'));
     if (animeNewsNetwork.count() === 0) {
@@ -58,7 +68,7 @@ export default class AnimeItem extends Component {
       <div className="row anime-item-page">
         <div className="col-xs-12 col-md-4">
           <div className="left">
-            <img className="anime-image" src={`${hostname}/${imageUrl}`} />
+            <AnimeImage className="anime-image" imageUrl={imageUrl} />
             <div className="content">
               <h1>{anime.get('title')}</h1>
               <div className="row">

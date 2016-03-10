@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Login from '../views/Login';
+import Immutable from 'immutable';
 import {
   login,
   logout
@@ -7,6 +8,7 @@ import {
 
 const mapStateToProps = (state) => {
   return {
+    _meta: Immutable.fromJS({ title: 'Login' }),
     isLoggedIn: typeof state.user !== 'undefined',
     user: state.user
   };

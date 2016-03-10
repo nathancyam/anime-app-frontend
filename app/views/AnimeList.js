@@ -32,6 +32,7 @@ export default class AnimeList extends Component {
   }
 
   componentDidMount() {
+    document.title = this.props._meta.get('title');
     this.props.fetchAnime();
   }
 
