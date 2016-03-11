@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import AnimeList from '../views/AnimeList';
+import AnimeCollection from '../views/AnimeCollection';
 import Immutable from 'immutable';
 import {
   fetchAnime,
@@ -45,4 +45,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AnimeList);
+)(AnimeCollection);
