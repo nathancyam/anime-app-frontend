@@ -11,7 +11,7 @@
     "start:prod": "npm run build && node server.bundle.js",
     "start:dev": "TARGET=dev webpack-dev-server --content-base build/ --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
     "watch:server": "webpack --watch --config webpack.server.config.js",
-    "watch:client": "TARGET=build webpack --watch",
+    "watch:client": "TARGET=dev webpack --watch",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "serve": "TARGET=dev webpack-dev-server --host 0.0.0.0 --history-api-fallback"
   },

@@ -29,6 +29,20 @@ export const anime = (state = Immutable.fromJS({ isFetching: false, anime: [] })
 };
 
 /**
+ * A filter factory function that uses a closure to wrap the key and predicate
+ * function around the object that we check for a truthy or falsey value.
+ *
+ * @param key
+ * @param predicateFn
+ * @returns {Function}
+ */
+const filterFunc = (key, predicateFn) => {
+  return filterableObj => {
+    return filterableObj.has(key) && predicateFn(filterableObj.get(key));
+  };
+};
+
+/**
  * @param {Map} state
  * @param {Object} action
  * @returns {*|any|Map<K, V>|Map<string, V>}
@@ -36,19 +50,32 @@ export const anime = (state = Immutable.fromJS({ isFetching: false, anime: [] })
 export const filters = (state = Immutable.Map(), action) => {
   switch (action.type) {
     case FILTER_BY_COMPLETE:
-      state = state.set('is_complete', action.active);
-      return state;
+      state = state.set('is_complete', {
+        value: action.active,
+        predicate: filterFunc('is_complete', filterObj => filterObj.toString() === action.active)
+      });
+      break;
 
     case FILTER_BY_NAME:
-      state = state.set('name', action.name);
-      return state;
+      state = state.set('title', {
+        value: action.name,
+        predicate: filterFunc('title', filterObj => {
+          return filterObj.toLowerCase().indexOf(action.name.toLowerCase()) !== -1;
+        })
+      });
+      break;
 
     case FILTER_BY_WATCHING:
-      state = state.set('is_watching', action.active);
-      return state;
+      state = state.set('is_watching', {
+        value: action.active,
+        predicate: filterFunc('is_watching', filterObj => filterObj.toString() === action.active)
+      });
+      break;
 
     default:
-      return state;
+      break;
   }
+
+  return Immutable.fromJS(state);
 };
 

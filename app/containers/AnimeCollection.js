@@ -8,16 +8,17 @@ import {
   filterByWatching
 } from '../actions/AnimeCollection';
 
-const filterCollectionByName = (collection, name) => {
+const applyFiltersToCollection = (collection, filters) => {
   return collection.filter(el => {
-    return el.get('title').indexOf(name) !== -1;
-  });
+    return filters.map(filter => filter.value === "reset" || filter.predicate(el))
+      .every(el => el === true);
+  })
 };
 
 const mapStateToProps = (state) => {
   return {
     _meta: Immutable.fromJS({ title: 'Anime Collection '}),
-    anime: state.anime,
+    anime: applyFiltersToCollection(state.anime.get('anime'), state.filters),
     filters: state.filters
   }
 };

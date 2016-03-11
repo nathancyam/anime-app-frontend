@@ -12,7 +12,7 @@ const FilterComponent = ({ filterLabels, onFilterCallback }) => {
     <div className="col-xs-12 col-sm-3">
       <select className="form-control"
               onChange={_onFilterCallback}>
-        <option value="">{filterLabels.main}</option>
+        <option value="reset">{filterLabels.main}</option>
         <option value={true}>{filterLabels.enabled}</option>
         <option value={false}>{filterLabels.disabled}</option>
       </select>
@@ -36,9 +36,12 @@ export default class AnimeList extends Component {
     this.props.fetchAnime();
   }
 
+  _onFilterByName(event) {
+    this.props.onFilterByName(event.target.value);
+  }
+
   render() {
     const {
-      onFilterByName,
       onFilterByComplete,
       onFilterByWatching,
       anime
@@ -54,7 +57,7 @@ export default class AnimeList extends Component {
                   <div className="col-xs-12 col-sm-6">
                     <input className="form-control" type="text"
                       placeholder="Filter By Name"
-                      onChange={onFilterByName} />
+                      onChange={this._onFilterByName.bind(this)} />
                   </div>
                   <FilterComponent filterLabels={{
                     main: 'Complete Status',
@@ -72,7 +75,7 @@ export default class AnimeList extends Component {
           </div>
           <div className="row anime-row">
             {
-              anime.get('anime').map((el, index) => {
+              anime.map((el, index) => {
                 return <ListItem
                   key={`anime-${index}-item`}
                   anime={el}
