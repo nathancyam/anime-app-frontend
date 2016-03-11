@@ -31,6 +31,8 @@ async function fetchData (renderProps) {
   }
 }
 
+app.use(express.static(__dirname + '/../public'));
+
 app.use('/bundle.js', (req, res) => {
   return fs.createReadStream(`${__dirname}/../build/bundle.js`).pipe(res);
 });
