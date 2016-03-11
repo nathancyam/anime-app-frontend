@@ -9,7 +9,7 @@ const FilterComponent = ({ filterLabels, onFilterCallback }) => {
   };
 
   return (
-    <div className="col-xs-12 col-md-6">
+    <div className="col-xs-12 col-sm-3">
       <select className="form-control"
               onChange={_onFilterCallback}>
         <option value="">{filterLabels.main}</option>
@@ -51,15 +51,11 @@ export default class AnimeList extends Component {
             <div className="col-xs-12">
               <form className="form-horizontal">
                 <div className="form-group">
-                  <div className="col-xs-10">
+                  <div className="col-xs-12 col-sm-6">
                     <input className="form-control" type="text"
                       placeholder="Filter By Name"
                       onChange={onFilterByName} />
                   </div>
-                  <div className="col-xs-2">
-                  </div>
-                </div>
-                <div className="form-group">
                   <FilterComponent filterLabels={{
                     main: 'Complete Status',
                     enabled: 'Completed',
