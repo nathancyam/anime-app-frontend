@@ -12,7 +12,7 @@ const AnimeImage = ({ imageUrl, className }) => {
     imageUrl = 'media/images/404.png';
   }
 
-  return <img className={className} src={`${hostname}/${imageUrl}`} />;
+  return <img className={className} src={imageUrl} />;
 };
 
 export default class AnimeItem extends Component {

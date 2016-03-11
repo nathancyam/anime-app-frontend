@@ -48,7 +48,7 @@ export default class ListItem extends React.Component {
       <div className="col-xs-12 col-sm-4 col-md-3 col-lg-2">
         <Link className="anime-item-link" to={`/anime/${animeId}`}>
           <div className="anime-item">
-            <img src={`${this.props.mediaRoot}${imageUrl}`} />
+            <img src={imageUrl} />
             <div className="content">
               <div className="title">{title}</div>
               <hr />

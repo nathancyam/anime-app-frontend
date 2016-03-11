@@ -22,6 +22,16 @@ var common = {
       {
         test: /\.scss$/,
         loader: 'style!css!sass?sourceMap'
+      },
+      {
+        // test for both js and jsx
+        test: /\.js$/,
+        // use babel loader with Stage 1 features
+        loader: 'babel',
+        // operate only on our app directory
+        include: [
+          path.resolve(ROOT_PATH, 'app')
+        ]
       }
     ]
   },
@@ -32,20 +42,6 @@ var common = {
 
 if (TARGET === 'build') {
   module.exports = merge(common, {
-    module: {
-      loaders: [
-        {
-          // test for both js and jsx
-          test: /\.js$/,
-          // use babel loader with Stage 1 features
-          loader: 'babel-loader',
-          // operate only on our app directory
-          include: [
-            path.resolve(ROOT_PATH, 'app')
-          ]
-        }
-      ]
-    },
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {

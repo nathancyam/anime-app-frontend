@@ -22,7 +22,7 @@ export function renderPage(html, data = {}) {
         <script type="text/javascript">
           __INITIAL_DATA__ = ${JSON.stringify(data)};
         </script>
-        <script src="/bundle.js"></script>
+        <script src="/build/bundle.js"></script>
       </body>
     </html>
   `;
