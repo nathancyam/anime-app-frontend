@@ -1,5 +1,7 @@
+@import '~bootswatch/flatly/variables';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap-sprockets';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import '~bootswatch/flatly/bootswatch';
 @import 'breakpoints';
 
 // Ensure nav bar doesn't get malformed from <Link> components

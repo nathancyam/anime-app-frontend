@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
 
@@ -8,6 +9,10 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'server.bundle.js'
+  },
+
+  resolve: {
+    extensions: ['', '.jsx', '.scss', '.js', '.json']
   },
 
   target: 'node',
@@ -27,10 +32,17 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
-      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel-loader' },
-      { test: /\.scss$/, loader: 'style!css!sass?sourceMap' }
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
+      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel' },
+      {
+        test: /(\.scss|\.css)$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader?sourceMap')
+      }
     ]
-  }
+  },
+
+  plugins: [
+    new ExtractTextPlugin("styles.css")
+  ]
 
 };

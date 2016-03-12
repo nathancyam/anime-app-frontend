@@ -37,6 +37,10 @@ app.use('/build/bundle.js', (req, res) => {
   return fs.createReadStream(`${__dirname}/../build/bundle.js`).pipe(res);
 });
 
+app.use('/build/styles.css', (req, res) => {
+  return fs.createReadStream(`${__dirname}/../build/styles.css`).pipe(res);
+});
+
 app.use('/api', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:3000' });
 });

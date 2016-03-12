@@ -1,6 +1,7 @@
 var path = require('path');
 var merge = require('webpack-merge');
 var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var TARGET = process.env.TARGET;
 var ROOT_PATH = path.resolve(__dirname);
@@ -8,6 +9,7 @@ var ROOT_PATH = path.resolve(__dirname);
 var common = {
   entry: ['babel-polyfill', path.resolve(ROOT_PATH, 'app/main')],
   resolve: {
+    extensions: ['', '.jsx', '.scss', '.js', '.json'],
     alias: {
       react: path.resolve(__dirname, './node_modules/react')
     },
@@ -20,8 +22,8 @@ var common = {
   module: {
     loaders: [
       {
-        test: /\.scss$/,
-        loader: 'style!css!sass?sourceMap'
+        test: /(\.scss|\.css)$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader?sourceMap')
       },
       {
         // test for both js and jsx
@@ -35,6 +37,9 @@ var common = {
       }
     ]
   },
+  plugins: [
+    new ExtractTextPlugin("styles.css")
+  ],
   resolveLoader: {
     fallback: path.resolve(__dirname, './node_modules')
   }
