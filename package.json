@@ -9,6 +9,7 @@
     "build:client": "TARGET=build webpack",
     "build": "npm run build:client && npm run build:server",
     "build:prod": "NODE_ENV=production npm run build:client && npm run build:server",
+    "deploy": "npm run build:prod; scp build/*.js build/*.css animeapp:/var/www/react-frontend/build",
     "start:prod": "npm run build && node server.bundle.js",
     "start:dev": "TARGET=dev webpack-dev-server --content-base build/ --devtool eval-source --progress --colors --hot --inline --history-api-fallback",
     "watch:server": "webpack --watch --config webpack.server.config.js",
