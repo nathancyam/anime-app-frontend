@@ -2,6 +2,7 @@
 "use strict";
 
 import express from 'express';
+import http from 'http'
 import httpProxy from 'http-proxy';
 import routes from './routes';
 import React from 'react';
@@ -14,7 +15,8 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { renderPage } from './helpers';
 
 let app = express();
-let apiProxy = httpProxy.createProxyServer({});
+let apiProxy = httpProxy.createProxyServer({ ws: true });
+const httpServer = http.createServer(app);
 
 /**
  * @param {Object} renderProps
@@ -31,6 +33,7 @@ async function fetchData (renderProps) {
   }
 }
 
+app.set('port', 1337);
 app.use(express.static(__dirname + '/../public'));
 
 app.use('/build/bundle.js', (req, res) => {
@@ -42,7 +45,27 @@ app.use('/build/styles.css', (req, res) => {
 });
 
 app.use('/api', (req, res) => {
-  apiProxy.web(req, res, { target: 'http://localhost:3000' });
+  apiProxy.web(req, res, { target: 'http://localhost:3000' }, err => {
+    if (err) {
+      console.error(err);
+      console.error(req);
+    }
+  });
+});
+
+app.use('/socket.io/*', (req, res) => {
+  console.log(`Web request for socket.io`);
+  apiProxy.web(req, res, { target: 'http://localhost:3000/socket.io' }, err => {
+    if (err) {
+      console.error(err);
+      console.error(req);
+    }
+  });
+});
+
+httpServer.on('upgrade', (req, res) => {
+  console.log(`Upgrade request for sockets`);
+  apiProxy.ws(req, res, { target: 'http://localhost:3000/socket.io' });
 });
 
 app.use('*', (req, res) => {
@@ -77,6 +100,10 @@ app.use('*', (req, res) => {
   });
 });
 
-app.listen(1337, () => {
-  console.log('Render server listening on port 1337.');
+httpServer.listen(app.get('port'), err => {
+  if (err) {
+    console.error(err);
+  }
+
+  console.log(`Render server listening on port: ${app.get('port')}`);
 });

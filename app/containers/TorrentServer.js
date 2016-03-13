@@ -6,6 +6,7 @@
 
 import { connect } from 'react-redux';
 import TorrentServer from '../views/TorrentServer';
+import { updateTorrentServer, addEpisodeToCollection } from '../actions/TorrentServer';
 
 const mapStateToProps = ({ torrentServer }) => {
   return {
@@ -15,7 +16,12 @@ const mapStateToProps = ({ torrentServer }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    onUpdateTorrentListing(data) {
+      dispatch(updateTorrentServer(data));
+    },
+    onAddEpisodeToCollection(torrent) {
+      dispatch(addEpisodeToCollection(torrent));
+    }
   };
 };
 

@@ -10,6 +10,7 @@ import { user } from '../reducers/Auth';
 import { episodes } from '../reducers/Episode';
 import { animeNewsNetwork } from '../reducers/AnimeNewsNetwork';
 import { torrents } from '../reducers/Torrent';
+import { torrentServer } from '../reducers/TorrentServer';
 import Immutable from 'immutable';
 
 export function configureStore(history, initialState) {
@@ -21,6 +22,7 @@ export function configureStore(history, initialState) {
     anime,
     episodes,
     torrents,
+    torrentServer,
     animeNewsNetwork,
     filters,
     user
