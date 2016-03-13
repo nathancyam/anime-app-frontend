@@ -51,12 +51,13 @@
     "isomorphic-fetch": "^2.1.1",
     "lodash": "^4.6.1",
     "react": "^0.14.7",
-    "react-dom": "^0.14.7",
     "react-bootstrap": "^0.28.3",
+    "react-dom": "^0.14.7",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0",
     "react-router-redux": "^4.0.0",
     "redux": "^3.3.1",
-    "redux-thunk": "^1.0.3"
+    "redux-thunk": "^1.0.3",
+    "socket.io-client": "^1.4.5"
   }
 }

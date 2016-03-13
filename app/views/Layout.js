@@ -29,6 +29,9 @@ export default class Layout extends React.Component {
                 <Link to="/torrents"><i className="fa fa-download" /> Torrents</Link>
               </NavItem>
               <NavItem eventKey={3}>
+                <Link to="/torrents/server"><i className="fa fa-server" /> Torrent Server</Link>
+              </NavItem>
+              <NavItem eventKey={4}>
                 <Link to="/settings"><i className="fa fa-cogs" /> Settings</Link>
               </NavItem>
             </Nav>
