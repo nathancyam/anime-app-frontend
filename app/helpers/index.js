@@ -1,6 +1,11 @@
 import fetch from 'isomorphic-fetch';
 
-export const hostname = "http://localhost:1337/api";
+let _hostname = 'http://localhost:1337/api';
+if (process.env.NODE_ENV === 'production') {
+  _hostname = 'https://anime.nathanyam.com/api';
+}
+
+export const hostname = _hostname;
 
 /**
  * @param {String} html
@@ -40,12 +45,6 @@ export function isLoggedIn() {
  * @param {Object} headers
  */
 export var fetchApi = (url, headers = {}) => {
-  if (url.indexOf('/torrent/add') !== -1) {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve({ json() { Promise.resolve('json') } }), 5000);
-    });
-  }
-
   let defaults = {
     headers: {
       'Authorization': 'Basic YW5pbWVhcHA6TTJ3SVNveVBmUA==',
