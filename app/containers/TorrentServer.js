@@ -6,11 +6,19 @@
 
 import { connect } from 'react-redux';
 import TorrentServer from '../views/TorrentServer';
-import { updateTorrentServer, addEpisodeToCollection } from '../actions/TorrentServer';
+import { updateTorrentServer, addEpisodeToCollection, filterByName } from '../actions/TorrentServer';
+
+const filterCollectionByName = (collection, name) => {
+  if (!name || name.length === 0) {
+    return collection;
+  }
+  return collection.filter(torrent => torrent.get('name').toLowerCase().indexOf(name.toLowerCase()) !== -1);
+};
 
 const mapStateToProps = ({ torrentServer }) => {
   return {
-    torrentServer
+    torrents: filterCollectionByName(torrentServer.get('list'), torrentServer.getIn(['filter', 'name'])),
+    filterNameValue: torrentServer.getIn(['filter', 'name'])
   };
 };
 
@@ -21,6 +29,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onAddEpisodeToCollection(torrent) {
       dispatch(addEpisodeToCollection(torrent));
+    },
+    onFilterTorrents(value) {
+      dispatch(filterByName(value));
     }
   };
 };

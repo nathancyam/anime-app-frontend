@@ -31,3 +31,11 @@ export function addedEpisodeToCollection(torrent) {
     torrent
   }
 }
+
+export const FILTER_TORRENTS_BY_NAME = 'FILTER_TORRENTS_BY_NAME';
+export function filterByName(name) {
+  return {
+    type: FILTER_TORRENTS_BY_NAME,
+    value: name
+  }
+}

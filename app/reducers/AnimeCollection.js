@@ -3,7 +3,7 @@ import {
   FETCH_ANIME,
   RECEIVED_ANIME,
   FILTER_BY_COMPLETE,
-  FILTER_BY_NAME,
+  FILTER_ANIME_BY_NAME,
   FILTER_BY_WATCHING
 } from '../actions/AnimeCollection';
 
@@ -50,26 +50,26 @@ const filterFunc = (key, predicateFn) => {
 export const filters = (state = Immutable.Map(), action) => {
   switch (action.type) {
     case FILTER_BY_COMPLETE:
-      state = state.set('is_complete', {
+      state = state.set('is_complete', Immutable.fromJS({
         value: action.active,
         predicate: filterFunc('is_complete', filterObj => filterObj.toString() === action.active)
-      });
+      }));
       break;
 
-    case FILTER_BY_NAME:
-      state = state.set('title', {
+    case FILTER_ANIME_BY_NAME:
+      state = state.set('title', Immutable.fromJS({
         value: action.name,
         predicate: filterFunc('title', filterObj => {
           return filterObj.toLowerCase().indexOf(action.name.toLowerCase()) !== -1;
         })
-      });
+      }));
       break;
 
     case FILTER_BY_WATCHING:
-      state = state.set('is_watching', {
+      state = state.set('is_watching', Immutable.fromJS({
         value: action.active,
         predicate: filterFunc('is_watching', filterObj => filterObj.toString() === action.active)
-      });
+      }));
       break;
 
     default:

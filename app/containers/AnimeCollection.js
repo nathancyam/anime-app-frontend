@@ -10,7 +10,7 @@ import {
 
 const applyFiltersToCollection = (collection, filters) => {
   return collection.filter(el => {
-    return filters.map(filter => filter.value === "reset" || filter.predicate(el))
+    return filters.map(filter => filter.get('value') === "reset" || filter.get('predicate')(el))
       .every(el => el === true);
   })
 };

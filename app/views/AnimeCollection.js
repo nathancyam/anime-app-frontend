@@ -57,6 +57,7 @@ export default class AnimeList extends Component {
                   <div className="col-xs-12 col-sm-6">
                     <input className="form-control" type="text"
                       placeholder="Filter By Name"
+                      value={this.props.filters.getIn(['title', 'value'])}
                       onChange={this._onFilterByName.bind(this)} />
                   </div>
                   <FilterComponent filterLabels={{

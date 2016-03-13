@@ -22,10 +22,10 @@ export function receivedAnime(collection) {
   };
 }
 
-export const FILTER_BY_NAME = 'FILTER_BY_NAME';
+export const FILTER_ANIME_BY_NAME = 'FILTER_ANIME_BY_NAME';
 export function filterByName(name) {
   return {
-    type: FILTER_BY_NAME,
+    type: FILTER_ANIME_BY_NAME,
     name
   };
 }
