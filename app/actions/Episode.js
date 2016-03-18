@@ -15,6 +15,14 @@ export function receivedEpisodes(animeId, episodes) {
   }
 }
 
+export const RECEIVED_ALL_EPISODES = 'RECEIVED_ALL_EPISODES';
+export function receivedAllEpisodes(episodes) {
+  return {
+    type: RECEIVED_ALL_EPISODES,
+    episodes
+  }
+}
+
 /**
  * @param {String} animeId
  * @returns {Function}
@@ -27,4 +35,30 @@ export function fetchAnimeEpisodes(animeId) {
         return dispatch(receivedEpisodes(animeId, episodes));
       });
   };
+}
+
+export function fetchAllEpisodes() {
+  return dispatch => {
+    factory()
+      .getEpisodes()
+      .then(episodes => {
+        const sortedEpisodes = episodes.reduce((carry, item) => {
+          const hasAnime = item.has('anime');
+          if (!hasAnime) {
+            return carry;
+          }
+
+          const anime = item.get('anime');
+          if (!carry[anime]) {
+            carry[anime] = [ item ];
+            return carry;
+          }
+
+          carry[anime].push(item);
+          return carry;
+        }, {});
+
+        return dispatch(receivedAllEpisodes(sortedEpisodes));
+      });
+  }
 }

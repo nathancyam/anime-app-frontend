@@ -5,9 +5,23 @@
 "use strict";
 
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { factory } from '../services/WebsocketService';
 
-const TorrentItem = ({ torrent, onAddEpisodeToCollection }) => {
+const AddToCollectionButton = ({ onAddEpisodeToCollection, hasEpisode }) => {
+  if (hasEpisode) {
+    return <button className="btn btn-default btn-sm">In Collection</button>;
+  }
+
+  return (
+    <button className="btn btn-info btn-sm"
+            onClick={onAddEpisodeToCollection}>
+      <i className="fa fa-plus" /> Add Episode to Collection
+    </button>
+  );
+};
+
+const TorrentItem = ({ hasEpisode, torrent, onAddEpisodeToCollection }) => {
   const process = Math.floor(torrent.get('percentDone') * 100);
 
   const _onAddEpisodeToCollection = (event) => {
@@ -42,10 +56,10 @@ const TorrentItem = ({ torrent, onAddEpisodeToCollection }) => {
       </div>
       <div className="row">
         <div className="col-xs-12">
-          <button className="btn btn-info btn-sm"
-                  onClick={_onAddEpisodeToCollection}>
-            Add Episode to Collection
-          </button>
+          <AddToCollectionButton
+            hasEpisode={hasEpisode}
+            onAddEpisodeToCollection={_onAddEpisodeToCollection}
+          />
         </div>
       </div>
     </li>
@@ -54,24 +68,51 @@ const TorrentItem = ({ torrent, onAddEpisodeToCollection }) => {
 
 const TorrentFilters = ({ filterNameValue, onFilterByName }) => {
   return (
-    <form className="form-inline">
-      <div className="form-group">
-        <input type="text" placeholder="Filter by name" value={filterNameValue}
-               className="form-control"
-               onChange={onFilterByName} />
+    <input type="text" placeholder="Filter by name" value={filterNameValue}
+           className="form-control"
+           onChange={onFilterByName} />
+  );
+};
+
+const TorrentSort = ({ fields, onChangeField, onChangeOrder, currentField, currentOrder }) => {
+  const toNormalCase = (string) => {
+    return _.snakeCase(string)
+      .split('_')
+      .map(word => `${word.slice(0, 1).toUpperCase()}${word.slice(1)}`)
+      .join(' ');
+  };
+
+  return (
+    <div className="sort-torrents">
+      <div className="col-xs-12 col-sm-2">
+        <select className="form-control" onChange={onChangeField} value={currentField}>
+          {
+            fields.map(field => {
+              return <option key={`field_${field}`} value={field}>{toNormalCase(field)}</option>;
+            })
+          }
+        </select>
       </div>
-    </form>
+      <div className="col-xs-12 col-sm-2">
+        <select className="form-control" onChange={onChangeOrder} value={currentOrder}>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </div>
+    </div>
   );
 };
 
 export default class TorrentServer extends Component {
 
   componentDidMount() {
+    const { onUpdateTorrentListing, fetchAllEpisodes } = this.props;
     const wsService = factory();
     wsService.addListener('torrent_server:listing', data => {
-      this.props.onUpdateTorrentListing(data);
+      onUpdateTorrentListing(data);
     });
     wsService.connect();
+    fetchAllEpisodes();
   }
 
   _onAddEpisodeToCollection(torrent) {
@@ -80,6 +121,10 @@ export default class TorrentServer extends Component {
 
   _onFilterByName(event) {
     this.props.onFilterTorrents(event.target.value);
+  }
+
+  hasEpisode(torrent) {
+    return this.props.episodes.find(el => el === torrent.get('name'));
   }
 
   renderListing() {
@@ -100,14 +145,29 @@ export default class TorrentServer extends Component {
 
     return (
       <section>
-        <div className="row">
-          <div className="col-xs-12">
-            <TorrentFilters filterNameValue={filterNameValue} onFilterByName={this._onFilterByName.bind(this)} />
+        <form className="form-horizontal">
+          <div className="form-group">
+            <div className="col-xs-12 col-sm-8">
+              <TorrentFilters filterNameValue={filterNameValue} onFilterByName={this._onFilterByName.bind(this)} />
+            </div>
+            <TorrentSort fields={this.props.sortFields}
+                         currentField={this.props.sort.get('field')}
+                         currentOrder={this.props.sort.get('order')}
+                         onChangeOrder={this.props.onChangeOrder}
+                         onChangeField={this.props.onChangeField}
+             />
           </div>
-        </div>
+        </form>
         <ul className="list-group">
-          {torrents.map(torrent => {
-            return <TorrentItem torrent={torrent} onAddEpisodeToCollection={this._onAddEpisodeToCollection.bind(this)} />
+          {torrents.map((torrent, key) => {
+            return (
+              <TorrentItem
+                key={`torrent_${key}`}
+                hasEpisode={this.hasEpisode(torrent)}
+                torrent={torrent}
+                onAddEpisodeToCollection={this._onAddEpisodeToCollection.bind(this)}
+              />
+            );
           })}
         </ul>
       </section>

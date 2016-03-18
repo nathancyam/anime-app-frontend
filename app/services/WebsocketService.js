@@ -37,7 +37,6 @@ class WebsocketService extends BaseService {
 
 export const factory = () => {
   if (!instance) {
-    console.log('new instance');
     instance = new WebsocketService();
   }
 

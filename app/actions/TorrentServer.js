@@ -39,3 +39,12 @@ export function filterByName(name) {
     value: name
   }
 }
+
+export const SORT_TORRENTS_BY_FIELD = 'SORT_TORRENTS_BY_FIELD';
+export function sortTorrents(field, order) {
+  return {
+    type: SORT_TORRENTS_BY_FIELD,
+    field,
+    order
+  }
+}
