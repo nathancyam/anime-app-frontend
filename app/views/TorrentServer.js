@@ -130,7 +130,7 @@ export default class TorrentServer extends Component {
   renderListing() {
     const { torrents, filterNameValue } = this.props;
 
-    if (torrents.count() === 0) {
+    if (torrents.count() === 0 && filterNameValue.length === 0) {
       return (
         <section>
           <div className="row">
