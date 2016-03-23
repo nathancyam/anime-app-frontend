@@ -85,13 +85,17 @@ app.use('*', (req, res) => {
     } else if (renderProps) {
       fetchData(renderProps)
         .then(initialData => {
-          store = configureStore(memoryHistory, initialData);
-          const content = renderToString(
-            <Provider store={store}>
-              <RouterContext {...renderProps}/>
-            </Provider>
-          );
-          return res.status(200).send(renderPage(content, initialData));
+          try {
+            store = configureStore(memoryHistory, initialData);
+            const content = renderToString(
+              <Provider store={store}>
+                <RouterContext {...renderProps}/>
+              </Provider>
+            );
+            return res.status(200).send(renderPage(content, initialData));
+          } catch (err) {
+            return res.status(500).send(`<pre>${err.stack}</pre>`);
+          }
         })
         .catch(error => {
           return res.status(500).send(error);
