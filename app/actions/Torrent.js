@@ -42,7 +42,7 @@ export function addTorrent(torrent) {
   return dispatch => {
     dispatch(addingTorrent(torrent));
     factory()
-      .addTorrent(torrent.get('href'))
+      .addTorrent(torrent.get('href'), { name: torrent.get('name') })
       .then(() => {
         dispatch(addedTorrent(torrent));
       })

@@ -14,11 +14,11 @@ class TorrentService extends BaseService {
     return this.makeImmutable(jsonResponse);
   }
 
-  async addTorrent(torrentUrl) {
+  async addTorrent(torrentUrl, meta) {
     try {
       const response = await this.fetchApi(ADD_TORRENT_URL, {
         method: 'POST',
-        body: JSON.stringify({ torrentUrl })
+        body: JSON.stringify({ torrentUrl, meta })
       });
       const jsonResponse = await response.json();
       return this.makeImmutable(jsonResponse);
