@@ -1,136 +1,113 @@
-import React from 'react';
-import _ from 'lodash';
+import React, { Component, PropTypes } from 'react';
 
-class Icon extends React.Component {
-  render () {
-    let icon = this.props.switchState[this.props.initialSwitchState]['icon'];
-    let iconText = this.props.switchState[this.props.initialSwitchState]['iconText'];
-
-    return (
-      <button
-        className="btn btn-primary"
-        onClick={this.props.onIconClick}>
-        <i className={icon}></i>
-        <span className="icon-text">{iconText}</span>
-      </button>
-    );
+const predicateFn = (objTrue, objFalse, boolVal) => {
+  if (boolVal) {
+    return objTrue;
+  } else {
+    return objFalse;
   }
-}
-
-Icon.propTypes = {
-  switchState: React.PropTypes.object,
-  initialSwitchState: React.PropTypes.string,
-  onIconClick: React.PropTypes.func
 };
 
-export default class ManageAnime extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onSubGroupChange = this.onSubGroupChange.bind(this);
-    this.onSubGroupSave = this.onSubGroupSave.bind(this);
-    this.onWatchingChange = this.onWatchingChange.bind(this);
-    this.onCompleteChange = this.onCompleteChange.bind(this);
-    this.state = {
-      isWatching: true,
-      isComplete: true,
-      subgroup: this.props.anime.designated_subgroup
-    };
-  }
+const FontAwesomeButton = ({ predicate, boolValue, onClick }) => {
+  const {
+    icon,
+    label
+  } = predicate(boolValue);
 
-  onSubGroupChange(event) {
-    this.setState({subgroup: event.target.value});
-  }
+  return (
+    <button className="btn btn-success" onClick={onClick}>
+      <i className={`fa ${icon}`} /> {label}
+    </button>
+  );
+};
 
-  onSubGroupSave(event) {
+export default class Manage extends Component {
+
+  onWatchingClick(event) {
     event.preventDefault();
-    this.props.onAnimePropertyChange({designated_subgroup: this.state.subgroup});
+    let { anime, onAnimePropertyChange } = this.props;
+    return onAnimePropertyChange(anime.get('_id'), 'is_watching', !anime.get('is_watching'));
   }
 
-  onWatchingChange(event) {
+  onCompleteClick(event) {
     event.preventDefault();
-    let isWatching = false;
-    if (!_.isUndefined(this.props.anime.is_watching)) {
-      isWatching = this.props.anime.is_watching;
-    }
-
-    this.props.onAnimePropertyChange({ is_watching: !isWatching });
+    let { anime, onAnimePropertyChange } = this.props;
+    return onAnimePropertyChange(anime.get('_id'), 'is_watching', !anime.get('is_watching'));
   }
 
-  onCompleteChange(event) {
+  onSubgroupClick(event) {
     event.preventDefault();
-    let isComplete = false;
-    if (!_.isUndefined(this.props.anime.is_complete)) {
-      isComplete = this.props.anime.is_complete;
-    }
-
-    this.props.onAnimePropertyChange({ is_complete: !isComplete });
+    let { anime, onAnimePropertyChange } = this.props;
+    return onAnimePropertyChange(anime.get('_id'), 'designated_subgroup', this.subgroup.value);
   }
 
-  render () {
-    const anime = this.props.anime;
+  render() {
+    const { anime } = this.props;
+    const isWatching = anime.get('is_watching');
+    const subgroup = anime.get('designated_subgroup');
+    const isComplete = anime.get('is_complete');
+
+    const isWatchingFn = predicateFn.bind(null, {
+        icon: 'fa-eye',
+        label: 'Watching'
+      }, {
+        icon: 'fa-eye-slash',
+        label: 'Not Watching'
+      }
+    );
+
+    const isCompleteFn = predicateFn.bind(null, {
+        icon: 'fa-check',
+        label: 'Complete'
+      }, {
+        icon: 'fa-times',
+        label: 'Not Complete'
+      }
+    );
 
     return (
-      <div>
-        <div className="manage_anime">
+      <div className="row">
+        <div className="col-xs-12">
           <form className="form-inline">
-            <div className="manage-container form-group">
-              <div className="manage-btn-container">
-                <Icon
-                  initialSwitchState={anime.is_watching ? "on" : "off"}
-                  onIconClick={this.onWatchingChange}
-                  switchState={{
-                    on: {
-                      icon: "fa fa-eye",
-                      iconText: "Watching"
-                    },
-                    off: {
-                      icon: "fa fa-eye-slash",
-                      iconText: "Not Watching"
-                    }
-                  }} />
-                <button className="btn btn-primary"
-                  onClick={this.props.reset}>
-                  <i className="fa fa-refresh"></i>
-                  <span className="icon-text">Sync</span>
-                </button>
-                <Icon
-                  initialSwitchState={anime.is_complete ? "on" : "off"}
-                  onIconClick={this.onCompleteChange}
-                  switchState={{
-                    on: {
-                      icon: "fa fa-check",
-                      iconText: "Complete"
-                    },
-                    off: {
-                      icon: "fa fa-cross",
-                      iconText: "Incomplete"
-                    }
-                  }} />
+            <div className="form-group">
+              <div className="input-group">
+                <input
+                  ref={(ref) => this.subgroup = ref}
+                  type="text"
+                  className="form-control"
+                  defaultValue={subgroup}
+                />
+                <span className="input-group-btn">
+                  <button
+                    className="btn btn-default"
+                    type="button"
+                    onClick={this.onSubgroupClick.bind(this)}
+                  >
+                    <i className="fa fa-save" /> Save Subgroup
+                  </button>
+                </span>
               </div>
             </div>
-          </form>
-        </div>
-        <div>
-          <div className="manage_anime">
-            <div className="subgroup">
-              <input type="text" className="form-control subgroup-name"
-                     value={this.state.subgroup}
-                     onChange={this.onSubGroupChange} />
-              <button className="btn btn-success"
-                onClick={this.onSubGroupSave}>
-                <i className="fa fa-save"></i>
-                <span className="icon-text">Save Subgroup</span>
-              </button>
+            <div className="form-group">
+              <FontAwesomeButton
+                predicate={isWatchingFn}
+                boolValue={isWatching}
+                onClick={this.onWatchingClick.bind(this)}
+              />
+              <FontAwesomeButton
+                predicate={isCompleteFn}
+                boolValue={isComplete}
+                onClick={this.onCompleteClick.bind(this)}
+              />
             </div>
-          </div>
+          </form>
         </div>
       </div>
     );
   }
 }
 
-ManageAnime.propTypes = {
-  reset: React.PropTypes.func,
-  onAnimePropertyChange: React.PropTypes.func,
-  anime: React.PropTypes.object
+Manage.propTypes = {
+  onAnimePropertyChange: PropTypes.func,
+  anime: PropTypes.object
 };

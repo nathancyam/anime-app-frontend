@@ -37,7 +37,7 @@ export function renderPage(html, data = {}) {
  * @returns {Object|null}
  */
 export function isLoggedIn() {
-  return getStore().getState(user);
+  return getStore().getState();
 }
 
 /**

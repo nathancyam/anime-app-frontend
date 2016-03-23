@@ -3,8 +3,22 @@
  */
 
 import Immutable from 'immutable';
+import { factory } from '../services/AnimeItemService';
 
-export const FIND_BY_ID = 'FIND_BY_ID';
-export const RESET = 'RESET';
-export const SAVE_ANIME = 'SAVE_ANIME';
+export const SAVED_ANIME = 'SAVED_ANIME';
+export const savedAnime = (anime) => {
+  return {
+    type: SAVED_ANIME,
+    anime: Immutable.fromJS(anime)
+  };
+};
+
+export const animePropertyChange = (animeId, property, value) => {
+  return dispatch => {
+    const animeService = factory(animeId);
+    animeService.saveAnime({ [property]: value })
+      .then(anime => dispatch(savedAnime(anime)))
+      .catch(err => console.error(err));
+  };
+};
 

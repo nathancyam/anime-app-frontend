@@ -16,6 +16,7 @@ const applyFiltersToCollection = (collection, filters) => {
 };
 
 const mapStateToProps = (state) => {
+
   return {
     _meta: Immutable.fromJS({ title: 'Anime Collection '}),
     anime: applyFiltersToCollection(state.anime.get('anime'), state.filters),

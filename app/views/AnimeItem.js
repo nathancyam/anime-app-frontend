@@ -4,7 +4,6 @@ import EpisodeList from '../components/Anime/Item/EpisodeList';
 import ManageAnime from '../components/Anime/Item/Manage';
 import TorrentList from './TorrentList';
 import AnimeNewsNetwork from '../components/Anime/Ann';
-import { hostname } from '../helpers';
 import { factory } from '../services/AnimeItemService';
 
 const AnimeImage = ({ imageUrl, className }) => {
@@ -52,7 +51,8 @@ export default class AnimeItem extends Component {
       torrents,
       searchTorrents,
       onAddTorrent,
-      onResetTorrents
+      onResetTorrents,
+      onAnimePropertyChange
     } = this.props;
     const imageUrl = anime.get('image_url');
 
@@ -82,6 +82,10 @@ export default class AnimeItem extends Component {
         <div className="col-xs-12 col-md-8">
           <div className="row">
             <div className="col-xs-12">
+              <ManageAnime
+                anime={anime}
+                onAnimePropertyChange={onAnimePropertyChange}
+              />
               <Accordion defaultActiveKey="2">
                 <Panel header="Episodes" eventKey="1">
                   <div className="row">

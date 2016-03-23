@@ -7,6 +7,10 @@ import {
   FILTER_BY_WATCHING
 } from '../actions/AnimeCollection';
 
+import {
+  SAVED_ANIME
+} from '../actions/AnimeItems';
+
 /**
  * @param {Map} state
  * @param {Object} action
@@ -21,6 +25,17 @@ export const anime = (state = Immutable.fromJS({ isFetching: false, anime: [] })
     case RECEIVED_ANIME:
       state = state.set('isFetching', false);
       state = state.set('anime', action.anime);
+      return state;
+
+    case SAVED_ANIME:
+      let anime = state.get('anime');
+      anime = anime.map(el => {
+        if (el.get('_id') === action.anime.get('_id')) {
+          return action.anime;
+        }
+        return el;
+      });
+      state = state.set('anime', Immutable.fromJS(anime));
       return state;
 
     default:

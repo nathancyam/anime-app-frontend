@@ -70,6 +70,24 @@ class AnimeItemService extends BaseService {
     return Object.assign({}, payload, { animeNewsNetwork }, { torrents });
   }
 
+  /**
+   * @param {Object} changeProperties
+   * @returns {Promise.<Map>}
+   */
+  async saveAnime(changeProperties) {
+    try {
+      let response = await this.fetchApi(`/anime/${this.animeId}`,
+        {
+          method: 'POST',
+          body: JSON.stringify(changeProperties)
+        }
+      );
+      return await response.json();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   getAnimeResponse() {
     return this.makeRequest('/anime');
   }
@@ -78,9 +96,9 @@ class AnimeItemService extends BaseService {
     return this.makeRequest(this.getEpisodeUrl());
   }
 
-  async makeRequest(url) {
+  async makeRequest(url, method) {
     try {
-      let response = await this.fetchApi(url);
+      let response = await this.fetchApi(url, method);
       return await response.json();
     } catch (error) {
       console.error(error);

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import AnimeItem from '../views/AnimeItem';
 import Immutable from 'immutable';
 import { fetchAnimeEpisodes } from '../actions/Episode';
+import { animePropertyChange } from '../actions/AnimeItems';
 import { fetchAnimeNewsNetworkDetails } from '../actions/AnimeNewsNetwork';
 import { searchTorrents, enteringQuery, addTorrent, resetTorrents } from '../actions/Torrent';
 
@@ -47,6 +48,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onResetTorrents() {
       dispatch(resetTorrents());
+    },
+    onAnimePropertyChange(animeId, property, value) {
+      dispatch(animePropertyChange(animeId, property, value));
     }
   };
 };
