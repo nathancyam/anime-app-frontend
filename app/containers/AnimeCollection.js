@@ -7,6 +7,7 @@ import {
   filterByName,
   filterByWatching
 } from '../actions/AnimeCollection';
+import { deleteAnime } from '../actions/AnimeItems';
 
 const applyFiltersToCollection = (collection, filters) => {
   return collection.filter(el => {
@@ -28,6 +29,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchAnime() {
       dispatch(fetchAnime());
+    },
+
+    onDeleteAnime(animeId) {
+      dispatch(deleteAnime(animeId));
     },
 
     onFilterByComplete(value) {

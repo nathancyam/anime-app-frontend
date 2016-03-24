@@ -3,6 +3,7 @@
  */
 
 import Immutable from 'immutable';
+import { fetchAnime } from './AnimeCollection';
 import { factory } from '../services/AnimeItemService';
 
 export const SAVED_ANIME = 'SAVED_ANIME';
@@ -22,3 +23,11 @@ export const animePropertyChange = (animeId, property, value) => {
   };
 };
 
+export const deleteAnime = (animeId) => {
+  return dispatch => {
+    const animeService = factory(animeId);
+    animeService.removeAnime()
+      .then(() => dispatch(fetchAnime()))
+      .catch(err => console.error(err));
+  };
+};

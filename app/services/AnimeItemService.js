@@ -69,6 +69,17 @@ class AnimeItemService extends BaseService {
 
     return Object.assign({}, payload, { animeNewsNetwork }, { torrents });
   }
+  
+  async removeAnime() {
+    try {
+      let response = await this.fetchApi(`/anime/${this.animeId}`, {
+        method: 'DELETE'
+      });
+      return await response.json();
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   /**
    * @param {Object} changeProperties

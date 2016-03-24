@@ -44,6 +44,7 @@ export default class AnimeList extends Component {
     const {
       onFilterByComplete,
       onFilterByWatching,
+      onDeleteAnime,
       anime
     } = this.props;
 
@@ -79,6 +80,7 @@ export default class AnimeList extends Component {
               anime.map((el, index) => {
                 return <ListItem
                   key={`anime-${index}-item`}
+                  onDeleteAnime={onDeleteAnime}
                   anime={el}
                   mediaRoot={hostname} />;
               })
