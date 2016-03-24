@@ -32,7 +32,7 @@ export default class Manage extends Component {
   onCompleteClick(event) {
     event.preventDefault();
     let { anime, onAnimePropertyChange } = this.props;
-    return onAnimePropertyChange(anime.get('_id'), 'is_watching', !anime.get('is_watching'));
+    return onAnimePropertyChange(anime.get('_id'), 'is_complete', !anime.get('is_complete'));
   }
 
   onSubgroupClick(event) {
