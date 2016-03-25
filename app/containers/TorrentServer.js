@@ -71,27 +71,72 @@ const mapStateToProps = ({ anime, torrentServer, episodes, uiMeta }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    /**
+     * Assigns a torrent to an anime.
+     * @param animeId
+     */
+    onAssignToAnime(animeId) {
+      dispatch(assignToAnime(animeId));
+    },
+
+    /**
+     * Hides the modal on the torrent server page.
+     */
     hideTorrentModal() {
       dispatch(hideTorrentModal());
     },
-    showTorrentModal() {
-      dispatch(showTorrentModal());
+
+    /**
+     * Shows the modal on the torrent server page.
+     * @param {Map} torrentObj
+     */
+    showTorrentModal(torrentObj) {
+      dispatch(showTorrentModal(torrentObj));
     },
+
+    /**
+     * Updates the torrent server.
+     * @param data
+     */
     onUpdateTorrentListing(data) {
       dispatch(updateTorrentServer(data));
     },
+
+    /**
+     * Adds an episode to the anime collection
+     * @param torrent
+     */
     onAddEpisodeToCollection(torrent) {
       dispatch(addEpisodeToCollection(torrent));
     },
+
+    /**
+     * Filters torrent list by given value
+     * @param value
+     */
     onFilterTorrents(value) {
       dispatch(filterByName(value));
     },
+
+    /**
+     * Sorts the torrents given a field.
+     * @param event
+     */
     onChangeField(event) {
       dispatch(sortTorrents(event.target.value));
     },
+
+    /**
+     * Changes the sorting order of the current field.
+     * @param event
+     */
     onChangeOrder(event) {
       dispatch(sortTorrents(null, event.target.value));
     },
+
+    /**
+     * Fetches all episode models
+     */
     fetchAllEpisodes() {
       dispatch(fetchAllEpisodes());
     }

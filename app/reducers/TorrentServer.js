@@ -21,7 +21,8 @@ const defaultOptions = {
 export const torrentServer = (state = Immutable.fromJS(defaultOptions), action) => {
   switch (action.type) {
     case UPDATE_TORRENT_SERVER:
-      state = state.set('list', Immutable.fromJS(action.torrentListing));
+      const immutableListing = Immutable.fromJS(action.torrentListing);
+      state = state.set('list', immutableListing);
       break;
 
     case FILTER_TORRENTS_BY_NAME:

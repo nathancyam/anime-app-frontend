@@ -7,22 +7,40 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 
-export default ({ anime, showModal, hideModal }) => {
-  let boolShowModal = false;
-  if (showModal === 'show') {
-    boolShowModal = true;
-  }
+export default ({ anime, modal, onHideModal, onAssignToAnime }) => {
+  const _onAssignToAnime = (event) => {
+    event.preventDefault();
+    onAssignToAnime(modal.get('data'), anime.get('_id'));
+  };
+  
+  let isShown = modal.has('state')
+    ? modal.get('state')
+    : 'hide';
+
+  isShown = isShown !== 'hide';
+
+  const torrentTitle = modal.has('data')
+    ? modal.getIn(['data', 'name'])
+    : '';
 
   return (
-    <Modal show={boolShowModal} onHide={hideModal}>
+    <Modal show={isShown} onHide={onHideModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Add To Anime</Modal.Title>
+        <Modal.Title>Add {torrentTitle} to Anime</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="list-group">
           {
             anime.map(el => {
-              return <button type="button" className="list-group-item">{el.get('title')}</button>;
+              return (
+                <button
+                  type="button"
+                  className="list-group-item"
+                  onClick={_onAssignToAnime}
+                >
+                  {el.get('title')}
+                </button>
+              );
             })
           }
         </div>

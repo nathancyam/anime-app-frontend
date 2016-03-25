@@ -49,7 +49,15 @@ export default class TorrentServer extends Component {
   }
 
   renderListing() {
-    const { torrents, filterNameValue, showTorrentModal } = this.props;
+    const {
+      torrents,
+      filterNameValue,
+      showTorrentModal,
+      sort,
+      sortFields,
+      onChangeOrder,
+      onChangeField
+    } = this.props;
 
     if (torrents.count() === 0 && filterNameValue.length === 0) {
       return (
@@ -71,11 +79,11 @@ export default class TorrentServer extends Component {
             <div className="col-xs-12 col-sm-8">
               <TorrentFilters filterNameValue={filterNameValue} onFilterByName={this._onFilterByName.bind(this)} />
             </div>
-            <TorrentSort fields={this.props.sortFields}
-                         currentField={this.props.sort.get('field')}
-                         currentOrder={this.props.sort.get('order')}
-                         onChangeOrder={this.props.onChangeOrder}
-                         onChangeField={this.props.onChangeField}
+            <TorrentSort fields={sortFields}
+                         currentField={sort.get('field')}
+                         currentOrder={sort.get('order')}
+                         onChangeOrder={onChangeOrder}
+                         onChangeField={onChangeField}
              />
           </div>
         </form>
@@ -103,10 +111,6 @@ export default class TorrentServer extends Component {
       modal
     } = this.props;
 
-    const modalState = modal.has('state')
-      ? modal.get('state')
-      : false;
-
     return(
       <section>
         <div className="row">
@@ -114,8 +118,8 @@ export default class TorrentServer extends Component {
             <h1>Torrent Server</h1>
             <TorrentModal
               anime={anime}
-              showModal={modalState}
-              hideModal={hideTorrentModal}
+              modal={modal}
+              onHideModal={hideTorrentModal}
             />
             {this.renderListing()}
           </div>

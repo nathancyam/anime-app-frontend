@@ -5,10 +5,11 @@
 "use strict";
 
 export const MODAL_TORRENT = 'MODAL_TORRENT';
-export const showTorrentModal = () => {
+export const showTorrentModal = (data) => {
   return {
     type: MODAL_TORRENT,
-    state: 'show'
+    state: 'show',
+    data
   };
 };
 

@@ -14,6 +14,11 @@ export default ({ hasEpisode, torrent, onAddEpisodeToCollection, showTorrentModa
     event.preventDefault();
     onAddEpisodeToCollection(torrent);
   };
+  
+  const _showTorrentModal = (event) => {
+    event.preventDefault();
+    showTorrentModal(torrent);
+  };
 
   return (
     <li className="list-group-item">
@@ -47,7 +52,7 @@ export default ({ hasEpisode, torrent, onAddEpisodeToCollection, showTorrentModa
             onAddEpisodeToCollection={_onAddEpisodeToCollection}
           />
           <button className="btn btn-default btn-sm"
-                  onClick={showTorrentModal}>
+                  onClick={_showTorrentModal}>
             Add to Anime
           </button>
         </div>
