@@ -5,7 +5,7 @@
 "use strict";
 
 import React from 'react';
-import AddToCollectionButton from './AddToCollectionButton';
+import { AddToCollectionButton, AddToAnimeButton } from './Buttons';
 
 export default ({ hasEpisode, torrent, onAddEpisodeToCollection, showTorrentModal }) => {
   const process = Math.floor(torrent.get('percentDone') * 100);
@@ -51,10 +51,10 @@ export default ({ hasEpisode, torrent, onAddEpisodeToCollection, showTorrentModa
             hasEpisode={hasEpisode}
             onAddEpisodeToCollection={_onAddEpisodeToCollection}
           />
-          <button className="btn btn-default btn-sm"
-                  onClick={_showTorrentModal}>
-            Add to Anime
-          </button>
+          <AddToAnimeButton
+            hasEpisode={hasEpisode}
+            onClick={_showTorrentModal}
+          />
         </div>
       </div>
     </li>

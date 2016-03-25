@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-export default ({ onAddEpisodeToCollection, hasEpisode }) => {
+export const AddToCollectionButton = ({ onAddEpisodeToCollection, hasEpisode }) => {
   if (hasEpisode) {
     return <button className="btn btn-default btn-sm">In Collection</button>;
   }
@@ -15,6 +15,19 @@ export default ({ onAddEpisodeToCollection, hasEpisode }) => {
     <button className="btn btn-info btn-sm"
             onClick={onAddEpisodeToCollection}>
       <i className="fa fa-plus" /> Add Episode to Collection
+    </button>
+  );
+};
+
+export const AddToAnimeButton = ({ onClick, hasEpisode }) => {
+  if (hasEpisode) {
+    return <span />;
+  }
+
+  return (
+    <button className="btn btn-default btn-sm"
+            onClick={onClick}>
+      Add to Anime
     </button>
   );
 };

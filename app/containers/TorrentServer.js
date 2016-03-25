@@ -10,7 +10,8 @@ import {
   updateTorrentServer,
   addEpisodeToCollection,
   filterByName,
-  sortTorrents
+  sortTorrents,
+  assignToAnime
 } from '../actions/TorrentServer';
 import {
   showTorrentModal,
@@ -73,10 +74,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     /**
      * Assigns a torrent to an anime.
+     * @param torrent
      * @param animeId
      */
-    onAssignToAnime(animeId) {
-      dispatch(assignToAnime(animeId));
+    onAssignToAnime(torrent, animeId) {
+      dispatch(assignToAnime(torrent, animeId));
     },
 
     /**

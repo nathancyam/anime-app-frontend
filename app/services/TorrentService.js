@@ -6,6 +6,7 @@ import BaseService from './BaseService';
 
 const SEARCH_URL = '/nyaatorrents/search?name=';
 const ADD_TORRENT_URL = '/torrent/add';
+const ASSIGN_TORRENT_TO_ANIME = '/torrent/:torrentId/anime/:animeId';
 
 class TorrentService extends BaseService {
   async search(query) {
@@ -25,6 +26,22 @@ class TorrentService extends BaseService {
     } catch (error) {
       console.error(error);
       throw error;
+    }
+  }
+  
+  async assignTorrentToAnime(torrent, animeId) {
+    const url = ASSIGN_TORRENT_TO_ANIME
+      .replace(':torrentId', torrent.get('id'))
+      .replace(':animeId', animeId);
+    
+    try {
+      const response = await this.fetchApi(url, {
+        method: 'POST'
+      });
+      const jsonResponse = await response.json();
+      return this.makeImmutable(jsonResponse);
+    } catch (err) {
+      console.error(err);
     }
   }
 }

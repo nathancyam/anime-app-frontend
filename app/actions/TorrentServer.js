@@ -5,6 +5,7 @@
 "use strict";
 
 import { additionFactory } from '../services/EpisodeService';
+import { factory as TorrentFactory } from '../services/TorrentService';
 
 export const UPDATE_TORRENT_SERVER = 'UPDATE_TORRENT_SERVER ';
 export function updateTorrentServer(torrentListing) {
@@ -47,4 +48,15 @@ export function sortTorrents(field, order) {
     field,
     order
   }
+}
+
+export function assignToAnime(torrent, animeId) {
+  console.log(torrent);
+  console.log(animeId);
+  return dispatch => {
+    TorrentFactory()
+      .assignTorrentToAnime(torrent, animeId)
+      .then(resp => {
+      });
+  };
 }

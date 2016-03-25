@@ -77,13 +77,17 @@ export default class TorrentServer extends Component {
         <form className="form-horizontal">
           <div className="form-group">
             <div className="col-xs-12 col-sm-8">
-              <TorrentFilters filterNameValue={filterNameValue} onFilterByName={this._onFilterByName.bind(this)} />
+              <TorrentFilters
+                filterNameValue={filterNameValue}
+                onFilterByName={this._onFilterByName.bind(this)}
+              />
             </div>
-            <TorrentSort fields={sortFields}
-                         currentField={sort.get('field')}
-                         currentOrder={sort.get('order')}
-                         onChangeOrder={onChangeOrder}
-                         onChangeField={onChangeField}
+            <TorrentSort
+              fields={sortFields}
+              currentField={sort.get('field')}
+              currentOrder={sort.get('order')}
+              onChangeOrder={onChangeOrder}
+              onChangeField={onChangeField}
              />
           </div>
         </form>
@@ -108,6 +112,7 @@ export default class TorrentServer extends Component {
     const {
       anime,
       hideTorrentModal,
+      onAssignToAnime,
       modal
     } = this.props;
 
@@ -119,6 +124,7 @@ export default class TorrentServer extends Component {
             <TorrentModal
               anime={anime}
               modal={modal}
+              onAssignToAnime={onAssignToAnime}
               onHideModal={hideTorrentModal}
             />
             {this.renderListing()}

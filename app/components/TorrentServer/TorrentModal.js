@@ -8,9 +8,12 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 
 export default ({ anime, modal, onHideModal, onAssignToAnime }) => {
-  const _onAssignToAnime = (event) => {
-    event.preventDefault();
-    onAssignToAnime(modal.get('data'), anime.get('_id'));
+  const _onAssignToAnime = (animeId) => {
+    return event => {
+      event.preventDefault();
+      onAssignToAnime(modal.get('data'), animeId);
+      onHideModal();
+    };
   };
   
   let isShown = modal.has('state')
@@ -34,9 +37,10 @@ export default ({ anime, modal, onHideModal, onAssignToAnime }) => {
             anime.map(el => {
               return (
                 <button
+                  key={`anime_${el.get('_id')}`}
                   type="button"
                   className="list-group-item"
-                  onClick={_onAssignToAnime}
+                  onClick={_onAssignToAnime(el.get('_id'))}
                 >
                   {el.get('title')}
                 </button>
