@@ -11,6 +11,7 @@ import { episodes } from '../reducers/Episode';
 import { animeNewsNetwork } from '../reducers/AnimeNewsNetwork';
 import { torrents } from '../reducers/Torrent';
 import { torrentServer } from '../reducers/TorrentServer';
+import { uiMeta } from '../reducers/Ui';
 import Immutable from 'immutable';
 
 export function configureStore(history, initialState) {
@@ -25,7 +26,8 @@ export function configureStore(history, initialState) {
     torrentServer,
     animeNewsNetwork,
     filters,
-    user
+    user,
+    uiMeta
   });
 
   if (initialState) {

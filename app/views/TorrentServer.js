@@ -5,105 +5,26 @@
 "use strict";
 
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { factory } from '../services/WebsocketService';
+import { factory as animeService } from '../services/AnimeCollectionService';
+import {
+  TorrentFilters,
+  TorrentSort,
+  TorrentModal,
+  TorrentItem
+} from '../components/TorrentServer';
 
-const AddToCollectionButton = ({ onAddEpisodeToCollection, hasEpisode }) => {
-  if (hasEpisode) {
-    return <button className="btn btn-default btn-sm">In Collection</button>;
-  }
-
-  return (
-    <button className="btn btn-info btn-sm"
-            onClick={onAddEpisodeToCollection}>
-      <i className="fa fa-plus" /> Add Episode to Collection
-    </button>
-  );
-};
-
-const TorrentItem = ({ hasEpisode, torrent, onAddEpisodeToCollection }) => {
-  const process = Math.floor(torrent.get('percentDone') * 100);
-
-  const _onAddEpisodeToCollection = (event) => {
-    event.preventDefault();
-    onAddEpisodeToCollection(torrent);
-  };
-
-  return (
-    <li className="list-group-item">
-      <h4>{torrent.get('name')}</h4>
-      <div className="row">
-        <div className="col-xs-12">
-          <div className="progress">
-            <div className="progress-bar"
-                 role="progressbar"
-                 aria-valuenow={process}
-                 aria-valuemin="0"
-                 aria-valuemax="100" style={{width: `${process}%`}}>
-              {`${process}%`}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-xs-6">
-          <p>Estimated Time: {torrent.get('eta') == -1 ? 'Completed' : torrent.get('eta') }</p>
-          <p>Torrent File: {torrent.get('torrentFile')}</p>
-        </div>
-        <div className="col-xs-6">
-          <p>Peers Connected: {torrent.get('peersConnected')}</p>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-xs-12">
-          <AddToCollectionButton
-            hasEpisode={hasEpisode}
-            onAddEpisodeToCollection={_onAddEpisodeToCollection}
-          />
-        </div>
-      </div>
-    </li>
-  );
-};
-
-const TorrentFilters = ({ filterNameValue, onFilterByName }) => {
-  return (
-    <input type="text" placeholder="Filter by name" value={filterNameValue}
-           className="form-control"
-           onChange={onFilterByName} />
-  );
-};
-
-const TorrentSort = ({ fields, onChangeField, onChangeOrder, currentField, currentOrder }) => {
-  const toNormalCase = (string) => {
-    return _.snakeCase(string)
-      .split('_')
-      .map(word => `${word.slice(0, 1).toUpperCase()}${word.slice(1)}`)
-      .join(' ');
-  };
-
-  return (
-    <div className="sort-torrents">
-      <div className="col-xs-12 col-sm-2">
-        <select className="form-control" onChange={onChangeField} value={currentField}>
-          {
-            fields.map(field => {
-              return <option key={`field_${field}`} value={field}>{toNormalCase(field)}</option>;
-            })
-          }
-        </select>
-      </div>
-      <div className="col-xs-12 col-sm-2">
-        <select className="form-control" onChange={onChangeOrder} value={currentOrder}>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </div>
-    </div>
-  );
-};
 
 export default class TorrentServer extends Component {
+
+  static fetchData() {
+    return new Promise((resolve, reject) => {
+      animeService()
+        .getAnime()
+        .then(anime => resolve({ anime: { isFetching: false, anime } }))
+        .catch(error => reject(error));
+    });
+  }
 
   componentDidMount() {
     const { onUpdateTorrentListing, fetchAllEpisodes } = this.props;
@@ -128,7 +49,7 @@ export default class TorrentServer extends Component {
   }
 
   renderListing() {
-    const { torrents, filterNameValue } = this.props;
+    const { torrents, filterNameValue, showTorrentModal } = this.props;
 
     if (torrents.count() === 0 && filterNameValue.length === 0) {
       return (
@@ -165,6 +86,7 @@ export default class TorrentServer extends Component {
                 key={`torrent_${key}`}
                 hasEpisode={this.hasEpisode(torrent)}
                 torrent={torrent}
+                showTorrentModal={showTorrentModal}
                 onAddEpisodeToCollection={this._onAddEpisodeToCollection.bind(this)}
               />
             );
@@ -175,11 +97,26 @@ export default class TorrentServer extends Component {
   }
 
   render() {
+    const {
+      anime,
+      hideTorrentModal,
+      modal
+    } = this.props;
+
+    const modalState = modal.has('state')
+      ? modal.get('state')
+      : false;
+
     return(
       <section>
         <div className="row">
           <div className="col-xs-12">
             <h1>Torrent Server</h1>
+            <TorrentModal
+              anime={anime}
+              showModal={modalState}
+              hideModal={hideTorrentModal}
+            />
             {this.renderListing()}
           </div>
         </div>

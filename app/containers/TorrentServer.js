@@ -13,6 +13,10 @@ import {
   sortTorrents
 } from '../actions/TorrentServer';
 import {
+  showTorrentModal,
+  hideTorrentModal
+} from '../actions/Ui';
+import {
   fetchAllEpisodes
 } from '../actions/Episode';
 
@@ -40,7 +44,7 @@ const sortPredicate = field => {
   };
 };
 
-const mapStateToProps = ({ torrentServer, episodes }) => {
+const mapStateToProps = ({ anime, torrentServer, episodes, uiMeta }) => {
   let torrents = torrentServer.get('list')
     .filter(namePredicate(torrentServer.getIn(['filter', 'name'])))
     .sort(sortPredicate(torrentServer.getIn(['sort', 'field'])));
@@ -55,6 +59,8 @@ const mapStateToProps = ({ torrentServer, episodes }) => {
     .map(el => el.get('fileName'));
 
   return {
+    anime: anime.get('anime'),
+    modal: uiMeta.getIn(['modal', 'torrent']),
     sortFields: ['percentDone', 'name', 'peersConnected'],
     episodes: episodeFileNames,
     torrents,
@@ -65,6 +71,12 @@ const mapStateToProps = ({ torrentServer, episodes }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    hideTorrentModal() {
+      dispatch(hideTorrentModal());
+    },
+    showTorrentModal() {
+      dispatch(showTorrentModal());
+    },
     onUpdateTorrentListing(data) {
       dispatch(updateTorrentServer(data));
     },

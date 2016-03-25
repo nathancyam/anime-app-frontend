@@ -80,6 +80,9 @@ export default class TorrentItem extends Component {
                       onClick={this.onAddTorrent.bind(this)}>
                 <TorrentStatus status={torrent.get('status')} />
               </button>
+              <button className="btn btn-primary">
+                <i className="fa fa-plus" /> Add To Anime
+              </button>
             </div>
           </div>
         </div>
