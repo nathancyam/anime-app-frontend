@@ -10,7 +10,10 @@ class EpisodeService extends BaseService {
     super();
     this.animeId = animeId;
   }
-  
+
+  /**
+   * @returns {string}
+   */
   getUrl() {
     if (!this.animeId) {
       return `/episodes`;
@@ -19,6 +22,9 @@ class EpisodeService extends BaseService {
     return `/episodes/anime/${this.animeId}`;
   }
 
+  /**
+   * @returns {Promise.<Object>}
+   */
   async getEpisodes() {
     const response = await this.fetchApi(this.getUrl());
     const jsonResponse = await response.json();

@@ -16,6 +16,10 @@ class WebsocketService extends BaseService {
     this.handlers = [];
   }
 
+  /**
+   * @param {String} event
+   * @param {Function} handler
+   */
   addListener(event, handler) {
     this.handlers.push({
       event,
