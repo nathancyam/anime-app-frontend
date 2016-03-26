@@ -6,7 +6,7 @@ import BaseService from './BaseService';
 
 const SEARCH_URL = '/nyaatorrents/search?name=';
 const ADD_TORRENT_URL = '/torrent/add';
-const ASSIGN_TORRENT_TO_ANIME = '/torrent/:torrentId/anime/:animeId';
+const ASSIGN_TORRENT_TO_ANIME = '/torrent/move/:torrentId/anime/:animeId';
 
 class TorrentService extends BaseService {
   async search(query) {
