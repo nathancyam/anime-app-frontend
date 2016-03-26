@@ -2,7 +2,7 @@
  * Created by nathanyam on 5/03/2016.
  */
 
-import React, { Component } from 'React';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 export default class LoginStatus extends Component {
