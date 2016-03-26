@@ -20,7 +20,7 @@ export function renderPage(html, data = {}) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/build/styles.css" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-        <title>Title</title>
+        <title>Anime App</title>
       </head>
       <body>
         <div id="app">${html}</div>
