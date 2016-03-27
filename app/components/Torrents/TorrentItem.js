@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-const TorrentStatus = ({ status }) => {
+export const TorrentStatus = ({ status }) => {
   let faClass = "fa";
 
   switch (status) {
@@ -25,14 +25,14 @@ TorrentStatus.PropTypes = {
   status: PropTypes.string
 };
 
-const TorrentInfo = ({ torrent, label, value }) => {
+export const TorrentInfo = ({ torrent, label, value }) => {
   if (!value) {
     value = label.toLowerCase();
   }
   return <p>{label}: {torrent.get(value)}</p>;
 };
 
-const TorrentStats = ({ torrent }) => {
+export const TorrentStats = ({ torrent }) => {
   return (
     <div className="row">
       <div className="col-xs-6 col-sm-3">
