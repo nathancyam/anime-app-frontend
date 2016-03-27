@@ -14,7 +14,7 @@ const humanTimeRemaning = (secondsRemaining) => {
   var seconds = totalSec % 60;
 
   const timeString = (time, interval) => {
-    return `${time < 10 ? '' : `${time} ${Math.floor(interval)}`}`;
+    return `${time < 10 ? '' : `${Math.floor(time)} ${interval}`}`;
   };
 
   return `${timeString(hours, 'hours')} ${timeString(minutes, 'minutes')} ${timeString(seconds, 'seconds')}`;
