@@ -30,6 +30,10 @@ export default class TorrentList extends React.Component {
     this.props.onQueryChange(event.target.value);
   }
 
+  componentDidMount() {
+    document.title = 'Torrent List | Anime App';
+  }
+
   componentWillUnmount() {
     this.props.onResetTorrents();
   }

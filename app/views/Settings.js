@@ -5,6 +5,11 @@
 import React, { Component } from 'react';
 
 export default class extends Component {
+
+  componentDidMount() {
+    document.title = 'Settings | Anime App';
+  }
+
   render() {
     return (
       <div className="row">

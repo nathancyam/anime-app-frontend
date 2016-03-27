@@ -29,6 +29,7 @@ export default class TorrentServer extends Component {
   componentDidMount() {
     const { onUpdateTorrentListing, fetchAllEpisodes } = this.props;
     const wsService = factory();
+    document.title = 'Torrent Server | Anime App';
     wsService.addListener('torrent_server:listing', data => {
       onUpdateTorrentListing(data);
     });
