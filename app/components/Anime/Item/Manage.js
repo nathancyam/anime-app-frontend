@@ -23,6 +23,13 @@ const FontAwesomeButton = ({ predicate, boolValue, onClick }) => {
 
 export default class Manage extends Component {
 
+  constructor(props) {
+    super(props);
+    this.onCompleteClick = this.onCompleteClick.bind(this);
+    this.onSubgroupClick = this.onSubgroupClick.bind(this);
+    this.onWatchingClick = this.onWatchingClick.bind(this);
+  }
+
   onWatchingClick(event) {
     event.preventDefault();
     let { anime, onAnimePropertyChange } = this.props;
@@ -81,7 +88,7 @@ export default class Manage extends Component {
                   <button
                     className="btn btn-default"
                     type="button"
-                    onClick={this.onSubgroupClick.bind(this)}
+                    onClick={this.onSubgroupClick}
                   >
                     <i className="fa fa-save" /> Save Subgroup
                   </button>
@@ -92,12 +99,12 @@ export default class Manage extends Component {
               <FontAwesomeButton
                 predicate={isWatchingFn}
                 boolValue={isWatching}
-                onClick={this.onWatchingClick.bind(this)}
+                onClick={this.onWatchingClick}
               />
               <FontAwesomeButton
                 predicate={isCompleteFn}
                 boolValue={isComplete}
-                onClick={this.onCompleteClick.bind(this)}
+                onClick={this.onCompleteClick}
               />
             </div>
           </form>

@@ -53,12 +53,18 @@ const TorrentStats = ({ torrent }) => {
 
 export default class TorrentItem extends Component {
 
+  constructor(props) {
+    super(props);
+    this.onAddTorrent = this.onAddTorrent.bind(this);
+  }
+
   /**
    * @param {Event} event
    */
   onAddTorrent(event) {
     event.preventDefault();
-    this.props.onAddTorrent(this.props.torrent);
+    const { onAddTorrent, torrent } = this.props;
+    onAddTorrent(torrent);
   }
 
   render() {
@@ -77,7 +83,7 @@ export default class TorrentItem extends Component {
           <div className="row">
             <div className="col-xs-12 col-md-4">
               <button className="btn btn-primary"
-                      onClick={this.onAddTorrent.bind(this)}>
+                      onClick={this.onAddTorrent}>
                 <TorrentStatus status={torrent.get('status')} />
               </button>
               <button className="btn btn-primary">

@@ -26,6 +26,12 @@ export default class TorrentServer extends Component {
     });
   }
 
+  constructor(props) {
+    super(props);
+    this._onAddEpisodeToCollection = this._onAddEpisodeToCollection.bind(this);
+    this._onFilterByName = this._onFilterByName.bind(this);
+  }
+
   componentDidMount() {
     const { onUpdateTorrentListing, fetchAllEpisodes } = this.props;
     const wsService = factory();
@@ -82,7 +88,7 @@ export default class TorrentServer extends Component {
             <div className="col-xs-12 col-sm-8">
               <TorrentFilters
                 filterNameValue={filterNameValue}
-                onFilterByName={this._onFilterByName.bind(this)}
+                onFilterByName={this._onFilterByName}
               />
             </div>
             <TorrentSort
@@ -104,7 +110,7 @@ export default class TorrentServer extends Component {
                 onPauseTorrent={onPauseTorrent}
                 onResumeTorrent={onResumeTorrent}
                 showTorrentModal={showTorrentModal}
-                onAddEpisodeToCollection={this._onAddEpisodeToCollection.bind(this)}
+                onAddEpisodeToCollection={this._onAddEpisodeToCollection}
               />
             );
           })}

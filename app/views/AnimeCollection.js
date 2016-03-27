@@ -31,6 +31,11 @@ export default class AnimeList extends Component {
     });
   }
 
+  constructor(props) {
+    super(props);
+    this._onFilterByName = this._onFilterByName.bind(this);
+  }
+
   componentDidMount() {
     document.title = this.props._meta.get('title');
     this.props.fetchAnime();
@@ -59,7 +64,7 @@ export default class AnimeList extends Component {
                     <input className="form-control" type="text"
                       placeholder="Filter By Name"
                       value={this.props.filters.getIn(['title', 'value'])}
-                      onChange={this._onFilterByName.bind(this)} />
+                      onChange={this._onFilterByName} />
                   </div>
                   <FilterComponent filterLabels={{
                     main: 'Complete Status',

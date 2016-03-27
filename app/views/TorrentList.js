@@ -26,6 +26,11 @@ class TorrentPagination extends Component {
 
 export default class TorrentList extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.onQueryChange = this.onQueryChange.bind(this);
+  }
+
   onQueryChange(event) {
     this.props.onQueryChange(event.target.value);
   }
@@ -52,7 +57,7 @@ export default class TorrentList extends React.Component {
                   type="text"
                   value={searchTerm}
                   placeholder="Search Nyaatorrents"
-                  onChange={this.onQueryChange.bind(this)} />
+                  onChange={this.onQueryChange} />
                 <ResultCounter
                   isFetching={isFetching}
                   numberOfResults={numberOfResults} />
