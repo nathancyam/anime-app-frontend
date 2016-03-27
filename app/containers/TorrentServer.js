@@ -11,7 +11,9 @@ import {
   addEpisodeToCollection,
   filterByName,
   sortTorrents,
-  assignToAnime
+  assignToAnime,
+  resumeTorrent,
+  pauseTorrent
 } from '../actions/TorrentServer';
 import {
   showTorrentModal,
@@ -134,6 +136,22 @@ const mapDispatchToProps = (dispatch) => {
      */
     onChangeOrder(event) {
       dispatch(sortTorrents(null, event.target.value));
+    },
+
+    /**
+     * Resumes a paused torrent
+     * @param torrent
+     */
+    onResumeTorrent(torrent) {
+      dispatch(resumeTorrent(torrent));
+    },
+
+    /**
+     * Pauses a torrent
+     * @param torrent
+     */
+    onPauseTorrent(torrent) {
+      dispatch(pauseTorrent(torrent));
     },
 
     /**

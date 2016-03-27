@@ -56,7 +56,9 @@ export default class TorrentServer extends Component {
       sort,
       sortFields,
       onChangeOrder,
-      onChangeField
+      onChangeField,
+      onResumeTorrent,
+      onPauseTorrent
     } = this.props;
 
     if (torrents.count() === 0 && filterNameValue.length === 0) {
@@ -98,6 +100,8 @@ export default class TorrentServer extends Component {
                 key={`torrent_${key}`}
                 hasEpisode={this.hasEpisode(torrent)}
                 torrent={torrent}
+                onPauseTorrent={onPauseTorrent}
+                onResumeTorrent={onResumeTorrent}
                 showTorrentModal={showTorrentModal}
                 onAddEpisodeToCollection={this._onAddEpisodeToCollection.bind(this)}
               />

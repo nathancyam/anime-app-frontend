@@ -7,6 +7,8 @@ import BaseService from './BaseService';
 const SEARCH_URL = '/nyaatorrents/search?name=';
 const ADD_TORRENT_URL = '/torrent/add';
 const ASSIGN_TORRENT_TO_ANIME = '/torrent/move/:torrentId/anime/:animeId';
+const PAUSE_TORRENT = '/torrent/pause/:torrentId';
+const RESUME_TORRENT = '/torrent/resume/:torrentId';
 
 class TorrentService extends BaseService {
 
@@ -53,6 +55,40 @@ class TorrentService extends BaseService {
       const response = await this.fetchApi(url, {
         method: 'POST'
       });
+      const jsonResponse = await response.json();
+      return this.makeImmutable(jsonResponse);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  /**
+   * @param torrent
+   * @returns {Promise.<Object>}
+   */
+  async pauseTorrent(torrent) {
+    const url = PAUSE_TORRENT
+      .replace(':torrentId', torrent.get('id'));
+
+    try {
+      const response = await this.fetchApi(url, { method: 'POST' });
+      const jsonResponse = await response.json();
+      return this.makeImmutable(jsonResponse);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  /**
+   * @param torrent
+   * @returns {Promise.<Object>}
+   */
+  async resumeTorrent(torrent) {
+    const url = RESUME_TORRENT
+      .replace(':torrentId', torrent.get('id'));
+
+    try {
+      const response = await this.fetchApi(url, { method: 'POST' });
       const jsonResponse = await response.json();
       return this.makeImmutable(jsonResponse);
     } catch (err) {

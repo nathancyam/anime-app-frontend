@@ -7,7 +7,7 @@
 import { additionFactory } from '../services/EpisodeService';
 import { factory as TorrentFactory } from '../services/TorrentService';
 
-export const UPDATE_TORRENT_SERVER = 'UPDATE_TORRENT_SERVER ';
+export const UPDATE_TORRENT_SERVER = 'UPDATE_TORRENT_SERVER';
 export function updateTorrentServer(torrentListing) {
   return {
     type: UPDATE_TORRENT_SERVER,
@@ -15,7 +15,7 @@ export function updateTorrentServer(torrentListing) {
   }
 }
 
-export const ADD_EPISODE_TO_COLLECTION = 'ADD_EPISODE_TO_COLLECTION ';
+export const ADD_EPISODE_TO_COLLECTION = 'ADD_EPISODE_TO_COLLECTION';
 export function addEpisodeToCollection(torrent) {
   return dispatch => {
     additionFactory()
@@ -58,5 +58,23 @@ export function assignToAnime(torrent, animeId) {
       .assignTorrentToAnime(torrent, animeId)
       .then(resp => {
       });
+  };
+}
+
+export function pauseTorrent(torrent) {
+  return dispatch => {
+    TorrentFactory()
+      .pauseTorrent(torrent)
+      .then(resp => console.log('Paused torrent, waiting on refresh'))
+      .catch(err => console.error('Failed to pause torrent'));
+  };
+}
+
+export function resumeTorrent(torrent) {
+  return dispatch => {
+    TorrentFactory()
+      .resumeTorrent(torrent)
+      .then(resp => console.log('Resumed torrent, waiting on refresh'))
+      .catch(err => console.error('Failed to resume torrent'));
   };
 }
