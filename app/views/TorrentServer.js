@@ -4,7 +4,7 @@
 
 "use strict";
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { factory } from '../services/WebsocketService';
 import { factory as animeService } from '../services/AnimeCollectionService';
 import {
@@ -33,14 +33,14 @@ export default class TorrentServer extends Component {
   }
 
   componentDidMount() {
-    const { onUpdateTorrentListing, fetchAllEpisodes } = this.props;
+    const { onUpdateTorrentListing, onFetchAllEpisodes } = this.props;
     const wsService = factory();
     document.title = 'Torrent Server | Anime App';
     wsService.addListener('torrent_server:listing', data => {
       onUpdateTorrentListing(data);
     });
     wsService.connect();
-    fetchAllEpisodes();
+    onFetchAllEpisodes();
   }
 
   _onAddEpisodeToCollection(torrent) {
@@ -59,13 +59,13 @@ export default class TorrentServer extends Component {
     const {
       torrents,
       filterNameValue,
-      showTorrentModal,
       sort,
       sortFields,
       onChangeOrder,
       onChangeField,
       onResumeTorrent,
-      onPauseTorrent
+      onPauseTorrent,
+      onShowTorrentModal
     } = this.props;
 
     if (torrents.count() === 0 && filterNameValue.length === 0) {
@@ -109,7 +109,7 @@ export default class TorrentServer extends Component {
                 torrent={torrent}
                 onPauseTorrent={onPauseTorrent}
                 onResumeTorrent={onResumeTorrent}
-                showTorrentModal={showTorrentModal}
+                showTorrentModal={onShowTorrentModal}
                 onAddEpisodeToCollection={this._onAddEpisodeToCollection}
               />
             );
@@ -122,7 +122,7 @@ export default class TorrentServer extends Component {
   render() {
     const {
       anime,
-      hideTorrentModal,
+      onHideTorrentModal,
       onAssignToAnime,
       modal
     } = this.props;
@@ -136,7 +136,7 @@ export default class TorrentServer extends Component {
               anime={anime}
               modal={modal}
               onAssignToAnime={onAssignToAnime}
-              onHideModal={hideTorrentModal}
+              onHideModal={onHideTorrentModal}
             />
             {this.renderListing()}
           </div>
@@ -145,3 +145,24 @@ export default class TorrentServer extends Component {
     );
   }
 }
+
+TorrentServer.propTypes = {
+  // Properties
+  anime: PropTypes.object,
+  modal: PropTypes.object,
+  torrents: PropTypes.object.isRequired,
+  filterNameValue: PropTypes.string,
+  sort: PropTypes.object,
+  sortFields: PropTypes.array,
+
+  // Callbacks
+  onAssignToAnime: PropTypes.func,
+  onChangeOrder: PropTypes.func,
+  onChangeField: PropTypes.func,
+  onFetchAllEpisodes: PropTypes.func.isRequired,
+  onHideTorrentModal: PropTypes.func,
+  onShowTorrentModal: PropTypes.func,
+  onPauseTorrent: PropTypes.func,
+  onResumeTorrent: PropTypes.func,
+  onUpdateTorrentListing: PropTypes.func.isRequired
+};

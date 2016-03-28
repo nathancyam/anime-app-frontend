@@ -4,7 +4,7 @@
 
 "use strict";
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 export const AddToCollectionButton = ({ onAddEpisodeToCollection, hasEpisode }) => {
   if (hasEpisode) {
@@ -17,6 +17,11 @@ export const AddToCollectionButton = ({ onAddEpisodeToCollection, hasEpisode }) 
       <i className="fa fa-plus" /> Auto assign episode
     </button>
   );
+};
+
+AddToCollectionButton.propTypes = {
+  onAddEpisodeToCollection: PropTypes.func,
+  hasEpisode: PropTypes.bool
 };
 
 /**
@@ -38,6 +43,11 @@ export const AddToAnimeButton = ({ onClick, hasEpisode }) => {
   );
 };
 
+AddToAnimeButton.propTypes = {
+  onClick: PropTypes.func,
+  hasEpisode: PropTypes.bool
+};
+
 export const ResumeButton = ({ onClick, torrent }) => {
 
   if (torrent.get('percentDone') >= 1) {
@@ -54,4 +64,9 @@ export const ResumeButton = ({ onClick, torrent }) => {
       <i className={`fa ${status.icon}`} /> {status.label}
     </button>
   )
+};
+
+ResumeButton.propTypes = {
+  onClick: PropTypes.func,
+  torrent: PropTypes.object
 };

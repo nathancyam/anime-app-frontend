@@ -86,7 +86,7 @@ const mapDispatchToProps = (dispatch) => {
     /**
      * Hides the modal on the torrent server page.
      */
-    hideTorrentModal() {
+    onHideTorrentModal() {
       dispatch(hideTorrentModal());
     },
 
@@ -94,7 +94,7 @@ const mapDispatchToProps = (dispatch) => {
      * Shows the modal on the torrent server page.
      * @param {Map} torrentObj
      */
-    showTorrentModal(torrentObj) {
+    onShowTorrentModal(torrentObj) {
       dispatch(showTorrentModal(torrentObj));
     },
 
@@ -157,7 +157,7 @@ const mapDispatchToProps = (dispatch) => {
     /**
      * Fetches all episode models
      */
-    fetchAllEpisodes() {
+    onFetchAllEpisodes() {
       dispatch(fetchAllEpisodes());
     }
   };
