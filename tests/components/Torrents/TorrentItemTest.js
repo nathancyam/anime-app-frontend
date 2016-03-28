@@ -6,9 +6,10 @@
 
 import React from 'react';
 import Immutable from 'immutable';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import sinon from 'sinon';
 import { expect } from 'chai';
-import { TorrentStatus, TorrentInfo } from '../../../app/components/Torrents/TorrentItem';
+import TorrentItem, { TorrentStatus, TorrentInfo, TorrentStats } from '../../../app/components/Torrents/TorrentItem';
 
 describe('TorrentItem Components', () => {
   describe('<TorrentStatus />', () => {
@@ -46,6 +47,55 @@ describe('TorrentItem Components', () => {
 
       expect(labelWrapper.html()).to.equal("<p>Label: Current Value</p>");
       expect(wrapper.html()).to.equal("<p>Label: Current Label</p>");
+    });
+  });
+
+  describe('<TorrentStats />', () => {
+    it('shows the right stats', () => {
+      const wrapper = shallow(
+        <TorrentStats
+          torrent={Immutable.Map({
+            leeches: 10,
+            seeds: 12,
+            readableSize: '100 MB',
+            downloads: 14
+          })}
+        />
+      );
+
+      let expectedMarkup = [
+        'Leeches: 10',
+        'Seeds: 12',
+        'File Size: 100 MB',
+        'Downloads: 14'
+      ];
+
+      let html = wrapper.html();
+      let expectResults = expectedMarkup.every(markup => html.indexOf(markup) !== 0);
+      expect(expectResults).to.equal(true);
+    });
+  });
+
+  describe('<TorrentItem />', () => {
+    it('simulate a click event with torrent', () => {
+      const callback = sinon.spy();
+      const torrentObject = Immutable.Map({
+        name: '[Commie] Nisekoi - 01 [ASDFAS].mkv',
+        href: '//nyaa.se/torrent/12341',
+        status: 'Downloading',
+        leeches: 10,
+        seeds: 12,
+        readableSize: '100 MB',
+        downloads: 14
+      });
+      
+      const wrapper = mount(
+        <TorrentItem torrent={torrentObject} onAddTorrent={callback} />
+      );
+
+      wrapper.find('.add-torrent').simulate('click');
+      expect(callback.calledOnce).to.equal(true);
+      expect(callback.calledWith(torrentObject)).to.equal(true);
     });
   });
 });

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha tests/bootstrap.js 'tests/**/*Test.js'",
+    "ci:test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/mocha -- -R tap tests/bootstrap.js './tests/**/*Test.js' > test.tap && ./node_modules/.bin/istanbul report clover",
     "build:server": "webpack --config webpack.server.config.js",
     "build:client": "TARGET=build webpack",
     "build": "npm run build:client && npm run build:server",
@@ -36,6 +37,7 @@
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^1.0.1",
     "http-proxy": "^1.11.2",
+    "istanbul": "^0.4.2",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "node-libs-browser": "^1.0.0",
@@ -45,6 +47,7 @@
     "react-addons-test-utils": "^0.14.7",
     "react-hot-loader": "^1.2.8",
     "sass-loader": "^3.1.2",
+    "sinon": "^1.17.3",
     "style-loader": "^0.13.0",
     "webpack": "^1.10.1",
     "webpack-dev-middleware": "^1.5.1",
