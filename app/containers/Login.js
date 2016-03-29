@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import Login from '../views/Login';
 import Immutable from 'immutable';
 import {
@@ -14,7 +15,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
   return {
     login(username, password) {
       dispatch(login(username, password));
@@ -22,6 +23,10 @@ const mapDispatchToProps = (dispatch) => {
 
     logout() {
       dispatch(logout());
+    },
+
+    onRedirectToLogin() {
+      return dispatch(push('/login'));
     }
   };
 };

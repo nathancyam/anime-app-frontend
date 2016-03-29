@@ -12,6 +12,7 @@ import { match, RouterContext, createMemoryHistory } from 'react-router'
 import { configureStore } from './stores';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { getUser } from './decorators/auth';
 import { renderPage } from './helpers';
 
 let app = express();
@@ -20,16 +21,19 @@ const httpServer = http.createServer(app);
 
 /**
  * @param {Object} renderProps
+ * @param {express.Request} req
  * @returns {Promise.<Object>}
  */
-async function fetchData (renderProps) {
+async function fetchData(renderProps, req) {
   let connectComponent = renderProps.components[renderProps.components.length - 1];
   let activeComponent = connectComponent.WrappedComponent;
 
+  let auth = await getUser(req.headers);
   if (activeComponent.fetchData) {
-    return await activeComponent.fetchData(renderProps);
+    let data = await activeComponent.fetchData(renderProps);
+    return Object.assign({}, { auth }, data);
   } else {
-    return Promise.resolve({});
+    return Promise.resolve({ auth });
   }
 }
 
@@ -83,7 +87,7 @@ app.use('*', (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      fetchData(renderProps)
+      fetchData(renderProps, req)
         .then(initialData => {
           try {
             store = configureStore(memoryHistory, initialData);

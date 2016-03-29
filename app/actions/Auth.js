@@ -3,6 +3,7 @@
  */
 
 import { hostname, fetchApi } from '../helpers';
+import { push } from 'react-router-redux';
 
 async function loginRequest(user, password) {
   let response = await fetchApi(`${hostname}/login`, {
@@ -13,7 +14,7 @@ async function loginRequest(user, password) {
 }
 
 async function logoutRequest() {
-  let response = await fetchApi(`${hostname}/logout`);
+  let response = await fetchApi(`/logout`);
   return await response.json();
 }
 
@@ -59,6 +60,7 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export function logout() {
   return dispatch => {
     logoutRequest()
+      .then(() => dispatch(push('/')))
       .then(() => dispatch(logoutSuccess()));
   }
 }

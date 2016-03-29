@@ -8,9 +8,9 @@ export default class Layout extends React.Component {
   render() {
     const isLoggedIn = this.context.store
       .getState()
-      .user
+      .auth
       .get('isLoggedIn');
-
+    
     return (
       <div>
         <Navbar className="app-navbar">

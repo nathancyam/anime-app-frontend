@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import AnimeCollection from '../views/AnimeCollection';
 import Immutable from 'immutable';
+import { authWrapper } from '../decorators/auth';
 import {
   fetchAnime,
   filterByComplete,
@@ -17,7 +18,6 @@ const applyFiltersToCollection = (collection, filters) => {
 };
 
 const mapStateToProps = (state) => {
-
   return {
     _meta: Immutable.fromJS({ title: 'Anime Collection '}),
     anime: applyFiltersToCollection(state.anime.get('anime'), state.filters),
@@ -53,3 +53,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(AnimeCollection);
+

@@ -42,16 +42,16 @@ export function isLoggedIn() {
 
 /**
  * @param {String} url
+ * @param {Object} body
  * @param {Object} headers
  */
-export var fetchApi = (url, headers = {}) => {
-  let defaults = {
-    headers: {
-      'Authorization': 'Basic YW5pbWVhcHA6TTJ3SVNveVBmUA==',
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  };
-
-  return fetch(`${hostname}${url}`, Object.assign({}, defaults, headers));
+export var fetchApi = (url, body = {}, headers = {}) => {
+  const _headers = Object.assign({}, {
+    'Authorization': 'Basic YW5pbWVhcHA6TTJ3SVNveVBmUA==',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }, headers);
+  
+  const _body = Object.assign({}, { headers: _headers }, body);
+  return fetch(`${hostname}${url}`, _body);
 };

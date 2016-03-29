@@ -1,5 +1,6 @@
 import React from 'react';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { Route, IndexRoute } from 'react-router'
+import { requireAuth } from './decorators/auth';
 import Layout from './views/Layout';
 import TorrentList from './containers/TorrentList';
 import Settings from './views/Settings';
@@ -7,6 +8,7 @@ import AnimeCollection from './containers/AnimeCollection';
 import TorrentServer from './containers/TorrentServer';
 import AnimeItem from './containers/AnimeItem';
 import Login from './containers/Login';
+import Logout from './containers/Logout';
 
 module.exports = (
   <Route path="/" component={Layout}>
@@ -14,8 +16,9 @@ module.exports = (
     <Route path="/torrents/server" name="torrentServer" component={TorrentServer} />
     <Route path="/anime" name="anime" component={AnimeCollection} />
     <Route path="/anime/:animeId" name="anime_item" component={AnimeItem} />
-    <Route path="/settings" component={Settings} />
+    <Route path="/settings" component={requireAuth(Settings)} />
     <Route path="/login" component={Login} />
+    <Route path="/logout" component={Logout} />
     <IndexRoute name="index" component={AnimeCollection} />
   </Route>
 );

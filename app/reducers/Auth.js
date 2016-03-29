@@ -5,7 +5,7 @@
 import Immutable from 'immutable';
 import * as AuthActions from '../actions/Auth';
 
-export const user = (state = Immutable.Map({ isLoggedIn: false }), action) => {
+export const auth = (state = Immutable.Map({ isLoggedIn: false, requireAuth: false }), action) => {
   switch (action.type) {
     case AuthActions.LOGIN_REQUEST:
       state = state.set('isFetching', true);
@@ -28,7 +28,8 @@ export const user = (state = Immutable.Map({ isLoggedIn: false }), action) => {
 
     case AuthActions.LOGOUT_SUCCESS:
       state = state.set('isFetching', false);
-      state = state.remove('user');
+      state = state.set('isLoggedIn', false);
+      state = state.set('user', {});
       return state;
 
     default:
