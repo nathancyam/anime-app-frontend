@@ -7,7 +7,7 @@
     "test": "mocha tests/bootstrap.js 'tests/**/*Test.js'",
     "ci:test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/mocha -- -R tap tests/bootstrap.js './tests/**/*Test.js' > test.tap && ./node_modules/.bin/istanbul report clover",
     "build:server": "webpack --config webpack.server.config.js",
-    "build:client": "TARGET=build webpack",
+    "build:client": "TARGET=build webpack -p",
     "build": "npm run build:client && npm run build:server",
     "build:prod": "NODE_ENV=production npm run build:client && npm run build:server",
     "deploy": "npm run build:prod; scp build/*.js build/*.css animeapp:/var/www/react-frontend/build",

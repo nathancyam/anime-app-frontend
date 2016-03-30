@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router'
 import { requireAuth } from './decorators/auth';
-import Layout from './views/Layout';
+import Layout from './containers/Layout';
 import TorrentList from './containers/TorrentList';
 import Settings from './views/Settings';
 import AnimeCollection from './containers/AnimeCollection';

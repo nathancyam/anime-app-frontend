@@ -1,15 +1,12 @@
-import React, { PropTypes } from 'react';
-import { Navbar, CollapsibleNav, Nav, NavItem } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import LoginStatus from '../components/Account/LoginStatus';
 import { Link } from 'react-router';
 
-export default class Layout extends React.Component {
+export default class Layout extends Component {
 
   render() {
-    const isLoggedIn = this.context.store
-      .getState()
-      .auth
-      .get('isLoggedIn');
+    const isLoggedIn = this.props.auth.get('isLoggedIn');
     
     return (
       <div>
@@ -49,7 +46,3 @@ export default class Layout extends React.Component {
     );
   }
 }
-
-Layout.contextTypes = {
-  store: PropTypes.object
-};

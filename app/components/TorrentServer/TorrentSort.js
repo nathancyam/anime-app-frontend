@@ -5,11 +5,11 @@
 "use strict";
 
 import React from 'react';
-import _ from 'lodash';
+import snakeCase from 'lodash/snakeCase';
 
 export default ({ fields, onChangeField, onChangeOrder, currentField, currentOrder }) => {
   const toNormalCase = (string) => {
-    return _.snakeCase(string)
+    return snakeCase(string)
       .split('_')
       .map(word => `${word.slice(0, 1).toUpperCase()}${word.slice(1)}`)
       .join(' ');

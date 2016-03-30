@@ -4,8 +4,6 @@
 
 "use strict";
 
-import { browserHistory } from 'react-router';
-
 /**
  * @typedef {Object} Store
  * @property getState()

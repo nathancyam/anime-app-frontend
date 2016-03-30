@@ -3,9 +3,9 @@
  */
 
 import { factory } from '../services/TorrentService';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 
-const _search = _.debounce((dispatch, query) => {
+const _search = debounce((dispatch, query) => {
   factory()
     .search(query)
     .then(torrents => {

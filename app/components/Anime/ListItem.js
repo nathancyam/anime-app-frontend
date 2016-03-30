@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import assign from 'lodash/assign';
 import { Link } from 'react-router';
 
 class AnimeStatus extends React.Component {
@@ -14,7 +14,7 @@ class AnimeStatus extends React.Component {
           [el]: this.props.statusProperties[el]
         };
       })
-      .reduce(_.assign, {});
+      .reduce(assign, {});
 
     return (
       <div className="anime-status">
