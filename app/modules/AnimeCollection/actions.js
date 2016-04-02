@@ -14,7 +14,7 @@ export function fetchAnime() {
   };
 }
 
-export const RECEIVED_ANIME = 'animeCollection/RECEIVED_ANIME';
+export const RECEIVED_ANIME = 'app/AnimeCollection/RECEIVED_ANIME';
 export function receivedAnime(collection) {
   return {
     type: RECEIVED_ANIME,
@@ -22,7 +22,7 @@ export function receivedAnime(collection) {
   };
 }
 
-export const FILTER_ANIME_BY_NAME = 'animeCollection/FILTER_ANIME_BY_NAME';
+export const FILTER_ANIME_BY_NAME = 'app/AnimeCollection/FILTER_ANIME_BY_NAME';
 export function filterByName(name) {
   return {
     type: FILTER_ANIME_BY_NAME,
@@ -30,7 +30,7 @@ export function filterByName(name) {
   };
 }
 
-export const FILTER_BY_COMPLETE = 'animeCollection/FILTER_BY_COMPLETE';
+export const FILTER_BY_COMPLETE = 'app/AnimeCollection/FILTER_BY_COMPLETE';
 export function filterByComplete(active) {
   return {
     type: FILTER_BY_COMPLETE,
@@ -38,7 +38,7 @@ export function filterByComplete(active) {
   };
 }
 
-export const FILTER_BY_WATCHING = 'animeCollection/FILTER_BY_WATCHING';
+export const FILTER_BY_WATCHING = 'app/AnimeCollection/FILTER_BY_WATCHING';
 export function filterByWatching(active) {
   return {
     type: FILTER_BY_WATCHING,

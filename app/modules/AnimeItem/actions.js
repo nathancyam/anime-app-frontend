@@ -9,7 +9,7 @@ import Immutable from 'immutable';
 import { fetchAnime } from '../AnimeCollection/actions';
 import { factory } from '../../services/AnimeItemService';
 
-export const SAVED_ANIME = 'SAVED_ANIME';
+export const SAVED_ANIME = 'app/AnimeItem/SAVED_ANIME';
 export const savedAnime = (anime) => {
   return {
     type: SAVED_ANIME,

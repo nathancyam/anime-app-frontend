@@ -15,7 +15,7 @@ export function receivedEpisodes(animeId, episodes) {
   }
 }
 
-export const RECEIVED_ALL_EPISODES = 'RECEIVED_ALL_EPISODES';
+export const RECEIVED_ALL_EPISODES = 'app/Episode/RECEIVED_ALL_EPISODES';
 export function receivedAllEpisodes(episodes) {
   return {
     type: RECEIVED_ALL_EPISODES,

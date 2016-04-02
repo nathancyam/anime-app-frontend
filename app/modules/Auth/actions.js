@@ -18,14 +18,14 @@ async function logoutRequest() {
   return await response.json();
 }
 
-export const LOGGING_IN = 'LOGGING_IN';
+export const LOGGING_IN = 'app/Auth/LOGGING_IN';
 export function loggingIn() {
   return {
     type: LOGGING_IN
   };
 }
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_REQUEST = 'app/Auth/LOGIN_REQUEST';
 export function login(username, password) {
   return dispatch => {
     dispatch(loggingIn());
@@ -40,7 +40,7 @@ export function login(username, password) {
   };
 }
 
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_SUCCESS = 'app/Auth/LOGIN_SUCCESS';
 export function loggedIn(user) {
   return {
     type: LOGIN_SUCCESS,
@@ -48,7 +48,7 @@ export function loggedIn(user) {
   }
 }
 
-export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGIN_FAILED = 'app/Auth/LOGIN_FAILED';
 export function loginFailed(error) {
   return {
     type: LOGIN_FAILED,
@@ -56,7 +56,7 @@ export function loginFailed(error) {
   }
 }
 
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_REQUEST = 'app/Auth/LOGOUT_REQUEST';
 export function logout() {
   return dispatch => {
     logoutRequest()
@@ -65,7 +65,7 @@ export function logout() {
   }
 }
 
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_SUCCESS = 'app/Auth/LOGOUT_SUCCESS';
 export function logoutSuccess() {
   return {
     type: LOGOUT_SUCCESS

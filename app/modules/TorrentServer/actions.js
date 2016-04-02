@@ -15,7 +15,7 @@ export function updateTorrentServer(torrentListing) {
   }
 }
 
-export const ADD_EPISODE_TO_COLLECTION = 'ADD_EPISODE_TO_COLLECTION';
+export const ADD_EPISODE_TO_COLLECTION = 'app/TorrentServer/ADD_EPISODE_TO_COLLECTION';
 export function addEpisodeToCollection(torrent) {
   return dispatch => {
     additionFactory()
@@ -25,7 +25,7 @@ export function addEpisodeToCollection(torrent) {
   }
 }
 
-export const ADDED_EPISODE_TO_COLLECTION = 'ADDED_EPISODE_TO_COLLECTION';
+export const ADDED_EPISODE_TO_COLLECTION = 'app/TorrentServer/ADDED_EPISODE_TO_COLLECTION';
 export function addedEpisodeToCollection(torrent) {
   return {
     type: ADD_EPISODE_TO_COLLECTION,
@@ -33,7 +33,7 @@ export function addedEpisodeToCollection(torrent) {
   }
 }
 
-export const FILTER_TORRENTS_BY_NAME = 'FILTER_TORRENTS_BY_NAME';
+export const FILTER_TORRENTS_BY_NAME = 'app/TorrentServer/FILTER_TORRENTS_BY_NAME';
 export function filterByName(name) {
   return {
     type: FILTER_TORRENTS_BY_NAME,
@@ -41,7 +41,7 @@ export function filterByName(name) {
   }
 }
 
-export const SORT_TORRENTS_BY_FIELD = 'SORT_TORRENTS_BY_FIELD';
+export const SORT_TORRENTS_BY_FIELD = 'app/TorrentServer/SORT_TORRENTS_BY_FIELD';
 export function sortTorrents(field, order) {
   return {
     type: SORT_TORRENTS_BY_FIELD,

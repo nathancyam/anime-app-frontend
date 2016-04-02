@@ -4,6 +4,7 @@
 
 import BaseService from './BaseService';
 import { factory as torrentService} from './TorrentService';
+import AnimeNewsNetworkService from './AnimeNewsNetworkService';
 import { makeAnnRequest } from '../modules/AnimeNewsNetwork/actions';
 
 /**
@@ -24,6 +25,7 @@ class AnimeItemService extends BaseService {
   constructor(animeId) {
     super();
     this.torrentService = torrentService();
+    this.animeNewsNetworkService = new AnimeNewsNetworkService();
     this.animeId = animeId;
   }
 
@@ -62,7 +64,8 @@ class AnimeItemService extends BaseService {
       torrents: torrentListing,
       query: title
     });
-    const annResponse = await makeAnnRequest(title);
+
+    const annResponse = await this.animeNewsNetworkService.search(title);
     const animeNewsNetwork = this.makeImmutable({
       [this.animeId]: annResponse
     });

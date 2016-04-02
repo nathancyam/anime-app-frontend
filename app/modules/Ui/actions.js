@@ -4,7 +4,7 @@
 
 "use strict";
 
-export const MODAL_TORRENT = 'MODAL_TORRENT';
+export const MODAL_TORRENT = 'app/Ui/MODAL_TORRENT';
 export const showTorrentModal = (data) => {
   return {
     type: MODAL_TORRENT,

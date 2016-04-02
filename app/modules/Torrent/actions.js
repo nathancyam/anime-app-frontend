@@ -13,7 +13,7 @@ const _search = debounce((dispatch, query) => {
     })
 }, 2000);
 
-export const REQUEST_SEARCH = 'REQUEST_SEARCH';
+export const REQUEST_SEARCH = 'app/Torrent/REQUEST_SEARCH';
 export function searchTorrents(query) {
   return dispatch => {
     dispatch(enteringQuery(query));
@@ -22,7 +22,7 @@ export function searchTorrents(query) {
   };
 }
 
-export const RECEIVED_TORRENTS = 'RECEIVED_TORRENTS';
+export const RECEIVED_TORRENTS = 'app/Torrent/RECEIVED_TORRENTS';
 export function receivedTorrents(torrents) {
   return {
     type: RECEIVED_TORRENTS,
@@ -30,7 +30,7 @@ export function receivedTorrents(torrents) {
   }
 }
 
-export const FETCHING_TORRENTS = 'FETCHING_TORRENTS';
+export const FETCHING_TORRENTS = 'app/Torrent/FETCHING_TORRENTS';
 export function fetchingTorrents(value) {
   return {
     type: FETCHING_TORRENTS,
@@ -50,7 +50,7 @@ export function addTorrent(torrent) {
   };
 }
 
-export const ERROR_ADDING_TORRENT = 'ERROR_ADDING_TORRENT ';
+export const ERROR_ADDING_TORRENT = 'app/Torrent/ERROR_ADDING_TORRENT';
 export function errorAddingTorrent(error, torrent) {
   return {
     type: ERROR_ADDING_TORRENT,
@@ -59,7 +59,7 @@ export function errorAddingTorrent(error, torrent) {
   }
 }
 
-export const ADDING_TORRENT = 'ADDING_TORRENT';
+export const ADDING_TORRENT = 'app/Torrent/ADDING_TORRENT';
 export function addingTorrent(torrent) {
   return {
     type: ADDING_TORRENT,
