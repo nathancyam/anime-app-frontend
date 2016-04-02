@@ -3,7 +3,7 @@
  */
 
 import Immutable from 'immutable';
-import * as AuthActions from '../actions/Auth';
+import * as AuthActions from './actions';
 
 export const auth = (state = Immutable.Map({ isLoggedIn: false, requireAuth: false }), action) => {
   switch (action.type) {
