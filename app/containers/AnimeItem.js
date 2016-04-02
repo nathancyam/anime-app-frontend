@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import AnimeItem from '../views/AnimeItem';
 import Immutable from 'immutable';
-import { fetchAnimeEpisodes } from '../actions/Episode';
-import { animePropertyChange } from '../actions/AnimeItems';
-import { fetchAnimeNewsNetworkDetails } from '../actions/AnimeNewsNetwork';
-import { searchTorrents, enteringQuery, addTorrent, resetTorrents } from '../actions/Torrent';
+import { fetchAnimeEpisodes } from '../modules/Episode/actions';
+import { animePropertyChange } from '../modules/AnimeItem/actions';
+import { fetchAnimeNewsNetworkDetails } from '../modules/AnimeNewsNetwork/actions';
+import { searchTorrents, enteringQuery, addTorrent, resetTorrents } from '../modules/Torrent/actions';
 
 
 const mapStateToProps = ({ anime, episodes, animeNewsNetwork, torrents }, { params }) => {

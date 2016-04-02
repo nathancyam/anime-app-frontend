@@ -5,7 +5,7 @@
 "use strict";
 
 import { connect } from 'react-redux';
-import { logout } from '../actions/Auth';
+import { logout } from '../modules/Auth/actions';
 import LogoutView from '../views/Logout';
 
 const mapStateToProps = ({ auth }) => ({ auth });

@@ -12,7 +12,7 @@ import {
   ADDED_TORRENT,
   ERROR_ADDING_TORRENT,
   RESET_TORRENT
-} from '../actions/Torrent';
+} from './actions';
 
 const initialState = Immutable.fromJS(
   {
@@ -43,7 +43,7 @@ const addedTorrents = updateTorrentStatus.bind(null, 'added');
 const addingTorrents = updateTorrentStatus.bind(null, 'adding');
 const errorTorrents = updateTorrentStatus.bind(null, 'error');
 
-export const torrents = (state = initialState, action) => {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case REQUEST_SEARCH:
       state = state.set('torrents', Immutable.List());

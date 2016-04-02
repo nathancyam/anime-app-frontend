@@ -14,14 +14,14 @@ import {
   assignToAnime,
   resumeTorrent,
   pauseTorrent
-} from '../actions/TorrentServer';
+} from '../modules/TorrentServer/actions';
 import {
   showTorrentModal,
   hideTorrentModal
-} from '../actions/Ui';
+} from '../modules/Ui/actions';
 import {
   fetchAllEpisodes
-} from '../actions/Episode';
+} from '../modules/Episode/actions';
 
 const namePredicate = name => {
   return torrent => {

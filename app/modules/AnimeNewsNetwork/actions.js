@@ -2,7 +2,7 @@
  * Created by nathanyam on 7/03/2016.
  */
 
-import { hostname, fetchApi } from '../helpers';
+import { hostname, fetchApi } from '../../helpers';
 
 const ANN_SEARCH_URI = `/ann/search`;
 const ANN_IMAGE_POST_URI = `${hostname}/anime/image`;

@@ -17,7 +17,7 @@ const initialState = {
   }
 };
 
-export const uiMeta = (state = Immutable.fromJS(initialState), action) => {
+export default function reducer(state = Immutable.fromJS(initialState), action) {
   switch (action.type) {
 
     case MODAL_TORRENT:

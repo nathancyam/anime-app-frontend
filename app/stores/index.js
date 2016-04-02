@@ -3,17 +3,18 @@
  */
 
 import thunkMiddleware from 'redux-thunk';
+import Immutable from 'immutable';
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import { anime, filters } from '../reducers/AnimeCollection';
-import { auth } from '../reducers/Auth';
-import { episodes } from '../reducers/Episode';
-import { animeNewsNetwork } from '../reducers/AnimeNewsNetwork';
-import { torrents } from '../reducers/Torrent';
-import { torrentServer } from '../reducers/TorrentServer';
-import { uiMeta } from '../reducers/Ui';
+import anime from '../modules/AnimeCollection/reducer';
+import filters from '../modules/AnimeCollection/filter';
+import auth from '../modules/Auth/reducer';
+import episodes from '../modules/Episode/reducer';
+import animeNewsNetwork from '../modules/AnimeNewsNetwork/reducer';
+import torrents from '../modules/Torrent/reducer';
+import torrentServer from '../modules/TorrentServer/reducer';
+import uiMeta from '../modules/Ui/reducer';
 import { authMiddleware } from '../middleware/auth';
-import Immutable from 'immutable';
 
 export function configureStore(history, initialState) {
   let newState = initialState;

@@ -8,7 +8,7 @@ import {
  * @param {Object} state
  * @param {Object} action
  */
-export const episodes = (state = Immutable.Map(), action) => {
+export default function reducer(state = Immutable.Map(), action) {
   let episodes = {};
 
   switch (action.type) {
@@ -25,4 +25,4 @@ export const episodes = (state = Immutable.Map(), action) => {
     default:
       return state;
   }
-};
+}

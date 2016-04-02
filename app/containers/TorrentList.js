@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import TorrentList from '../views/TorrentList';
 import Immutable from 'immutable';
-import { searchTorrents, addTorrent, resetTorrents } from '../actions/Torrent';
-
+import { searchTorrents, addTorrent, resetTorrents } from '../modules/Torrent/actions';
 
 const mapStateToProps = ({ torrents }) => {
   return {

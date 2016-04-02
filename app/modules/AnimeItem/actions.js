@@ -1,10 +1,13 @@
 /**
- * Created by nathanyam on 6/03/2016.
+ * Created by nathanyam on 2/04/2016.
  */
 
+
+"use strict";
+
 import Immutable from 'immutable';
-import { fetchAnime } from './AnimeCollection';
-import { factory } from '../services/AnimeItemService';
+import { fetchAnime } from '../AnimeCollection/actions';
+import { factory } from '../../services/AnimeItemService';
 
 export const SAVED_ANIME = 'SAVED_ANIME';
 export const savedAnime = (anime) => {

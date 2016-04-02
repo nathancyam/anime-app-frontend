@@ -1,4 +1,4 @@
-import { factory } from '../services/EpisodeService';
+import { factory } from '../../services/EpisodeService';
 
 export const RECEIVED_EPISODES = 'RECEIVED_EPISODES';
 

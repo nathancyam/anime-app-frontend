@@ -2,7 +2,7 @@
  * Created by nathanyam on 5/03/2016.
  */
 
-import { hostname, fetchApi } from '../helpers';
+import { hostname, fetchApi } from '../../helpers';
 import { push } from 'react-router-redux';
 
 async function loginRequest(user, password) {

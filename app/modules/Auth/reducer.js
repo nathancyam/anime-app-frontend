@@ -5,7 +5,7 @@
 import Immutable from 'immutable';
 import * as AuthActions from './actions';
 
-export const auth = (state = Immutable.Map({ isLoggedIn: false, requireAuth: false }), action) => {
+export default function reducer(state = Immutable.Map({ isLoggedIn: false, requireAuth: false }), action) {
   switch (action.type) {
     case AuthActions.LOGIN_REQUEST:
       state = state.set('isFetching', true);

@@ -2,7 +2,7 @@
  * Created by nathanyam on 8/03/2016.
  */
 
-import { factory } from '../services/TorrentService';
+import { factory } from '../../services/TorrentService';
 import debounce from 'lodash/debounce';
 
 const _search = debounce((dispatch, query) => {

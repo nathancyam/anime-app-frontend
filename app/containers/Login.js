@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 import {
   login,
   logout
-} from '../actions/Auth';
+} from '../modules/Auth/actions';
 
 const mapStateToProps = (state) => {
   return {

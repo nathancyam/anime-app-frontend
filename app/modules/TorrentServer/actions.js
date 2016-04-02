@@ -4,8 +4,8 @@
 
 "use strict";
 
-import { additionFactory } from '../services/EpisodeService';
-import { factory as TorrentFactory } from '../services/TorrentService';
+import { additionFactory } from '../../services/EpisodeService';
+import { factory as TorrentFactory } from '../../services/TorrentService';
 
 export const UPDATE_TORRENT_SERVER = 'UPDATE_TORRENT_SERVER';
 export function updateTorrentServer(torrentListing) {

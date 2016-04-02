@@ -4,7 +4,7 @@
 
 import BaseService from './BaseService';
 import { factory as torrentService} from './TorrentService';
-import { makeAnnRequest } from '../actions/AnimeNewsNetwork';
+import { makeAnnRequest } from '../modules/AnimeNewsNetwork/actions';
 
 /**
  * @param {Map} collection

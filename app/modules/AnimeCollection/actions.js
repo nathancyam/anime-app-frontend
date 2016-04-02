@@ -1,7 +1,7 @@
 /**
  * Created by nathanyam on 6/03/2016.
  */
-import { factory } from '../services/AnimeCollectionService';
+import { factory } from '../../services/AnimeCollectionService';
 
 export const FETCH_ANIME = 'FETCH_ANIME';
 export function fetchAnime() {

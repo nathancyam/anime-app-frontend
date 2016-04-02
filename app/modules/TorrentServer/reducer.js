@@ -18,7 +18,7 @@ const defaultOptions = {
   }
 };
 
-export const torrentServer = (state = Immutable.fromJS(defaultOptions), action) => {
+export default function reducer(state = Immutable.fromJS(defaultOptions), action) {
   switch (action.type) {
     case UPDATE_TORRENT_SERVER:
       const immutableListing = Immutable.fromJS(action.torrentListing);

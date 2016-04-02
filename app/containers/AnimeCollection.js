@@ -7,8 +7,8 @@ import {
   filterByComplete,
   filterByName,
   filterByWatching
-} from '../actions/AnimeCollection';
-import { deleteAnime } from '../actions/AnimeItems';
+} from '../modules/AnimeCollection/actions';
+import { deleteAnime } from '../modules/AnimeItem/actions';
 
 const applyFiltersToCollection = (collection, filters) => {
   return collection.filter(el => {
