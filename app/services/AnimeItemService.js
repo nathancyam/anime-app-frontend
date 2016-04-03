@@ -39,6 +39,7 @@ class AnimeItemService extends BaseService {
   /**
    * Only should run on the server. Needs to return an object that is a subset of the state reducer.
    *
+   * @server
    * @returns {Promise.<Object>}
    */
   async getAnimeItemData() {
@@ -56,16 +57,22 @@ class AnimeItemService extends BaseService {
       episodes: this.makeImmutable(episodes)
     };
 
-    const animeObj = getAnimeFromCollection(payload.anime.get('anime'), this.animeId);
+    const animeObj = payload.anime.get('anime').find(el => el.get('_id') == this.animeId);
     const title = animeObj.get('title');
-    const torrentListing = await this.torrentService.search(title);
+
+    const secondPromises = [
+      this.torrentService.search(title),
+      this.animeNewsNetworkService.search(title)
+    ];
+
+    const [ torrentListing, annResponse ] = await Promise.all(secondPromises);
+
     const torrents = this.makeImmutable({
       _meta: { isFetching: false },
       torrents: torrentListing,
       query: title
     });
 
-    const annResponse = await this.animeNewsNetworkService.search(title);
     const animeNewsNetwork = this.makeImmutable({
       [this.animeId]: annResponse
     });

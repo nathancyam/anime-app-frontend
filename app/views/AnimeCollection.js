@@ -31,10 +31,6 @@ export default class AnimeList extends Component {
     });
   }
 
-  static get requireAuth() {
-    return true;
-  }
-
   constructor(props) {
     super(props);
     this._onFilterByName = this._onFilterByName.bind(this);

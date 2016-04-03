@@ -18,6 +18,15 @@ export default class AuthService extends BaseService {
     }
   }
 
+  async login(user, password) {
+    let response = await this.fetchApi(`/login`, {
+      method: 'POST',
+      body: JSON.stringify({ user, password })
+    });
+
+    return await response.json();
+  }
+
   async logout() {
     try {
       const response = await this.fetchApi('/logout');

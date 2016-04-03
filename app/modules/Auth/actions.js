@@ -2,21 +2,8 @@
  * Created by nathanyam on 5/03/2016.
  */
 
-import { hostname, fetchApi } from '../../helpers';
+import AuthService from '../../services/AuthService';
 import { push } from 'react-router-redux';
-
-async function loginRequest(user, password) {
-  let response = await fetchApi(`${hostname}/login`, {
-    method: 'POST',
-    body: JSON.stringify({ user, password })
-  });
-  return await response.json();
-}
-
-async function logoutRequest() {
-  let response = await fetchApi(`/logout`);
-  return await response.json();
-}
 
 export const LOGGING_IN = 'app/Auth/LOGGING_IN';
 export function loggingIn() {
@@ -27,10 +14,12 @@ export function loggingIn() {
 
 export const LOGIN_REQUEST = 'app/Auth/LOGIN_REQUEST';
 export function login(username, password) {
+  const authService = new AuthService();
+
   return dispatch => {
     dispatch(loggingIn());
 
-    loginRequest(username, password)
+    authService.login(username, password)
       .then(response => {
         return dispatch(loggedIn(response));
       })
@@ -58,8 +47,10 @@ export function loginFailed(error) {
 
 export const LOGOUT_REQUEST = 'app/Auth/LOGOUT_REQUEST';
 export function logout() {
+  const authService = new AuthService();
+
   return dispatch => {
-    logoutRequest()
+    authService.logout()
       .then(() => dispatch(push('/')))
       .then(() => dispatch(logoutSuccess()));
   }
