@@ -5,17 +5,6 @@
 import BaseService from './BaseService';
 import { factory as torrentService} from './TorrentService';
 import AnimeNewsNetworkService from './AnimeNewsNetworkService';
-import { makeAnnRequest } from '../modules/AnimeNewsNetwork/actions';
-
-/**
- * @param {Map} collection
- * @param {String} animeId
- * @returns {Object}
- */
-function getAnimeFromCollection(collection, animeId) {
-  return collection.filter(el => el.get('_id') == animeId)
-    .reduce((carry, item) => item);
-}
 
 class AnimeItemService extends BaseService {
 
