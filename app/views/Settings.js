@@ -11,6 +11,9 @@ export default class extends Component {
   }
 
   render() {
+    console.log(this.props);
+    const settings = this.props.auth.getIn(['user', 'settings']);
+
     return (
       <div className="row">
         <div className="col-xs-12">
@@ -18,7 +21,7 @@ export default class extends Component {
           <form>
             <div className="form-group">
               <label htmlFor="redis-api-key">Redis API Key</label>
-              <input type="text" className="form-control" name="redis-api-key"/>
+              <input type="text" className="form-control" name="redis-api-key" value={settings.get('redisApiKey')} readOnly/>
             </div>
             <button type="submit" className="btn btn-success">Submit</button>
           </form>

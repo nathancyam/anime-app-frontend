@@ -11,13 +11,31 @@ export default class {
     this.hostname = hostname;
   }
 
+  getJwt() {
+    if (typeof document !== 'undefined') {
+      var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+      if (cookieValue) {
+        return cookieValue;
+      }
+    }
+
+    return false;
+  }
+
   /**
    * @param url
-   * @param headers
+   * @param body
    * @returns {Promise.<Object>}
    */
-  fetchApi(url, headers = {}) {
-    return _fetchApi(url, headers);
+  fetchApi(url, body = {}) {
+    let authHeader = {};
+    const jwt = this.getJwt();
+
+    if (jwt) {
+      authHeader = Object.assign({}, { jwt });
+    }
+
+    return _fetchApi(url, body, authHeader);
   }
 
   makeImmutable(jsObject) {

@@ -9,6 +9,7 @@ import TorrentServer from './containers/TorrentServer';
 import AnimeItem from './containers/AnimeItem';
 import Login from './containers/Login';
 import Logout from './containers/Logout';
+import Register from './containers/Register';
 
 module.exports = (
   <Route path="/" component={Layout}>
@@ -19,6 +20,7 @@ module.exports = (
     <Route path="/settings" component={requireAuth(Settings)} />
     <Route path="/login" component={Login} />
     <Route path="/logout" component={Logout} />
+    <Route path="/register" component={Register} />
     <IndexRoute name="index" component={AnimeCollection} />
   </Route>
 );

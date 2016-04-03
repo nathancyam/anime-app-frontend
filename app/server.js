@@ -29,11 +29,12 @@ async function fetchData(renderProps, req) {
   let activeComponent = connectComponent.WrappedComponent;
 
   let auth = await getUser(req.headers);
+
   if (activeComponent.fetchData) {
     let data = await activeComponent.fetchData(renderProps);
     return Object.assign({}, { auth }, data);
   } else {
-    return Promise.resolve({ auth });
+    return { auth };
   }
 }
 

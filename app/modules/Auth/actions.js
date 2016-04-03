@@ -13,15 +13,15 @@ export function loggingIn() {
 }
 
 export const LOGIN_REQUEST = 'app/Auth/LOGIN_REQUEST';
-export function login(username, password) {
+export function login(email, password) {
   const authService = new AuthService();
 
   return dispatch => {
     dispatch(loggingIn());
 
-    authService.login(username, password)
+    authService.login(email, password)
       .then(response => {
-        return dispatch(loggedIn(response));
+        return dispatch(redirectAfterLogin(response));
       })
       .catch(err => {
         return dispatch(loginFailed(err));
@@ -34,6 +34,13 @@ export function loggedIn(user) {
   return {
     type: LOGIN_SUCCESS,
     user
+  }
+}
+
+export function redirectAfterLogin(user) {
+  return dispatch => {
+    dispatch(push('/'));
+    dispatch(loggedIn(user));
   }
 }
 
@@ -53,6 +60,15 @@ export function logout() {
     authService.logout()
       .then(() => dispatch(push('/')))
       .then(() => dispatch(logoutSuccess()));
+  }
+}
+
+export function register(email, password) {
+  const authService = new AuthService();
+
+  return dispatch => {
+    authService.register(email, password)
+      .then(() => dispatch(push('/')));
   }
 }
 

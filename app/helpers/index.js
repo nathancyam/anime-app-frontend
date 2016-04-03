@@ -52,6 +52,6 @@ export var fetchApi = (url, body = {}, headers = {}) => {
     'Content-Type': 'application/json'
   }, headers);
   
-  const _body = Object.assign({}, { headers: _headers }, body);
-  return fetch(`${hostname}${url}`, _body);
+  const _full = Object.assign({}, { headers: _headers }, body);
+  return fetch(`${hostname}${url}`, _full);
 };
