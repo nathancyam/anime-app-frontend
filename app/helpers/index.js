@@ -13,6 +13,11 @@ export const hostname = _hostname;
  * @returns {String}
  */
 export function renderPage(html, data = {}) {
+  let vendorTag = '';
+  if (process.env.NODE_ENV !== 'development') {
+    vendorTag = `<script src="/build/vendor.bundle.js"></script>`;
+  }
+
   return `
     <html lang="en">
       <head>
@@ -27,6 +32,7 @@ export function renderPage(html, data = {}) {
         <script type="text/javascript">
           __INITIAL_DATA__ = ${JSON.stringify(data)};
         </script>
+        ${vendorTag}
         <script src="/build/bundle.js"></script>
       </body>
     </html>

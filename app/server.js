@@ -41,6 +41,10 @@ async function fetchData(renderProps, req) {
 app.set('port', 1337);
 app.use(express.static(__dirname + '/../public'));
 
+app.use('/build/vendor.bundle.js', (req, res) => {
+  return fs.createReadStream(`${__dirname}/../build/vendor.bundle.js`).pipe(res);
+});
+
 app.use('/build/bundle.js', (req, res) => {
   return fs.createReadStream(`${__dirname}/../build/bundle.js`).pipe(res);
 });
