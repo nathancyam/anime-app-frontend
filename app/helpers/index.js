@@ -53,7 +53,7 @@ export function isLoggedIn() {
  */
 export var fetchApi = (url, body = {}, headers = {}) => {
   const _headers = Object.assign({}, {
-    'Authorization': 'Basic YW5pbWVhcHA6TTJ3SVNveVBmUA==',
+    'Authorization': 'Basic bmF0aGFuOjB0b0ptVUV2cGM=',
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }, headers);
