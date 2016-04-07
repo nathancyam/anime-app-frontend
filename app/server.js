@@ -6,7 +6,6 @@ import http from 'http'
 import httpProxy from 'http-proxy';
 import routes from './routes';
 import React from 'react';
-import fs from 'fs';
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext, createMemoryHistory } from 'react-router'
 import { configureStore } from './stores';
@@ -14,10 +13,22 @@ import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { getUser } from './decorators/auth';
 import { renderPage } from './helpers';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import webpackConfig from '../webpack.config';
 
 let app = express();
 let apiProxy = httpProxy.createProxyServer({ ws: true });
 const httpServer = http.createServer(app);
+
+const webpackServer = new WebpackDevServer(webpack(webpackConfig), {
+  contentBase: __dirname,
+  hot: true,
+  quiet: false,
+  noInfo: false,
+  publicPath: "/build/",
+  stats: { colors: true }
+});
 
 /**
  * @param {Object} renderProps
@@ -41,16 +52,13 @@ async function fetchData(renderProps, req) {
 app.set('port', 1337);
 app.use(express.static(__dirname + '/../public'));
 
-app.use('/build/vendor.bundle.js', (req, res) => {
-  return fs.createReadStream(`${__dirname}/../build/vendor.bundle.js`).pipe(res);
-});
-
-app.use('/build/bundle.js', (req, res) => {
-  return fs.createReadStream(`${__dirname}/../build/bundle.js`).pipe(res);
-});
-
-app.use('/build/styles.css', (req, res) => {
-  return fs.createReadStream(`${__dirname}/../build/styles.css`).pipe(res);
+app.use('/build', (req, res) => {
+  apiProxy.web(req, res, { target: 'http://localhost:8081/build' }, err => {
+    if (err) {
+      console.error(err);
+      console.error(req);
+    }
+  });
 });
 
 app.use('/api', (req, res) => {
@@ -112,6 +120,8 @@ app.use('*', (req, res) => {
     }
   });
 });
+
+webpackServer.listen(8081, "localhost", () => console.log('Webpack dev server listening on 8081'));
 
 httpServer.listen(app.get('port'), err => {
   if (err) {

@@ -14,7 +14,8 @@ export const hostname = _hostname;
  */
 export function renderPage(html, data = {}) {
   let vendorTag = '';
-  if (process.env.NODE_ENV !== 'development') {
+  let buildBundleUrl = '/build/bundle.js';
+  if (process.env.TARGET !== 'dev') {
     vendorTag = `<script src="/build/vendor.bundle.js"></script>`;
   }
 
@@ -33,7 +34,7 @@ export function renderPage(html, data = {}) {
           __INITIAL_DATA__ = ${JSON.stringify(data)};
         </script>
         ${vendorTag}
-        <script src="/build/bundle.js"></script>
+        <script src="${buildBundleUrl}"></script>
       </body>
     </html>
   `;
