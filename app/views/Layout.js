@@ -19,23 +19,23 @@ export default class Layout extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem eventKey={1}>
+              <li role="presentation">
                 <Link to="/anime"><i className="fa fa-tv" /> Anime</Link>
-              </NavItem>
-              <NavItem eventKey={2}>
+              </li>
+              <li role="presentation">
                 <Link to="/torrents"><i className="fa fa-download" /> Torrents</Link>
-              </NavItem>
-              <NavItem eventKey={3}>
+              </li>
+              <li role="presentation">
                 <Link to="/torrents/server"><i className="fa fa-server" /> Torrent Server</Link>
-              </NavItem>
-              <NavItem eventKey={4}>
+              </li>
+              <li role="presentation">
                 <Link to="/settings"><i className="fa fa-cogs" /> Settings</Link>
-              </NavItem>
+              </li>
             </Nav>
             <Nav pullRight>
-              <NavItem eventKey={1}>
+              <li role="presentation">
                 <LoginStatus isLoggedIn={isLoggedIn} />
-              </NavItem>
+              </li>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
