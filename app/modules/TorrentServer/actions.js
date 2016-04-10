@@ -53,7 +53,7 @@ export function sortTorrents(field, order) {
 export function assignToAnime(torrent, animeId) {
   console.log(torrent);
   console.log(animeId);
-  return dispatch => {
+  return () => {
     TorrentFactory()
       .assignTorrentToAnime(torrent, animeId)
       .then(resp => {
@@ -62,7 +62,7 @@ export function assignToAnime(torrent, animeId) {
 }
 
 export function pauseTorrent(torrent) {
-  return dispatch => {
+  return () => {
     TorrentFactory()
       .pauseTorrent(torrent)
       .then(resp => console.log('Paused torrent, waiting on refresh'))
@@ -71,10 +71,19 @@ export function pauseTorrent(torrent) {
 }
 
 export function resumeTorrent(torrent) {
-  return dispatch => {
+  return () => {
     TorrentFactory()
       .resumeTorrent(torrent)
       .then(resp => console.log('Resumed torrent, waiting on refresh'))
       .catch(err => console.error('Failed to resume torrent'));
+  };
+}
+
+export function forceUpdateListing() {
+  return () => {
+    TorrentFactory()
+      .forceUpdateListing()
+      .then(() => console.log('Waiting on response'))
+      .catch(err => console.error('Failed to force update'));
   };
 }

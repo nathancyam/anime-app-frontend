@@ -9,6 +9,7 @@ const ADD_TORRENT_URL = '/torrent/add';
 const ASSIGN_TORRENT_TO_ANIME = '/torrent/move/:torrentId/anime/:animeId';
 const PAUSE_TORRENT = '/torrent/pause/:torrentId';
 const RESUME_TORRENT = '/torrent/resume/:torrentId';
+const FORCE_UPDATE_URL = '/torrent/server/update';
 
 class TorrentService extends BaseService {
 
@@ -93,6 +94,18 @@ class TorrentService extends BaseService {
       return this.makeImmutable(jsonResponse);
     } catch (err) {
       console.error(err);
+    }
+  }
+
+  /**
+   * @returns {Promise.<Object>}
+   */
+  async forceUpdateListing() {
+    try {
+      const response = await this.fetchApi(FORCE_UPDATE_URL, { method: 'POST' });
+      return await response.json();
+    } catch (err) {
+      console.warn('Failed to force update on torrent listing');
     }
   }
 }

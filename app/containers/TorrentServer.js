@@ -13,7 +13,8 @@ import {
   sortTorrents,
   assignToAnime,
   resumeTorrent,
-  pauseTorrent
+  pauseTorrent,
+  forceUpdateListing
 } from '../modules/TorrentServer/actions';
 import {
   showTorrentModal,
@@ -152,6 +153,13 @@ const mapDispatchToProps = (dispatch) => {
      */
     onPauseTorrent(torrent) {
       dispatch(pauseTorrent(torrent));
+    },
+
+    /**
+     * Force a torrent listing update.
+     */
+    onForceUpdateListing() {
+      dispatch(forceUpdateListing())
     },
 
     /**
