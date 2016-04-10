@@ -7,19 +7,6 @@
 import React from 'react';
 import { AddToCollectionButton, AddToAnimeButton, ResumeButton } from './Buttons';
 
-const humanTimeRemaning = (secondsRemaining) => {
-  let totalSec = (new Date().getTime() / 1000) + secondsRemaining;
-  var hours = parseInt( totalSec / 3600 ) % 24;
-  var minutes = parseInt( totalSec / 60 ) % 60;
-  var seconds = totalSec % 60;
-
-  const timeString = (time, interval) => {
-    return `${time < 10 ? '' : `${Math.floor(time)} ${interval}`}`;
-  };
-
-  return `${timeString(hours, 'hours')} ${timeString(minutes, 'minutes')} ${timeString(seconds, 'seconds')}`;
-};
-
 const statusString = (statusCode) => {
   switch (statusCode) {
     case 0:
@@ -75,7 +62,7 @@ export default ({ hasEpisode, torrent, onAddEpisodeToCollection, showTorrentModa
 
   const torrentEta = torrent.get('eta') == -1
     ? 'Completed'
-    : humanTimeRemaning(torrent.get('eta'));
+    : torrent.get('humanEta');
 
   return (
     <li className="list-group-item">
