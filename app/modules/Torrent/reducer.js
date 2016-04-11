@@ -11,7 +11,8 @@ import {
   ADDING_TORRENT,
   ADDED_TORRENT,
   ERROR_ADDING_TORRENT,
-  RESET_TORRENT
+  RESET_TORRENT,
+  PAGINATION_CHANGE
 } from './actions';
 
 const initialState = Immutable.fromJS(
@@ -20,6 +21,10 @@ const initialState = Immutable.fromJS(
     torrents: [],
     _meta: {
       isFetching: false
+    },
+    pagination: {
+      currentPage: 0,
+      itemsPerPage: 10
     }
   }
 );
@@ -86,6 +91,10 @@ export default function reducer(state = initialState, action) {
     case RESET_TORRENT:
       state = state.set('torrents', Immutable.List());
       state = state.set('query', '');
+      return state;
+
+    case PAGINATION_CHANGE:
+      state = state.setIn(['pagination', 'currentPage'], action.pageNumber);
       return state;
 
     default:

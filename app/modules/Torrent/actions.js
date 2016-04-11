@@ -67,7 +67,7 @@ export function addingTorrent(torrent) {
   };
 }
 
-export const ADDED_TORRENT = 'ADDED_TORRENT';
+export const ADDED_TORRENT = 'app/Torrent/ADDED_TORRENT';
 export function addedTorrent(torrent) {
   return {
     type: ADDED_TORRENT,
@@ -75,7 +75,7 @@ export function addedTorrent(torrent) {
   };
 }
 
-export const ENTERING_QUERY = 'ENTERING_QUERY';
+export const ENTERING_QUERY = 'app/Torrent/ENTERING_QUERY';
 export function enteringQuery(query) {
   return {
     type: ENTERING_QUERY,
@@ -87,5 +87,13 @@ export const RESET_TORRENT = 'RESET_TORRENT';
 export function resetTorrents() {
   return {
     type: RESET_TORRENT
+  }
+}
+
+export const PAGINATION_CHANGE = 'app/Torrent/PAGINATION_CHANGE';
+export function changeCurrentPage(pageNumber) {
+  return {
+    type: PAGINATION_CHANGE,
+    pageNumber
   }
 }

@@ -14,6 +14,7 @@ var common = {
     'webpack/hot/dev-server',
     'webpack-dev-server/client?http://localhost:8081'
   ],
+  devtool: "eval-source-map",
   resolve: {
     extensions: ['', '.jsx', '.scss', '.js', '.json'],
     alias: {

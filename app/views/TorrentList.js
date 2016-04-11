@@ -19,8 +19,7 @@ const ResultCounter = ({ numberOfResults, isFetching }) => {
 
 class TorrentPagination extends Component {
   render () {
-    return (
-      <Pagination bsSize="medium" {...this.props} /> );
+    return <Pagination bsSize="medium" {...this.props} />;
   }
 }
 
@@ -29,10 +28,16 @@ export default class TorrentList extends React.Component {
   constructor(props) {
     super(props);
     this.onQueryChange = this.onQueryChange.bind(this);
+    this.onChangeCurrentPage = this.onChangeCurrentPage.bind(this);
   }
 
   onQueryChange(event) {
     this.props.onQueryChange(event.target.value);
+  }
+
+  onChangeCurrentPage(event, page) {
+    event.preventDefault();
+    this.props.onChangeCurrentPage(page.eventKey - 1);
   }
 
   componentDidMount() {
@@ -44,8 +49,16 @@ export default class TorrentList extends React.Component {
   }
 
   render() {
-    const { torrents, searchTerm, isFetching, onAddTorrent } = this.props;
-    const numberOfResults = torrents.count();
+    const {
+      torrents,
+      searchTerm,
+      isFetching,
+      onAddTorrent,
+      numberOfResults,
+      pagination
+    } = this.props;
+
+    const activePage = pagination.getIn(['pagination', 'currentPage']) + 1;
 
     return (
       <div className="torrent-listing">
@@ -69,9 +82,8 @@ export default class TorrentList extends React.Component {
           <div className={`col-xs-12`}>
             <TorrentPagination
               items={Math.floor(numberOfResults / 10) + 1}
-              activePage={1}
-              prev={true}
-              next={true} />
+              activePage={activePage}
+              onSelect={this.onChangeCurrentPage} />
             {
               torrents.map((result, index) => {
                 return <TorrentItem
