@@ -52,9 +52,12 @@ export default class AnimeItem extends Component {
       searchTorrents,
       onAddTorrent,
       onResetTorrents,
-      onAnimePropertyChange
+      onAnimePropertyChange,
+      onChangeCurrentPage
     } = this.props;
     const imageUrl = anime.get('image_url');
+    
+    const { searchTerm, isFetching, list, numberOfResults, pagination } = torrents;
 
     if (anime.count() === 0) {
       return <div className="row">
@@ -98,12 +101,15 @@ export default class AnimeItem extends Component {
                   <div className="row">
                     <div className="col-xs-12">
                       <TorrentList
+                        isFetching={isFetching}
+                        numberOfResults={numberOfResults}
+                        searchTerm={searchTerm ? searchTerm : anime.get('title')}
+                        list={list}
+                        pagination={pagination}
                         onResetTorrents={onResetTorrents}
                         onAddTorrent={onAddTorrent}
                         onQueryChange={searchTorrents}
-                        isFetching={torrents.getIn(['_meta', 'isFetching'])}
-                        torrents={torrents.get('torrents')}
-                        searchTerm={torrents.get('query') ? torrents.get('query') : anime.get('title')}
+                        onChangeCurrentPage={onChangeCurrentPage}
                       />
                     </div>
                   </div>

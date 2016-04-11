@@ -58,8 +58,12 @@ class AnimeItemService extends BaseService {
 
     const torrents = this.makeImmutable({
       _meta: { isFetching: false },
-      torrents: torrentListing,
-      query: title
+      list: torrentListing,
+      query: title,
+      pagination: {
+        currentPage: 0,
+        itemsPerPage: 10
+      }
     });
 
     const animeNewsNetwork = this.makeImmutable({

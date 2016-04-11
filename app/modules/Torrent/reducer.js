@@ -18,7 +18,7 @@ import {
 const initialState = Immutable.fromJS(
   {
     query: '',
-    torrents: [],
+    list: [],
     _meta: {
       isFetching: false
     },
@@ -51,12 +51,12 @@ const errorTorrents = updateTorrentStatus.bind(null, 'error');
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case REQUEST_SEARCH:
-      state = state.set('torrents', Immutable.List());
+      state = state.set('list', Immutable.List());
       return state;
 
     case RECEIVED_TORRENTS:
       state = state.setIn(['_meta', 'isFetching'], false);
-      state = state.set('torrents', action.torrents);
+      state = state.set('list', action.torrents);
       return state;
 
     case FETCHING_TORRENTS:
@@ -68,29 +68,30 @@ export default function reducer(state = initialState, action) {
       return state;
 
     case ADDING_TORRENT:
-      state = state.set('torrents', addingTorrents(
-        state.get('torrents'),
+      state = state.set('list', addingTorrents(
+        state.get('list'),
         action.torrent.get('href')
       ));
       return state;
 
     case ADDED_TORRENT:
-      state = state.set('torrents', addedTorrents(
-        state.get('torrents'),
+      state = state.set('list', addedTorrents(
+        state.get('list'),
         action.torrent.get('href')
       ));
       return state;
 
     case ERROR_ADDING_TORRENT:
-      state = state.set('torrents', errorTorrents(
-        state.get('torrents'),
+      state = state.set('list', errorTorrents(
+        state.get('list'),
         action.torrent.get('href')
       ));
       return state;
 
     case RESET_TORRENT:
-      state = state.set('torrents', Immutable.List());
+      state = state.set('list', Immutable.List());
       state = state.set('query', '');
+      state = state.setIn(['pagination', 'currentPage'], 0);
       return state;
 
     case PAGINATION_CHANGE:

@@ -8,19 +8,19 @@ import {
   changeCurrentPage
 } from '../modules/Torrent/actions';
 
-const mapStateToProps = ({ torrents }) => {
+export const mapStateToProps = ({ torrents }) => {
   let currentPage = torrents.getIn(['pagination', 'currentPage']);
   let itemsPerPage = torrents.getIn(['pagination', 'itemsPerPage']);
   let start = currentPage * itemsPerPage;
   let end = (currentPage + 1) * itemsPerPage;
-  let torrentPage = torrents.get('torrents').slice(start, end);
+  let torrentPage = torrents.get('list').slice(start, end);
 
   return {
     _meta: Immutable.fromJS({ title: 'Torrents' }),
     searchTerm: torrents.get('query'),
     isFetching: torrents.getIn(['_meta', 'isFetching']),
-    torrents: torrentPage,
-    numberOfResults: torrents.get('torrents').count(),
+    list: torrentPage,
+    numberOfResults: torrents.get('list').count(),
     pagination: torrents.get('pagination')
   };
 };

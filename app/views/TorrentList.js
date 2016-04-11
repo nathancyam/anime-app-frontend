@@ -50,7 +50,7 @@ export default class TorrentList extends React.Component {
 
   render() {
     const {
-      torrents,
+      list,
       searchTerm,
       isFetching,
       onAddTorrent,
@@ -58,7 +58,7 @@ export default class TorrentList extends React.Component {
       pagination
     } = this.props;
 
-    const activePage = pagination.getIn(['pagination', 'currentPage']) + 1;
+    const activePage = pagination.get('currentPage') + 1;
 
     return (
       <div className="torrent-listing">
@@ -85,7 +85,7 @@ export default class TorrentList extends React.Component {
               activePage={activePage}
               onSelect={this.onChangeCurrentPage} />
             {
-              torrents.map((result, index) => {
+              list.map((result, index) => {
                 return <TorrentItem
                   onAddTorrent={onAddTorrent}
                   key={`torrent-${index}`}
@@ -100,7 +100,12 @@ export default class TorrentList extends React.Component {
 }
 
 TorrentList.PropTypes = {
+  list: PropTypes.object.isRequired,
+  numberOfResults: PropTypes.number,
+  searchTerm: PropTypes.string,
+  pagination: PropTypes.object,
   onAddTorrent: PropTypes.func,
   onRemoveTorrents: PropTypes.func,
+  onChangeCurrentPage: PropTypes.func,
   torrents: PropTypes.object
 };

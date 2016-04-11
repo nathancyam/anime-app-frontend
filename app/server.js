@@ -13,22 +13,10 @@ import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { getUser } from './decorators/auth';
 import { renderPage } from './helpers';
-import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
-import webpackConfig from '../webpack.config';
 
 let app = express();
 let apiProxy = httpProxy.createProxyServer({ ws: true });
 const httpServer = http.createServer(app);
-
-const webpackServer = new WebpackDevServer(webpack(webpackConfig), {
-  contentBase: __dirname,
-  hot: true,
-  quiet: false,
-  noInfo: false,
-  publicPath: "/build/",
-  stats: { colors: true }
-});
 
 /**
  * @param {Object} renderProps
@@ -120,8 +108,6 @@ app.use('*', (req, res) => {
     }
   });
 });
-
-webpackServer.listen(8081, "localhost", () => console.log('Webpack dev server listening on 8081'));
 
 httpServer.listen(app.get('port'), err => {
   if (err) {

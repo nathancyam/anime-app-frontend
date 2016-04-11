@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
-export default class EpisodeList extends React.Component {
+export default class EpisodeList extends Component {
   render () {
     const episodes = this.props.episodes;
 
@@ -30,5 +30,5 @@ export default class EpisodeList extends React.Component {
 }
 
 EpisodeList.propTypes = {
-  episodes: React.PropTypes.array
+  episodes: PropTypes.object.isRequired
 };

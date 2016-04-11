@@ -4,7 +4,14 @@ import Immutable from 'immutable';
 import { fetchAnimeEpisodes } from '../modules/Episode/actions';
 import { animePropertyChange } from '../modules/AnimeItem/actions';
 import { fetchAnimeNewsNetworkDetails } from '../modules/AnimeNewsNetwork/actions';
-import { searchTorrents, enteringQuery, addTorrent, resetTorrents } from '../modules/Torrent/actions';
+import { mapStateToProps as torrentMapStateToProps } from './TorrentList';
+import {
+  searchTorrents,
+  enteringQuery,
+  addTorrent,
+  resetTorrents,
+  changeCurrentPage
+} from '../modules/Torrent/actions';
 
 
 const mapStateToProps = ({ anime, episodes, animeNewsNetwork, torrents }, { params }) => {
@@ -20,37 +27,81 @@ const mapStateToProps = ({ anime, episodes, animeNewsNetwork, torrents }, { para
     ? animeNewsNetwork.get(animeId)
     : Immutable.Map();
 
+  const torrentProps = torrentMapStateToProps({ torrents });
+
   return {
     _meta: Immutable.fromJS({ title: selectedAnime.get('title') }),
     anime: selectedAnime,
     animeNewsNetwork: annEntry,
     episodes: selectedEpisodes,
-    torrents: torrents
+    torrents: torrentProps
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    /**
+     * @param animeId
+     */
     getAnimeEpisodes(animeId) {
       dispatch(fetchAnimeEpisodes(animeId));
     },
+
+    /**
+     *
+     * @param query
+     * @param animeId
+     */
     getAnimeNewsNetworkResponse(query, animeId) {
       dispatch(fetchAnimeNewsNetworkDetails(query, animeId));
     },
+
+    /**
+     *
+     * @param query
+     */
     searchTorrents(query) {
       dispatch(searchTorrents(query));
     },
+
+    /**
+     *
+     * @param query
+     */
     enteringQuery(query) {
       dispatch(enteringQuery(query));
     },
+
+    /**
+     *
+     * @param torrent
+     */
     onAddTorrent(torrent) {
       dispatch(addTorrent(torrent));
     },
+
+    /**
+     *
+     */
     onResetTorrents() {
       dispatch(resetTorrents());
     },
+
+    /**
+     *
+     * @param animeId
+     * @param property
+     * @param value
+     */
     onAnimePropertyChange(animeId, property, value) {
       dispatch(animePropertyChange(animeId, property, value));
+    },
+
+    /**
+     * @param page
+     */
+    onChangeCurrentPage(page) {
+      dispatch(changeCurrentPage(page));
     }
   };
 };
