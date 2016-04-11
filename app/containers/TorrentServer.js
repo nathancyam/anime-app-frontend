@@ -54,7 +54,7 @@ const mapStateToProps = ({ anime, torrentServer, episodes, uiMeta }) => {
     .filter(namePredicate(torrentServer.getIn(['filter', 'name'])))
     .sort(sortPredicate(torrentServer.getIn(['sort', 'field'])));
 
-  let totalNumberOfTorrents = torrentServer.get('list').count();
+  let totalNumberOfTorrents = torrents.count();
   let currentPage = torrentServer.getIn(['pagination', 'currentPage']);
   let itemsPerPage = torrentServer.getIn(['pagination', 'itemsPerPage']);
   let start = currentPage * itemsPerPage;
