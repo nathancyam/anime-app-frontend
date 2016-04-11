@@ -50,6 +50,15 @@ export function sortTorrents(field, order) {
   }
 }
 
+export const PAGINATION_CHANGE = 'app/TorrentServer/PAGINATION_CHANGE';
+export function changeCurrentPage(pageNumber) {
+  console.log(pageNumber);
+  return {
+    type: PAGINATION_CHANGE,
+    pageNumber
+  };
+}
+
 export function assignToAnime(torrent, animeId) {
   console.log(torrent);
   console.log(animeId);
