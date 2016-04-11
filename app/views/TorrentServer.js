@@ -7,13 +7,13 @@
 import React, { Component, PropTypes } from 'react';
 import { factory } from '../services/WebsocketService';
 import { factory as animeService } from '../services/AnimeCollectionService';
+import { Pagination } from 'react-bootstrap';
 import {
   TorrentFilters,
   TorrentSort,
   TorrentModal,
   TorrentItem
 } from '../components/TorrentServer';
-
 
 export default class TorrentServer extends Component {
 
@@ -30,6 +30,7 @@ export default class TorrentServer extends Component {
     super(props);
     this._onAddEpisodeToCollection = this._onAddEpisodeToCollection.bind(this);
     this._onFilterByName = this._onFilterByName.bind(this);
+    this.onChangeCurrentPage = this.onChangeCurrentPage.bind(this);
   }
 
   componentDidMount() {
@@ -56,12 +57,19 @@ export default class TorrentServer extends Component {
     return this.props.episodes.find(el => el === torrent.get('name'));
   }
 
+  onChangeCurrentPage(event, page) {
+    event.preventDefault();
+    this.props.onChangeCurrentPage(page.eventKey - 1);
+  }
+
   renderListing() {
     const {
       torrents,
       filterNameValue,
+      totalNumberOfTorrents,
       sort,
       sortFields,
+      currentPage,
       onChangeOrder,
       onChangeField,
       onResumeTorrent,
@@ -69,7 +77,7 @@ export default class TorrentServer extends Component {
       onShowTorrentModal
     } = this.props;
 
-    if (torrents.count() === 0 && filterNameValue.length === 0) {
+    if (totalNumberOfTorrents === 0 && filterNameValue.length === 0) {
       return (
         <section>
           <div className="row">
@@ -101,6 +109,12 @@ export default class TorrentServer extends Component {
              />
           </div>
         </form>
+        <Pagination
+          bsSize="medium"
+          items={Math.floor(totalNumberOfTorrents / 10) + 1}
+          activePage={currentPage + 1}
+          onSelect={this.onChangeCurrentPage}
+        />
         <ul className="list-group">
           {torrents.map((torrent, key) => {
             return (
