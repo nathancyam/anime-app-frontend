@@ -14,7 +14,8 @@ import {
   assignToAnime,
   resumeTorrent,
   pauseTorrent,
-  forceUpdateListing
+  forceUpdateListing,
+  changeCurrentPage
 } from '../modules/TorrentServer/actions';
 import {
   showTorrentModal,
@@ -53,9 +54,17 @@ const mapStateToProps = ({ anime, torrentServer, episodes, uiMeta }) => {
     .filter(namePredicate(torrentServer.getIn(['filter', 'name'])))
     .sort(sortPredicate(torrentServer.getIn(['sort', 'field'])));
 
+  let totalNumberOfTorrents = torrents.count();
+  let currentPage = torrentServer.getIn(['pagination', 'currentPage']);
+  let itemsPerPage = torrentServer.getIn(['pagination', 'itemsPerPage']);
+  let start = currentPage * itemsPerPage;
+  let end = (currentPage + 1) * itemsPerPage;
+
   if (torrentServer.getIn(['sort', 'order']) === 'desc') {
     torrents = torrents.reverse();
   }
+
+  torrents = torrents.slice(start, end);
 
   const episodeFileNames = episodes
     .valueSeq()
@@ -67,9 +76,11 @@ const mapStateToProps = ({ anime, torrentServer, episodes, uiMeta }) => {
     modal: uiMeta.getIn(['modal', 'torrent']),
     sortFields: ['percentDone', 'name', 'peersConnected'],
     episodes: episodeFileNames,
-    torrents,
     filterNameValue: torrentServer.getIn(['filter', 'name']),
-    sort: torrentServer.get('sort')
+    sort: torrentServer.get('sort'),
+    torrents,
+    currentPage,
+    totalNumberOfTorrents: totalNumberOfTorrents
   };
 };
 
@@ -167,6 +178,13 @@ const mapDispatchToProps = (dispatch) => {
      */
     onFetchAllEpisodes() {
       dispatch(fetchAllEpisodes());
+    },
+
+    /**
+     * @param page
+     */
+    onChangeCurrentPage(page) {
+      dispatch(changeCurrentPage(page));
     }
   };
 };
