@@ -36,6 +36,7 @@ export default function reducer(state = Immutable.fromJS(defaultOptions), action
 
     case FILTER_TORRENTS_BY_NAME:
       state = state.set('filter', Immutable.fromJS({ name: action.value }));
+      state = state.setIn(['pagination', 'currentPage'], 0);
       break;
 
     case SORT_TORRENTS_BY_FIELD:

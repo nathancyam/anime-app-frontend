@@ -60,8 +60,6 @@ export function changeCurrentPage(pageNumber) {
 }
 
 export function assignToAnime(torrent, animeId) {
-  console.log(torrent);
-  console.log(animeId);
   return () => {
     TorrentFactory()
       .assignTorrentToAnime(torrent, animeId)
