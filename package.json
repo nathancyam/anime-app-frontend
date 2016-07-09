@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha tests/bootstrap.js 'tests/**/*Test.js'",
-    "ci:test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/mocha -- -R tap tests/bootstrap.js './tests/**/*Test.js' > test.tap && ./node_modules/.bin/istanbul report clover",
+    "ci:test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/mocha -R tap -- tests/bootstrap.js './tests/**/*Test.js' > test.tap && ./node_modules/.bin/istanbul report clover",
     "build:server": "NODE_ENV=production webpack --config webpack.server.config.js",
     "build:client": "TARGET=build webpack -p --config webpack.production.js",
     "build": "npm run build:client && npm run build:server",
