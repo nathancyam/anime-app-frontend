@@ -3,7 +3,7 @@ import AnimeItem from '../views/AnimeItem';
 import Immutable from 'immutable';
 import { fetchAnimeEpisodes } from '../modules/Episode/actions';
 import { animePropertyChange } from '../modules/AnimeItem/actions';
-import { fetchAnimeNewsNetworkDetails } from '../modules/AnimeNewsNetwork/actions';
+import { fetchAnimeNewsNetworkDetails, updateImage } from '../modules/AnimeNewsNetwork/actions';
 import { mapStateToProps as torrentMapStateToProps } from './TorrentList';
 import {
   searchTorrents,
@@ -102,6 +102,15 @@ const mapDispatchToProps = (dispatch) => {
      */
     onChangeCurrentPage(page) {
       dispatch(changeCurrentPage(page));
+    },
+
+    /**
+     * @param {String} animeId
+     * @param {String} animeName
+     * @param {String} annId
+     */
+    onUpdateImage(animeId, animeName, annId) {
+      dispatch(updateImage(animeId, animeName, annId));
     }
   };
 };

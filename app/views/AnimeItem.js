@@ -29,6 +29,7 @@ export default class AnimeItem extends Component {
     const {
       getAnimeEpisodes,
       getAnimeNewsNetworkResponse,
+      onUpdateImage,
       anime,
       animeNewsNetwork,
       searchTorrents,
@@ -40,6 +41,10 @@ export default class AnimeItem extends Component {
     getAnimeEpisodes(anime.get('_id'));
     if (animeNewsNetwork.count() === 0) {
       getAnimeNewsNetworkResponse(anime.get('title'), anime.get('_id'));
+    }
+
+    if (!anime.has('image_url')) {
+      onUpdateImage(anime.get('_id'), anime.get('title'))
     }
   }
 
@@ -131,5 +136,10 @@ AnimeItem.PropTypes = {
   getAnimeEpisodes: PropTypes.func,
   getAnimeNewsNetworkResponse: PropTypes.func,
   searchTorrents: PropTypes.func,
-  onResetTorrents: PropTypes.func
+  enteringQuery: PropTypes.func,
+  onAddTorrent: PropTypes.func,
+  onResetTorrents: PropTypes.func,
+  onAnimePropertyChange: PropTypes.func,
+  onChangeCurrentPage: PropTypes.func,
+  onUpdateImage: PropTypes.func
 };

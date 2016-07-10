@@ -30,3 +30,11 @@ export function fetchAnimeNewsNetworkDetails(query, animeId, isId = false) {
     return dispatch(receivedAnimeNewsNetworkResponse(animeId, jsonResponse));
   }
 }
+
+export function updateImage(animeId, animeName, annId = false) {
+  let animeNewsNetwork = new AnimeNewsNetworkService();
+
+  return async () => {
+    await animeNewsNetwork.updateImage(animeId, animeName, annId);
+  }
+}
