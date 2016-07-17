@@ -37,7 +37,10 @@ var common = {
     loaders: [
       {
         test: /(\.scss|\.css)$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader?sourceMap')
+        loader: ExtractTextPlugin.extract({
+          notExtractLoader: 'style-loader',
+          loader: 'css-loader!sass-loader?sourceMap'
+        })
       },
       {
         // test for both js and jsx
@@ -53,7 +56,10 @@ var common = {
   },
   plugins: [
     new ExtractTextPlugin("styles.css"),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js', Infinity)
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.bundle.js'
+    })
   ],
   resolveLoader: {
     fallback: path.resolve(__dirname, './node_modules')
@@ -73,6 +79,10 @@ if (TARGET === 'build') {
         compress: {
           warnings: false
         }
+      }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
       })
     ]
   });
