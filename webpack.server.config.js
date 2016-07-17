@@ -36,8 +36,11 @@ module.exports = {
       { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel' },
       {
         test: /(\.scss|\.css)$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader?sourceMap')
-      }
+        loader: ExtractTextPlugin.extract({
+          notExtractLoader: 'style-loader',
+          loader: 'css-loader!sass-loader?sourceMap'
+        })
+      },
     ]
   },
 

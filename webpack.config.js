@@ -17,10 +17,7 @@ var common = {
   devtool: "eval-source-map",
   resolve: {
     extensions: ['', '.jsx', '.scss', '.js', '.json'],
-    alias: {
-      react: path.resolve(__dirname, './node_modules/react')
-    },
-    fallback: path.resolve(__dirname, './node_modules')
+    modules: [path.resolve(ROOT_PATH, 'app'), path.resolve(ROOT_PATH, 'node_modules')]
   },
   output: {
     path: outputPath,
@@ -31,7 +28,10 @@ var common = {
     loaders: [
       {
         test: /(\.scss|\.css)$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader?sourceMap')
+        loader: ExtractTextPlugin.extract({
+          notExtractLoader: 'style-loader',
+          loader: 'css-loader!sass-loader?sourceMap'
+        })
       },
       {
         // test for both js and jsx
@@ -48,10 +48,7 @@ var common = {
   plugins: [
     new ExtractTextPlugin("styles.css"),
     new webpack.HotModuleReplacementPlugin()
-  ],
-  resolveLoader: {
-    fallback: path.resolve(__dirname, './node_modules')
-  }
+  ]
 };
 
 if (TARGET === 'build') {
