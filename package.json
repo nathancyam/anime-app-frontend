@@ -1,7 +1,11 @@
 {
   "name": "animenode-js-front",
   "version": "1.0.0",
-  "description": "",
+  "description": "Anime Render server written in Node.JS using server side rendering of React components.",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/nathancyam/anime-app-frontend-react"
+  },
   "main": "index.js",
   "scripts": {
     "test": "mocha tests/bootstrap.js 'tests/**/*Test.js'",
