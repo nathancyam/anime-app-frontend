@@ -1,34 +1,32 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import assign from 'lodash/assign';
 import { Link } from 'react-router';
 
-class AnimeStatus extends React.Component {
-  render() {
-    let subgroup = this.props.anime.get('designated_subgroup');
-    let icons = Object.keys(this.props.statusProperties)
-      .filter((el) => {
-        return Boolean(this.props.anime.get(el));
-      })
-      .map((el) => {
-        return {
-          [el]: this.props.statusProperties[el]
-        };
-      })
-      .reduce(assign, {});
+function AnimeStatus({ anime, statusProperties }) {
+  let subgroup = anime.get('designated_subgroup');
+  let icons = Object.keys(statusProperties)
+    .filter((el) => {
+      return Boolean(anime.get(el));
+    })
+    .map((el) => {
+      return {
+        [el]: statusProperties[el]
+      };
+    })
+    .reduce(assign, {});
 
-    return (
-      <div className="anime-status">
-        <div className="icon-container">
+  return (
+    <div className="anime-status">
+      <div className="icon-container">
         {
           Object.keys(icons).map((icon, index) => {
             return <i className={`fa ${icons[icon]}`} key={`${icon}-${index}`} />;
           })
         }
-        </div>
-        <div className="subgroup">{subgroup}</div>
       </div>
-    );
-  }
+      <div className="subgroup">{subgroup}</div>
+    </div>
+  );
 }
 
 AnimeStatus.propTypes = {
@@ -36,7 +34,12 @@ AnimeStatus.propTypes = {
   statusProperties: React.PropTypes.object
 };
 
-export default ({ anime, onDeleteAnime }) => {
+const listItemPropTypes = {
+  anime: PropTypes.object,
+  onDeleteAnime: PropTypes.func
+};
+
+function ListItem ({ anime, onDeleteAnime }) {
   const animeId = anime.get('_id');
   const title = anime.get('title');
   const imageUrl = anime.get('image_url');
@@ -80,4 +83,9 @@ export default ({ anime, onDeleteAnime }) => {
       </Link>
     </div>
   );
-};
+}
+
+ListItem.propTypes = listItemPropTypes;
+
+exports.AnimeStatus = AnimeStatus;
+export default ListItem;
