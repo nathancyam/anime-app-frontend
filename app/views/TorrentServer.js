@@ -57,9 +57,8 @@ export default class TorrentServer extends Component {
     return this.props.episodes.find(el => el === torrent.get('name'));
   }
 
-  onChangeCurrentPage(event, page) {
-    event.preventDefault();
-    this.props.onChangeCurrentPage(page.eventKey - 1);
+  onChangeCurrentPage(page) {
+    this.props.onChangeCurrentPage(page - 1);
   }
 
   renderListing() {

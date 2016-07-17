@@ -35,9 +35,8 @@ export default class TorrentList extends React.Component {
     this.props.onQueryChange(event.target.value);
   }
 
-  onChangeCurrentPage(event, page) {
-    event.preventDefault();
-    this.props.onChangeCurrentPage(page.eventKey - 1);
+  onChangeCurrentPage(eventKey) {
+    this.props.onChangeCurrentPage(eventKey - 1);
   }
 
   componentDidMount() {
