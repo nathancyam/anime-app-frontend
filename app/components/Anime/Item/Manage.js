@@ -86,7 +86,7 @@ export default class Manage extends Component {
                 />
                 <span className="input-group-btn">
                   <button
-                    className="btn btn-default"
+                    className="btn btn-default subgroup-btn"
                     type="button"
                     onClick={this.onSubgroupClick}
                   >
