@@ -24,7 +24,7 @@ function AnimeNewsNetwork ({ result }) {
       <div className="col-xs-12">
 
         <h4>Genres</h4>
-        <div>
+        <div className="genres">
           {
             genres.map((genre, index) => {
               return <span className="label label-primary"
@@ -37,7 +37,7 @@ function AnimeNewsNetwork ({ result }) {
         </div>
 
         <h4>Themes</h4>
-        <div>
+        <div className="themes">
           {
             themes.map((theme, index) => {
               return <span className="label label-primary"
@@ -50,13 +50,13 @@ function AnimeNewsNetwork ({ result }) {
         </div>
 
         <h4>Plot Summary</h4>
-        <div>
+        <div className="plot-summary">
           {annResponse.get('plot_summary')}
         </div>
 
         <h4>Cast</h4>
         <div>
-          <table className="table">
+          <table className="table cast-table">
             <thead>
             <tr>
               <th>Character</th>
