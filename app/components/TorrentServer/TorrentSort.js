@@ -18,7 +18,7 @@ export default ({ fields, onChangeField, onChangeOrder, currentField, currentOrd
   return (
     <div className="sort-torrents">
       <div className="col-xs-12 col-sm-2">
-        <select className="form-control" onChange={onChangeField} value={currentField}>
+        <select className="form-control field-select" onChange={onChangeField} value={currentField}>
           {
             fields.map(field => {
               return <option key={`field_${field}`} value={field}>{toNormalCase(field)}</option>;
@@ -27,7 +27,7 @@ export default ({ fields, onChangeField, onChangeOrder, currentField, currentOrd
         </select>
       </div>
       <div className="col-xs-12 col-sm-2">
-        <select className="form-control" onChange={onChangeOrder} value={currentOrder}>
+        <select className="form-control order-select" onChange={onChangeOrder} value={currentOrder}>
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>
