@@ -8,7 +8,7 @@ import { expect } from 'chai';
 import TorrentSort from '../../../app/components/TorrentServer/TorrentSort';
 import sinon from 'sinon';
 
-describe('TorrentItem Component', () => {
+describe('TorrentItem Component <TorrentSort />', () => {
 
   it('should show the filterable options', () => {
     const wrapper = shallow(

@@ -4,10 +4,17 @@
 
 "use strict";
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Modal } from 'react-bootstrap';
 
-export default ({ anime, modal, onHideModal, onAssignToAnime }) => {
+const propTypes = {
+  anime: PropTypes.object.required,
+  modal: PropTypes.object,
+  onHideModal: PropTypes.func,
+  onAssignToAnime: PropTypes.func
+};
+
+function TorrentModel ({ anime, modal, onHideModal, onAssignToAnime }) {
   const _onAssignToAnime = (animeId) => {
     return event => {
       event.preventDefault();
@@ -53,3 +60,6 @@ export default ({ anime, modal, onHideModal, onAssignToAnime }) => {
   );
 };
 
+TorrentModel.propTypes = propTypes;
+
+export default TorrentModel;
