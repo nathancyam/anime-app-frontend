@@ -82,12 +82,12 @@ export default ({ hasEpisode, torrent, onAddEpisodeToCollection, showTorrentModa
       </div>
       <div className="row">
         <div className="col-xs-12 col-sm-6">
-          <p>Estimated Time: {torrentEta}</p>
-          <p>Torrent File: {torrent.get('torrentFile')}</p>
+          <p className="est">Estimated Time: {torrentEta}</p>
+          <p className="torrent">Torrent File: {torrent.get('torrentFile')}</p>
         </div>
         <div className="col-xs-6 col-sm-6">
-          <p>Status: {statusString(torrent.get('status'))}</p>
-          <p>Peers Connected: {torrent.get('peersConnected')}</p>
+          <p className="status">Status: {statusString(torrent.get('status'))}</p>
+          <p className="peers">Peers Connected: {torrent.get('peersConnected')}</p>
         </div>
       </div>
       <div className="row">
