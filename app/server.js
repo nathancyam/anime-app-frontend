@@ -109,10 +109,30 @@ app.use('*', (req, res) => {
   });
 });
 
-httpServer.listen(app.get('port'), err => {
-  if (err) {
-    console.error(err);
-  }
+const cluster = require('cluster');
 
-  console.log(`Render server listening on port: ${app.get('port')}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  httpServer.listen(app.get('port'), err => {
+    if (err) {
+      console.error(err);
+    }
+
+    console.log(`Render server listening on port: ${app.get('port')}`);
+  });
+}
+
+if (process.env.NODE_ENV === 'production') {
+  if (cluster.isMaster) {
+    cluster.fork();
+    cluster.fork();
+  } else {
+    httpServer.listen(app.get('port'), err => {
+      if (err) {
+        console.error(err);
+      }
+
+      console.log(`Render server listening on port: ${app.get('port')}`);
+    });
+  }
+}
+
