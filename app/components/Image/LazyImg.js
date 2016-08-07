@@ -5,7 +5,7 @@
 "use strict";
 
 import React, { PropTypes, Component } from 'react';
-import { addImageToRegistry } from '../../modules/ui/actions';
+import { addImageToRegistry } from '../../modules/Ui/actions';
 import { connect } from 'react-redux';
 
 const propTypes = {
