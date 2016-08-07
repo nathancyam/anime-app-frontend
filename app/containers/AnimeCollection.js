@@ -9,6 +9,7 @@ import {
   filterByWatching
 } from '../modules/AnimeCollection/actions';
 import { deleteAnime } from '../modules/AnimeItem/actions';
+import { updateImageRegistry } from '../modules/Ui/actions';
 
 const applyFiltersToCollection = (collection, filters) => {
   return collection.filter(el => {
@@ -45,6 +46,10 @@ const mapDispatchToProps = (dispatch) => {
 
     onFilterByWatching(value) {
       dispatch(filterByWatching(value));
+    },
+
+    handleImageRegistryUpdate() {
+      dispatch(updateImageRegistry());
     }
   }
 };

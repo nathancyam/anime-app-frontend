@@ -13,10 +13,25 @@ export const showTorrentModal = (data) => {
   };
 };
 
-
 export const hideTorrentModal = () => {
   return {
     type: MODAL_TORRENT,
     state: 'hide'
   };
 };
+
+export const IMAGE_REGISTRATION = 'IMAGE_REGISTRATION';
+export function addImageToRegistry(node) {
+  return {
+    type: IMAGE_REGISTRATION,
+    node
+  }
+}
+
+export const UPDATE_IMAGE_REGISTRY = 'UPDATE_IMAGE_REGISTRY ';
+export function updateImageRegistry() {
+  return {
+    type: UPDATE_IMAGE_REGISTRY,
+    innerHeight: window.innerHeight
+  }
+}

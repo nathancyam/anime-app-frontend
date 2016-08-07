@@ -6,7 +6,9 @@
 
 import Immutable from 'immutable';
 import {
-  MODAL_TORRENT
+  MODAL_TORRENT,
+  IMAGE_REGISTRATION,
+  UPDATE_IMAGE_REGISTRY
 } from './actions';
 
 const initialState = {
@@ -14,8 +16,11 @@ const initialState = {
     torrent: {
       state: 'hide'
     }
-  }
+  },
+  imageRegistry: []
 };
+
+export const defaultState = Immutable.fromJS(initialState);
 
 export default function reducer(state = Immutable.fromJS(initialState), action) {
   switch (action.type) {
@@ -25,9 +30,31 @@ export default function reducer(state = Immutable.fromJS(initialState), action) 
       if (action.data) {
         state = state.setIn(['modal', 'torrent', 'data'], action.data);
       }
-      return state;
+      break;
+
+    case IMAGE_REGISTRATION:
+      let imageRegistry = state.get('imageRegistry');
+      imageRegistry = imageRegistry.push({
+        node: action.node,
+        isVisible: false
+      });
+
+      imageRegistry = Immutable.fromJS(imageRegistry);
+      state = state.set('imageRegistry', imageRegistry);
+      break;
+
+    case UPDATE_IMAGE_REGISTRY:
+      state = state.updateIn(['imageRegistry'], imageRegistry => {
+        return imageRegistry.map(({ node }) => ({
+          node,
+          isVisible: window.innerHeight > node.getBoundingClientRect().top
+        }));
+      });
+      break;
 
     default:
-      return state;
+      break;
   }
+
+  return state;
 };

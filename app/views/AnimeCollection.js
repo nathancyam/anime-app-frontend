@@ -34,11 +34,21 @@ export default class AnimeList extends Component {
   constructor(props) {
     super(props);
     this._onFilterByName = this._onFilterByName.bind(this);
+    this.handleListScroll = this.handleListScroll.bind(this);
   }
 
   componentDidMount() {
     document.title = this.props._meta.get('title');
+    window.addEventListener('scroll', this.handleListScroll);
     this.props.fetchAnime();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleListScroll);
+  }
+
+  handleListScroll() {
+    this.props.handleImageRegistryUpdate();
   }
 
   _onFilterByName(event) {
@@ -87,7 +97,8 @@ export default class AnimeList extends Component {
                   key={`anime-${index}-item`}
                   onDeleteAnime={onDeleteAnime}
                   anime={el}
-                  mediaRoot={hostname} />;
+                  mediaRoot={hostname}
+                />;
               })
             }
           </div>
@@ -100,5 +111,6 @@ export default class AnimeList extends Component {
 AnimeList.propTypes = {
   onFilterByName: PropTypes.func.isRequired,
   onFilterByComplete: PropTypes.func.isRequired,
-  onFilterByWatching: PropTypes.func.isRequired
+  onFilterByWatching: PropTypes.func.isRequired,
+  handleImageRegistryUpdate: PropTypes.func
 };

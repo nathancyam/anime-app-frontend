@@ -13,12 +13,23 @@ import episodes from '../modules/Episode/reducer';
 import animeNewsNetwork from '../modules/AnimeNewsNetwork/reducer';
 import torrents from '../modules/Torrent/reducer';
 import torrentServer from '../modules/TorrentServer/reducer';
-import uiMeta from '../modules/Ui/reducer';
+import uiMeta, { defaultState as uiDefaultState } from '../modules/Ui/reducer';
 import { authMiddleware } from '../middleware/auth';
 
-export function configureStore(history, initialState) {
+export function configureStore(history, initialState = {}) {
   let newState = initialState;
   const immutableState = ['anime', 'episodes', 'animeNewsNetwork', 'torrents', 'auth'];
+
+  if (initialState) {
+    const updateState = Object.keys(initialState)
+      .filter(el => immutableState.includes(el))
+      .reduce((carry, item) => {
+        carry[item] = Immutable.fromJS(initialState[item]);
+        return carry;
+      }, {});
+
+    newState = Object.assign({}, initialState, updateState);
+  }
 
   const reducer = combineReducers({
     routing: routerReducer,
@@ -31,17 +42,6 @@ export function configureStore(history, initialState) {
     animeNewsNetwork,
     filters
   });
-
-  if (initialState) {
-    const updateState = Object.keys(initialState)
-      .filter(el => immutableState.indexOf(el) !== -1)
-      .reduce((carry, item) => {
-        carry[item] = Immutable.fromJS(initialState[item]);
-        return carry;
-      }, {});
-
-    newState = Object.assign({}, initialState, updateState);
-  }
 
   return createStore(
     reducer,

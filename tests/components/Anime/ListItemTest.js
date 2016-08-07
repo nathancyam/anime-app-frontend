@@ -11,6 +11,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import { Link } from 'react-router';
 import ListItem, { AnimeStatus } from '../../../app/components/Anime/ListItem';
+import LazyImg from '../../../app/components/Image/LazyImg';
 
 describe('Anime ListItem Component', () => {
   const anime = Immutable.fromJS({
@@ -31,7 +32,7 @@ describe('Anime ListItem Component', () => {
 
     it('should have an image URL', () => {
       const wrapper = makeComponent();
-      expect(wrapper.find('img').props().src).equal('/media/123.jpg');
+      expect(wrapper.find(LazyImg).props().src).equal('/media/123.jpg');
     });
 
     it('should have a title', () => {

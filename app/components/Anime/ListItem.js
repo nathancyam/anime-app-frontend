@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import assign from 'lodash/assign';
 import { Link } from 'react-router';
+import LazyImg from '../Image/LazyImg';
 
 function AnimeStatus({ anime, statusProperties }) {
   let subgroup = anime.get('designated_subgroup');
@@ -53,7 +54,7 @@ function ListItem ({ anime, onDeleteAnime }) {
     <div className="col-xs-12 col-sm-4 col-md-3 col-lg-2">
       <Link className="anime-item-link" to={`/anime/${animeId}`}>
         <div className="anime-item">
-          <img src={imageUrl} />
+          <LazyImg src={imageUrl} />
           <div className="content">
             <div className="title">{title}</div>
             <hr />
