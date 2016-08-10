@@ -41,6 +41,7 @@ export default class AnimeList extends Component {
     document.title = this.props._meta.get('title');
     window.addEventListener('scroll', this.handleListScroll);
     this.props.fetchAnime();
+    this.handleListScroll();
   }
 
   componentWillUnmount() {
