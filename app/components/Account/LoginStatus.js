@@ -2,20 +2,26 @@
  * Created by nathanyam on 5/03/2016.
  */
 
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-export default class LoginStatus extends Component {
+const propTypes = {
+  isLoggedIn: PropTypes.bool
+};
 
-  renderLink() {
-    if (this.props.isLoggedIn) {
+function LoginStatus({ isLoggedIn }) {
+
+  function renderLink() {
+    if (isLoggedIn) {
       return (<Link to="/logout"><i className="fa fa-sign-out" /> Logout</Link>);
     } else {
       return (<Link to="/login"><i className="fa fa-sign-in" /> Login</Link>);
     }
   }
 
-  render() {
-    return this.renderLink();
-  }
+  return renderLink();
 }
+
+LoginStatus.propTypes = propTypes;
+
+export default LoginStatus;
