@@ -47,7 +47,7 @@ export default function reducer(state = Immutable.fromJS(initialState), action) 
       state = state.updateIn(['imageRegistry'], imageRegistry => {
         return imageRegistry.map(({ node }) => ({
           node,
-          isVisible: window.innerHeight > node.getBoundingClientRect().top
+          isVisible: (window.innerHeight + 500) > node.getBoundingClientRect().top
         }));
       });
       break;
