@@ -16,7 +16,7 @@ var common = {
   ],
   devtool: "eval-source-map",
   resolve: {
-    extensions: ['', '.jsx', '.scss', '.js', '.json'],
+    extensions: ['.jsx', '.scss', '.js', '.json'],
     modules: [path.resolve(ROOT_PATH, 'app'), path.resolve(ROOT_PATH, 'node_modules')]
   },
   output: {

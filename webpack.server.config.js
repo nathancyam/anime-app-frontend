@@ -12,7 +12,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.jsx', '.scss', '.js', '.json']
+    extensions: ['.jsx', '.scss', '.js', '.json']
   },
 
   target: 'node',

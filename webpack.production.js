@@ -23,11 +23,10 @@ var common = {
     ]
   },
   resolve: {
-    extensions: ['', '.jsx', '.scss', '.js', '.json'],
+    extensions: ['.jsx', '.scss', '.js', '.json'],
     alias: {
       react: path.resolve(__dirname, './node_modules/react')
-    },
-    fallback: path.resolve(__dirname, './node_modules')
+    }
   },
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
@@ -60,10 +59,7 @@ var common = {
       name: 'vendor',
       filename: 'vendor.bundle.js'
     })
-  ],
-  resolveLoader: {
-    fallback: path.resolve(__dirname, './node_modules')
-  }
+  ]
 };
 
 if (TARGET === 'build') {

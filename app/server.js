@@ -44,7 +44,6 @@ app.use('/build', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:8081/build' }, err => {
     if (err) {
       console.error(err);
-      console.error(req);
     }
   });
 });
@@ -53,7 +52,6 @@ app.use('/api', (req, res) => {
   apiProxy.web(req, res, { target: 'http://localhost:3000' }, err => {
     if (err) {
       console.error(err);
-      console.error(req);
     }
   });
 });
@@ -128,7 +126,7 @@ if (process.env.NODE_ENV === 'production') {
   } else {
     httpServer.listen(app.get('port'), err => {
       if (err) {
-        console.error(err);
+        console.error(err.message);
       }
 
       console.log(`Render server listening on port: ${app.get('port')}`);
