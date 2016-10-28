@@ -9,5 +9,7 @@ deployment:
   production:
     branch: master
     commands:
+      - npm prune
+      - npm rebuild
       - npm run build:prod
       - rsync -rvz --progress -e "ssh -p ${SSH_PORT}" ./build $REMOTE_USER@$REMOTE_HOST:/var/www/react-frontend/build/
