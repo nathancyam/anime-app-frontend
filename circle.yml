@@ -1,0 +1,17 @@
+machine:
+  timezone: Australia/Melbourne
+  node:
+    version: 6.9.1
+  hosts:
+    circlehost: 127.0.0.1
+
+test:
+  override:
+    - npm run test:tap
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - npm run build:prod
+      - rsync -rvz --progress -e "ssh -p ${SSH_PORT}" ./build $REMOTE_USER@$REMOTE_HOST:/var/www/react-frontend/build/
