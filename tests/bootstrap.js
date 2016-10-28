@@ -1,9 +1,3 @@
-/**
- * Created by nathanyam on 28/03/2016.
- */
-
-"use strict";
-
 require('babel-register')();
 
 var jsdom = require('jsdom').jsdom;
@@ -23,4 +17,4 @@ global.navigator = {
   userAgent: 'node.js'
 };
 
-global.documentRef = document;
+documentRef = document;
