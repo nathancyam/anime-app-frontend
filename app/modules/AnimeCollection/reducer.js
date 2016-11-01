@@ -35,7 +35,7 @@ export default function reducer(state = Immutable.fromJS({ isFetching: false, an
         }
         return el;
       });
-      state = state.set('anime', Immutable.fromJS(anime));
+      state = state.set('anime', anime);
       return state;
 
     default:
