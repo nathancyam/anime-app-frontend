@@ -2,14 +2,47 @@
 @import '~bootstrap-sass/assets/stylesheets/bootstrap-sprockets';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 @import '~bootswatch/flatly/bootswatch';
+@import 'variables';
 @import 'breakpoints';
+@import 'offcanvas';
+@import 'anime/item';
+
+.application.container {
+  min-width: 100%;
+  min-height: 100%;
+  background-color: #fff;
+  position: relative;
+  top: 0;
+  bottom: 100%;
+  left: 0;
+  z-index: 1;
+  padding-top: 8rem;
+
+  @include bp(sm) {
+    left: $offcanvas-width;
+
+    > .row > div {
+      width: 100% - $offcanvas-width;
+    }
+  }
+}
 
 // Ensure nav bar doesn't get malformed from <Link> components
 .app-navbar {
   border-radius: 0;
+  margin-bottom: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
 
   .nav a[role="button"] {
     display: none;
+  }
+
+  .navbar-brand {
+    margin-left: 4rem;
   }
 }
 
@@ -101,53 +134,6 @@
 .anime-item-link:hover {
   color: black;
   text-decoration: none;
-}
-
-.anime-item {
-  overflow: hidden;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  margin: 1rem 0;
-  transition: all .2s ease-in-out;
-
-  @include bp(sm) {
-    margin: 2rem 0;
-  }
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  img {
-    position: relative;
-    width: 33.3333%;
-    float: left;
-    padding-right: 1rem;
-
-    @include bp(sm) {
-      width: 100%;
-      float: none;
-      padding-right: 0;
-    }
-  }
-  .content {
-    padding: 1rem;
-  }
-  hr {
-    margin: 1rem 0;
-  }
-  .title {
-    line-height: 3rem;
-    font-weight: bold;
-    font-size: 2rem;
-  }
-  .icon-container,
-  .subgroup {
-    display: inline-block;
-  }
-  .subgroup {
-    font-weight: bold;
-    float: right;
-  }
 }
 
 .manage_anime {

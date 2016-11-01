@@ -10,34 +10,35 @@ export default class Layout extends Component {
     
     return (
       <div>
+        <ul className="navigation">
+          <li role="presentation">
+            <Link to="/anime"><i className="fa fa-tv" /> Anime</Link>
+          </li>
+          <li role="presentation">
+            <Link to="/torrents"><i className="fa fa-download" /> Torrents</Link>
+          </li>
+          <li role="presentation">
+            <Link to="/torrents/server"><i className="fa fa-server" /> Torrent Server</Link>
+          </li>
+          <li role="presentation">
+            <Link to="/settings"><i className="fa fa-cogs" /> Settings</Link>
+          </li>
+        </ul>
+        <input type="checkbox" className="nav-trigger" id="nav-trigger"/>
+        <label id="nav-icon" htmlFor="nav-trigger" className="navbar-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
         <Navbar className="app-navbar">
           <Navbar.Header>
             <Navbar.Brand>
               <Link to="/">Anime App</Link>
             </Navbar.Brand>
-            <Navbar.Toggle />
           </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav>
-              <li role="presentation">
-                <Link to="/anime"><i className="fa fa-tv" /> Anime</Link>
-              </li>
-              <li role="presentation">
-                <Link to="/torrents"><i className="fa fa-download" /> Torrents</Link>
-              </li>
-              <li role="presentation">
-                <Link to="/torrents/server"><i className="fa fa-server" /> Torrent Server</Link>
-              </li>
-              <li role="presentation">
-                <Link to="/settings"><i className="fa fa-cogs" /> Settings</Link>
-              </li>
-            </Nav>
-            <Nav pullRight>
-              <li role="presentation">
-                <LoginStatus isLoggedIn={isLoggedIn} />
-              </li>
-            </Nav>
-          </Navbar.Collapse>
         </Navbar>
         <div className="application container">
           {this.props.children}
