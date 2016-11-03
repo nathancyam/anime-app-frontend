@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register --require tests/bootstrap.js tests/**/*Test.js",
+    "test": "mocha -R dot --compilers js:babel-register --require babel-polyfill --require tests/bootstrap.js tests/**/*Test.js",
     "test:tap": "mocha -R tap tests/bootstrap.js 'tests/**/*Test.js'",
     "ci:test": "./node_modules/.bin/istanbul cover npm run test:tap > test.tap && ./node_modules/.bin/istanbul report clover",
     "build:server": "NODE_ENV=production webpack --config webpack.server.config.js",
@@ -51,6 +51,7 @@
     "postcss-loader": "^1.1.0",
     "react-addons-test-utils": "^15.0.0",
     "react-hot-loader": "^3.0.0-beta.6",
+    "redux-mock-store": "^1.2.1",
     "sass-loader": "^4.0.0",
     "sinon": "^1.17.3",
     "style-loader": "^0.13.0",

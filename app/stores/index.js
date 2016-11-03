@@ -36,8 +36,7 @@ export function configureStore(history, initialState = {}) {
     auth,
     uiMeta,
     anime,
-    episodes,
-    torrents,
+    episodes, torrents,
     torrentServer,
     animeNewsNetwork,
     filters
