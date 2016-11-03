@@ -15,7 +15,7 @@ export default class extends Component {
     const settings = this.props.auth.getIn(['user', 'settings']);
 
     return (
-      <div className="row">
+      <div className="row view">
         <div className="col-xs-12">
           <h1>Settings</h1>
           <form>

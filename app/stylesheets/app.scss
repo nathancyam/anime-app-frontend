@@ -21,7 +21,7 @@
   @include bp(sm) {
     left: $offcanvas-width;
 
-    > .row > div {
+    .row.view {
       width: 100% - $offcanvas-width;
     }
   }

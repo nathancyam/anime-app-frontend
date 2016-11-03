@@ -13,7 +13,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="row">
+      <div className="row view">
         <div className="col-xs-12 col-sm-4 col-sm-push-4">
           <h1>Login</h1>
           <form onSubmit={this.loginRequest.bind(this)}>

@@ -73,7 +73,7 @@ export default class AnimeItem extends Component {
     }
 
     return (
-      <div className="row anime-item-page">
+      <div className="row view anime-item-page">
         <div className="col-xs-12 col-md-4">
           <div className="left">
             <AnimeImage className="anime-image" imageUrl={imageUrl} />

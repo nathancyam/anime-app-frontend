@@ -65,7 +65,7 @@ export default class AnimeList extends Component {
     } = this.props;
 
     return (
-      <div className="row">
+      <div className="row view">
         <div className="col-xs-12">
           <div className="row anime-filters">
             <div className="col-xs-12">

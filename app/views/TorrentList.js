@@ -61,7 +61,7 @@ export default class TorrentList extends React.Component {
 
     return (
       <div className="torrent-listing">
-        <div className="row">
+        <div className="row view">
           <div className="col-xs-12">
             <form>
               <div className="form-group">
