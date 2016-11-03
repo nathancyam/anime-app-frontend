@@ -12,7 +12,7 @@ export default class Logout extends Component {
 
   render() {
     return (
-      <div className="row">
+      <div className="row view">
         <div className="col-xs-12 col-sm-4 col-sm-push-4">
           <h1>Logging out...</h1>
         </div>

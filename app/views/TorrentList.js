@@ -77,7 +77,7 @@ export default class TorrentList extends React.Component {
             </form>
           </div>
         </div>
-        <div className="row">
+        <div className="row view">
           <div className={`col-xs-12`}>
             <TorrentPagination
               items={Math.floor(numberOfResults / 10) + 1}

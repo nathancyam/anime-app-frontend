@@ -143,7 +143,7 @@ export default class TorrentServer extends Component {
 
     return(
       <section>
-        <div className="row">
+        <div className="row view">
           <div className="col-xs-12">
             <h1>Torrent Server</h1>
             <TorrentModal
