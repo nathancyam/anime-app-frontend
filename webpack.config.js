@@ -37,7 +37,7 @@ var common = {
         // test for both js and jsx
         test: /\.js$/,
         // use babel loader with Stage 1 features
-        loader: 'babel',
+        loader: 'babel-loader',
         // operate only on our app directory
         include: [
           path.resolve(ROOT_PATH, 'app')
