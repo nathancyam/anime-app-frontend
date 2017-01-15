@@ -14,7 +14,7 @@
     "build:server": "NODE_ENV=production webpack --config webpack.server.config.js",
     "build:client": "TARGET=build webpack -p --config webpack.production.js",
     "build": "npm run build:client && npm run build:server",
-    "build:prod": "NODE_ENV=production npm run build:client && npm run build:server",
+    "build:prod": "NODE_ENV=production npm run build:server && npm run build:client",
     "start:prod": "npm run build && node server.bundle.js",
     "start:dev": "TARGET=dev webpack-dev-server --content-base . --devtool eval-source --progress --hot-only --history-api-fallback --port 8081",
     "watch:server": "TARGET=dev webpack --watch --config webpack.server.config.js",
