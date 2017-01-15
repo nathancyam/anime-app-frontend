@@ -8,7 +8,9 @@ import Immutable from 'immutable';
 import {
   MODAL_TORRENT,
   IMAGE_REGISTRATION,
-  UPDATE_IMAGE_REGISTRY
+  UPDATE_IMAGE_REGISTRY,
+  ADD_TOAST_NOTIFICATION,
+  CLEAR_TOAST_NOTIFICATION,
 } from './actions';
 
 const initialState = {
@@ -17,7 +19,8 @@ const initialState = {
       state: 'hide'
     }
   },
-  imageRegistry: []
+  imageRegistry: [],
+  toastNotifications: []
 };
 
 export const defaultState = Immutable.fromJS(initialState);
@@ -25,14 +28,15 @@ export const defaultState = Immutable.fromJS(initialState);
 export default function reducer(state = Immutable.fromJS(initialState), action) {
   switch (action.type) {
 
-    case MODAL_TORRENT:
+    case MODAL_TORRENT: {
       state = state.setIn(['modal', 'torrent', 'state'], action.state);
       if (action.data) {
         state = state.setIn(['modal', 'torrent', 'data'], action.data);
       }
       break;
+    }
 
-    case IMAGE_REGISTRATION:
+    case IMAGE_REGISTRATION: {
       let imageRegistry = state.get('imageRegistry');
       imageRegistry = imageRegistry.push({
         node: action.node,
@@ -42,8 +46,9 @@ export default function reducer(state = Immutable.fromJS(initialState), action) 
       imageRegistry = Immutable.fromJS(imageRegistry);
       state = state.set('imageRegistry', imageRegistry);
       break;
+    }
 
-    case UPDATE_IMAGE_REGISTRY:
+    case UPDATE_IMAGE_REGISTRY: {
       state = state.updateIn(['imageRegistry'], imageRegistry => {
         return imageRegistry.map(({ node }) => ({
           node,
@@ -51,6 +56,19 @@ export default function reducer(state = Immutable.fromJS(initialState), action) 
         }));
       });
       break;
+    }
+
+    case ADD_TOAST_NOTIFICATION: {
+      state = state.updateIn(['toastNotifications'], notifications => {
+        return notifications.concat([ action.payload ])
+      });
+      break;
+    }
+
+    case CLEAR_TOAST_NOTIFICATION: {
+      state = state.updateIn(['toastNotifications'], notifications => Immutable.List());
+      break;
+    }
 
     default:
       break;

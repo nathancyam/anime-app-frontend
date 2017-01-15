@@ -7,8 +7,9 @@
 import { connect } from 'react-redux';
 import Layout from '../views/Layout';
 
-const mapStateToProps = ({ auth }) => ({
-  auth
+const mapStateToProps = ({ auth, uiMeta }) => ({
+  auth,
+  notifications: uiMeta.get('toastNotifications'),
 });
 
 export default connect(mapStateToProps)(Layout);

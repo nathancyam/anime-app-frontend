@@ -6,9 +6,9 @@
 
 import React, { PropTypes } from 'react';
 
-const propsTypes = {
-  filterNameValue: PropTypes.string.required,
-  onFilterByName: PropTypes.func.required
+const propTypes = {
+  filterNameValue: PropTypes.string.isRequired,
+  onFilterByName: PropTypes.func.isRequired
 };
 
 function TorrentFilter ({ filterNameValue, onFilterByName }) {
@@ -19,6 +19,6 @@ function TorrentFilter ({ filterNameValue, onFilterByName }) {
   );
 }
 
-TorrentFilter.propTypes = propsTypes;
+TorrentFilter.propTypes = propTypes;
 
 export default TorrentFilter;

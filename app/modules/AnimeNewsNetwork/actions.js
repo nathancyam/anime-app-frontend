@@ -21,13 +21,25 @@ function receivedAnimeNewsNetworkResponse(animeId, response) {
   }
 }
 
+export const FAILED_ANIME_NEWS_NETWORK_RESPONSE = 'app/AnimeNewsNetwork/FAILED_ANIME_NEWS_NETWORK_RESPONSE';
+function failedAnimeNewsNetworkResponse(error) {
+  return {
+    type: FAILED_ANIME_NEWS_NETWORK_RESPONSE,
+    error
+  }
+}
+
 export function fetchAnimeNewsNetworkDetails(query, animeId, isId = false) {
   let animeNewsNetwork = new AnimeNewsNetworkService();
 
   return async dispatch => {
     dispatch(isFetching(true));
-    const jsonResponse = await animeNewsNetwork.search(query, isId);
-    return dispatch(receivedAnimeNewsNetworkResponse(animeId, jsonResponse));
+    try {
+      const jsonResponse = await animeNewsNetwork.search(query, isId);
+      return dispatch(receivedAnimeNewsNetworkResponse(animeId, jsonResponse));
+    } catch (error) {
+      return dispatch(failedAnimeNewsNetworkResponse(error));
+    }
   }
 }
 

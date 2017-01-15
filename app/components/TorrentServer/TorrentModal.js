@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import { Modal } from 'react-bootstrap';
 
 const propTypes = {
-  anime: PropTypes.object.required,
+  anime: PropTypes.object.isRequired,
   modal: PropTypes.object,
   onHideModal: PropTypes.func,
   onAssignToAnime: PropTypes.func

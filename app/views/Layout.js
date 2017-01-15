@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import LoginStatus from '../components/Account/LoginStatus';
+import React, { PropTypes, Component } from 'react';
+import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router';
+import NotificationContainer from '../components/Notifications/Container';
 
 export default class Layout extends Component {
 
   render() {
     const isLoggedIn = this.props.auth.get('isLoggedIn');
-    
+
     return (
       <div>
         <ul className="navigation">
@@ -43,6 +43,7 @@ export default class Layout extends Component {
         <div className="application container">
           {this.props.children}
         </div>
+        <NotificationContainer notifications={this.props.notifications} />
       </div>
     );
   }

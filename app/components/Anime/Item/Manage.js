@@ -23,30 +23,23 @@ const FontAwesomeButton = ({ predicate, boolValue, onClick }) => {
 
 export default class Manage extends Component {
 
-  constructor(props) {
-    super(props);
-    this.onCompleteClick = this.onCompleteClick.bind(this);
-    this.onSubgroupClick = this.onSubgroupClick.bind(this);
-    this.onWatchingClick = this.onWatchingClick.bind(this);
-  }
-
-  onWatchingClick(event) {
+  onWatchingClick = (event) => {
     event.preventDefault();
     let { anime, onAnimePropertyChange } = this.props;
     return onAnimePropertyChange(anime.get('_id'), 'is_watching', !anime.get('is_watching'));
-  }
+  };
 
-  onCompleteClick(event) {
+  onCompleteClick = (event) => {
     event.preventDefault();
     let { anime, onAnimePropertyChange } = this.props;
     return onAnimePropertyChange(anime.get('_id'), 'is_complete', !anime.get('is_complete'));
-  }
+  };
 
-  onSubgroupClick(event) {
+  onSubgroupClick = (event) => {
     event.preventDefault();
     let { anime, onAnimePropertyChange } = this.props;
     return onAnimePropertyChange(anime.get('_id'), 'designated_subgroup', this.subgroup.value);
-  }
+  };
 
   render() {
     const { anime } = this.props;
