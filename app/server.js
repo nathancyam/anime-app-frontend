@@ -41,7 +41,7 @@ app.set('port', 1337);
 app.use(express.static(__dirname + '/../public'));
 
 app.use('/build', (req, res) => {
-  apiProxy.web(req, res, { target: 'http://localhost:8081/build' }, err => {
+  apiProxy.web(req, res, { target: 'http://localhost:8081' }, err => {
     if (err) {
       console.error(err);
     }

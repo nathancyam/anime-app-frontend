@@ -1,28 +1,27 @@
-var path = require('path');
-var merge = require('webpack-merge');
-var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
+const merge = require('webpack-merge');
+const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-var TARGET = process.env.TARGET;
-var ROOT_PATH = path.resolve(__dirname);
-var outputPath = path.resolve(ROOT_PATH, 'build') + '/';
+const TARGET = process.env.TARGET;
+const ROOT_PATH = path.resolve(__dirname);
 
-var common = {
-  entry: [
-    'babel-polyfill',
-    path.resolve(ROOT_PATH, 'app/main'),
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:8081'
-  ],
+const common = {
+  entry: {
+    'bundle': './app/main.js',
+  },
+  output: {
+    filename: '[name].js'
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'build'),
+    compress: true,
+    port: 8081,
+  },
   devtool: "eval-source-map",
   resolve: {
     extensions: ['.jsx', '.scss', '.js', '.json'],
     modules: [path.resolve(ROOT_PATH, 'app'), path.resolve(ROOT_PATH, 'node_modules')]
-  },
-  output: {
-    path: outputPath,
-    publicPath: 'http://localhost:8081/build/',
-    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -47,7 +46,6 @@ var common = {
   },
   plugins: [
     new ExtractTextPlugin("styles.css"),
-    new webpack.HotModuleReplacementPlugin()
   ]
 };
 
