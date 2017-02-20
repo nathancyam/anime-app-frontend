@@ -5,10 +5,6 @@ machine:
   hosts:
     circlehost: 127.0.0.1
 
-dependencies:
-  override:
-    - yarn install
-
 test:
   override:
     - mocha -R mocha-junit-reporter --compilers js:babel-register --require babel-polyfill --require tests/bootstrap.js tests/**/*Test.js:
