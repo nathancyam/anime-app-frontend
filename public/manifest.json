@@ -1,0 +1,14 @@
+{
+  "lang": "en",
+  "background_color": "#f7fbff",
+  "name": "Anime App",
+  "short_name": "Anime App",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/manifest.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}

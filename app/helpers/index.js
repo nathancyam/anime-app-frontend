@@ -27,6 +27,7 @@ export function renderPage(html, data = {}) {
         <link rel="stylesheet" href="/build/styles.css" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
         <title>Anime App</title>
+        <link rel="manifest" href="/manifest.json" />
       </head>
       <body>
         <div id="app">${html}</div>

@@ -1,5 +1,7 @@
 build/
-public/
+public/media/
+!public/manifest.png
+!public/manifest.json
 *.bundle.js
 test.tap
 coverage/
