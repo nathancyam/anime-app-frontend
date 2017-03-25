@@ -4,7 +4,7 @@
 import express from 'express';
 import http from 'http'
 import httpProxy from 'http-proxy';
-import routes from './routes';
+import { routes } from './routes';
 import React from 'react';
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext, createMemoryHistory } from 'react-router'
