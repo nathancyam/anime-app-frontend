@@ -3,6 +3,11 @@ import assign from 'lodash/assign';
 import { Link } from 'react-router';
 import LazyImg from '../Image/LazyImg';
 
+const listItemPropTypes = {
+  anime: PropTypes.object,
+  onDeleteAnime: PropTypes.func
+};
+
 function AnimeStatus({ anime, statusProperties }) {
   let subgroup = anime.get('designated_subgroup');
   let icons = Object.keys(statusProperties)
@@ -30,17 +35,15 @@ function AnimeStatus({ anime, statusProperties }) {
   );
 }
 
+ListItem.propTypes = listItemPropTypes;
+
 AnimeStatus.propTypes = {
   anime: React.PropTypes.object,
   statusProperties: React.PropTypes.object
 };
 
-const listItemPropTypes = {
-  anime: PropTypes.object,
-  onDeleteAnime: PropTypes.func
-};
 
-function ListItem ({ anime, onDeleteAnime }) {
+export function ListItem ({ anime, onDeleteAnime }) {
   const animeId = anime.get('_id');
   const title = anime.get('title');
   const imageUrl = anime.get('image_url');
@@ -86,7 +89,4 @@ function ListItem ({ anime, onDeleteAnime }) {
   );
 }
 
-ListItem.propTypes = listItemPropTypes;
-
-exports.AnimeStatus = AnimeStatus;
 export default ListItem;

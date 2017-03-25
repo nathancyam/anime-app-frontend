@@ -8,7 +8,7 @@ var ROOT_PATH = path.resolve(__dirname);
 
 var common = {
   entry: {
-    app: path.resolve(ROOT_PATH, 'app/main.js'),
+    app: ['babel-polyfill', path.resolve(ROOT_PATH, 'app/main.js')],
     vendor: [
       'react',
       'react-dom',
@@ -82,22 +82,5 @@ if (TARGET === 'build') {
         debug: false
       })
     ]
-  });
-}
-
-if (TARGET === 'dev') {
-  module.exports = merge(common, {
-    entry: [
-      'webpack/hot/dev-server'
-    ],
-    module: {
-      loaders: [
-        {
-          test: /\.js?$/,
-          loaders: ['react-hot', 'babel-loader'],
-          include: path.resolve(ROOT_PATH, 'app')
-        }
-      ]
-    }
   });
 }
