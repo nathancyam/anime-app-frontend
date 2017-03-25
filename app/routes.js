@@ -11,7 +11,7 @@ import Login from './containers/Login';
 import Logout from './containers/Logout';
 import Register from './containers/Register';
 
-module.exports = (
+export default (
   <Route path="/" component={Layout}>
     <Route path="/torrents" name="torrents" component={TorrentList} />
     <Route path="/torrents/server" name="torrentServer" component={TorrentServer} />
