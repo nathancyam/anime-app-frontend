@@ -37,7 +37,7 @@ var common = {
       {
         test: /(\.scss|\.css)$/,
         loader: ExtractTextPlugin.extract({
-          notExtractLoader: 'style-loader',
+          fallbackLoader: 'style-loader',
           loader: 'css-loader!sass-loader?sourceMap'
         })
       },
