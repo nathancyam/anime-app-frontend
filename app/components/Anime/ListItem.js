@@ -8,7 +8,7 @@ const listItemPropTypes = {
   onDeleteAnime: PropTypes.func
 };
 
-function AnimeStatus({ anime, statusProperties }) {
+export function AnimeStatus({ anime, statusProperties }) {
   let subgroup = anime.get('designated_subgroup');
   let icons = Object.keys(statusProperties)
     .filter((el) => {
@@ -43,7 +43,7 @@ AnimeStatus.propTypes = {
 };
 
 
-export function ListItem ({ anime, onDeleteAnime }) {
+function ListItem ({ anime, onDeleteAnime }) {
   const animeId = anime.get('_id');
   const title = anime.get('title');
   const imageUrl = anime.get('image_url');

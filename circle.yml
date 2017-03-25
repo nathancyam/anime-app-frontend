@@ -7,8 +7,9 @@ machine:
 
 test:
   override:
-    - mocha -R mocha-junit-reporter --compilers js:babel-register --require babel-polyfill --require tests/bootstrap.js tests/**/*Test.js:
+    - npm run test:ci
         environment:
+          NODE_ENV: test
           MOCHA_FILE: $CIRCLE_TEST_REPORTS/junit/test-results.xml
 
 deployment:
