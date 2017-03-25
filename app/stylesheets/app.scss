@@ -27,6 +27,10 @@
   }
 }
 
+#app {
+  overflow-x: hidden;
+}
+
 // Ensure nav bar doesn't get malformed from <Link> components
 .app-navbar {
   border-radius: 0;
