@@ -1,13 +1,13 @@
 machine:
   timezone: Australia/Melbourne
   node:
-    version: 6.9.1
+    version: 6.9.5
   hosts:
     circlehost: 127.0.0.1
 
 test:
   override:
-    - npm run test:ci
+    - npm run test.ci:
         environment:
           NODE_ENV: test
           MOCHA_FILE: $CIRCLE_TEST_REPORTS/junit/test-results.xml
@@ -18,5 +18,5 @@ deployment:
     commands:
       - npm prune
       - npm rebuild
-      - npm run build:prod
+      - npm run build.prod
       - rsync -rvz --progress -e "ssh -p ${SSH_PORT}" ./build/* $REMOTE_USER@$REMOTE_HOST:/var/www/react-frontend/build/
