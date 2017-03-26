@@ -5,9 +5,13 @@ machine:
   hosts:
     circlehost: 127.0.0.1
 
+dependencies:
+  override:
+    - yarn
+
 test:
   override:
-    - npm run test.ci:
+    - yarn run test.ci:
         environment:
           NODE_ENV: test
           MOCHA_FILE: $CIRCLE_TEST_REPORTS/junit/test-results.xml
@@ -16,7 +20,5 @@ deployment:
   production:
     branch: master
     commands:
-      - npm prune
-      - npm rebuild
-      - npm run build.prod
+      - yarn run build.prod
       - rsync -rvz --progress -e "ssh -p ${SSH_PORT}" ./build/* $REMOTE_USER@$REMOTE_HOST:/var/www/react-frontend/build/
