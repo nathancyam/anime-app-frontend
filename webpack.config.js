@@ -8,7 +8,7 @@ const ROOT_PATH = path.resolve(__dirname);
 
 const common = {
   entry: {
-    'bundle': './app/main.js',
+    'bundle': ['babel-polyfill', './app/main.js'],
   },
   output: {
     filename: '[name].js'
@@ -28,7 +28,7 @@ const common = {
       {
         test: /(\.scss|\.css)$/,
         loader: ExtractTextPlugin.extract({
-          notExtractLoader: 'style-loader',
+          fallbackLoader: 'style-loader',
           loader: 'css-loader!sass-loader?sourceMap'
         })
       },

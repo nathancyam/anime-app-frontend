@@ -3,11 +3,10 @@
 
 import express from 'express';
 import http from 'http'
-import fs from 'fs';
-import path from 'path';
 import httpProxy from 'http-proxy';
 import { routes } from './routes';
 import React from 'react';
+import morgan from 'morgan';
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext, createMemoryHistory } from 'react-router'
 import { configureStore } from './stores';
@@ -40,6 +39,7 @@ async function fetchData(renderProps, req) {
 }
 
 app.set('port', 1337);
+app.use(morgan('dev'));
 app.use(express.static(__dirname + '/../public'));
 
 app.use('/build', (req, res) => {
