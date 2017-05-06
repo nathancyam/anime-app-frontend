@@ -37,9 +37,14 @@ export default class TorrentServer extends Component {
     const { onUpdateTorrentListing, onFetchAllEpisodes, onForceUpdateListing } = this.props;
     const wsService = factory();
     document.title = 'Torrent Server | Anime App';
+
     wsService.addListener('torrent_server:listing', data => {
-      onUpdateTorrentListing(data);
+      // Only update the torrent server listing if the document is visible
+      if (document.visibilityState !== 'hidden') {
+        onUpdateTorrentListing(data);
+      }
     });
+
     wsService.connect();
     onFetchAllEpisodes();
     onForceUpdateListing();
