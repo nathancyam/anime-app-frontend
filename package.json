@@ -16,8 +16,9 @@
     "build.client": "TARGET=build webpack -p --config webpack.production.js",
     "serve": "TARGET=dev nodemon build/server.bundle.js",
     "start": "if-env NODE_ENV=production && npm run start.prod || npm run start.dev",
+    "start.dev": "concurrently --kill-others \"npm run webpack\" \"npm run serve\"",
     "start.prod": "npm run build && node server.bundle.js",
-    "start.dev": "TARGET=dev webpack-dev-server",
+    "webpack": "TARGET=dev webpack-dev-server",
     "watch.server": "TARGET=dev webpack --watch --config webpack.server.config.js"
   },
   "author": "",
@@ -33,6 +34,7 @@
     "babel-register": "^6.7.2",
     "bootswatch": "^3.3.6",
     "chai": "^3.5.0",
+    "concurrently": "^3.4.0",
     "css-loader": "^0.25.0",
     "enzyme": "^2.2.0",
     "eslint": "^3.1.0",
