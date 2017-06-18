@@ -1,4 +1,4 @@
-const staticCacheName = 'anime-app-3';
+const staticCacheName = 'anime-app-4';
 const contentCacheName = 'anime-app-content-1';
 
 const latestCaches = [ staticCacheName, contentCacheName ];
@@ -59,7 +59,8 @@ function serveApi(request) {
     });
 }
 
-self.addEventListener('fetch', ({ request } = event) => {
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
   const requestUrl = new URL(request.url);
   const cacheableAPIUrls = [
     '/api/ann/'
