@@ -2,6 +2,7 @@ var path = require('path');
 var merge = require('webpack-merge');
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ServiceWorkerPlugin = require('serviceworker-webpack-plugin');
 
 var TARGET = process.env.TARGET;
 var ROOT_PATH = path.resolve(__dirname);
@@ -55,6 +56,9 @@ var common = {
   },
   plugins: [
     new ExtractTextPlugin("styles.css"),
+    new ServiceWorkerPlugin({
+      entry: path.join(__dirname, 'app', 'sw.js')
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'vendor.bundle.js'
