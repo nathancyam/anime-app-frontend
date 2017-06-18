@@ -11,6 +11,7 @@ import {
   UPDATE_IMAGE_REGISTRY,
   ADD_TOAST_NOTIFICATION,
   CLEAR_TOAST_NOTIFICATION,
+  SW_INSTALLED,
 } from './actions';
 
 const initialState = {
@@ -58,9 +59,10 @@ export default function reducer(state = Immutable.fromJS(initialState), action) 
       break;
     }
 
+    case SW_INSTALLED:
     case ADD_TOAST_NOTIFICATION: {
       state = state.updateIn(['toastNotifications'], notifications => {
-        return notifications.concat([ action.payload ])
+        return notifications.concat([ action.payload ]);
       });
       break;
     }

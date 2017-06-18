@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Alert from '../../../app/components/Notifications/Alert';
 import { expect } from 'chai';
+import sinon from 'sinon';
 
 describe('<Alert />', () => {
   it('should show an error message', () => {
@@ -26,5 +27,22 @@ describe('<Alert />', () => {
     const wrapper = shallow(<Alert type="warn" msg="Warning transaction"/>);
     expect(wrapper.find('.alert').hasClass('alert-warning')).to.equal(true);
     expect(wrapper.text()).to.contain("Warning transaction");
+  });
+
+  it('should allow the creation of rich notifications', () => {
+    const spy = sinon.spy();
+    const richNotifications = {
+      text: 'A new version is available',
+      actions: [{
+        name: 'Refresh',
+        callback: spy
+      }]
+    };
+
+    const wrapper = shallow(<Alert type="info" msg={richNotifications}/>);
+    expect(wrapper.find('button').text()).to.equal('Refresh');
+    expect(wrapper.find('.msg-text').text()).to.equal('A new version is available');
+    wrapper.find('button').simulate('click');
+    expect(spy.calledOnce).to.equal(true);
   });
 });

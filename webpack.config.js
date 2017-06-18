@@ -2,6 +2,7 @@ const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ServiceWorkerPlugin = require('serviceworker-webpack-plugin');
 
 const TARGET = process.env.TARGET;
 const ROOT_PATH = path.resolve(__dirname);
@@ -46,6 +47,9 @@ const common = {
   },
   plugins: [
     new ExtractTextPlugin("styles.css"),
+    new ServiceWorkerPlugin({
+      entry: path.join(__dirname, 'app', 'sw.js')
+    })
   ]
 };
 

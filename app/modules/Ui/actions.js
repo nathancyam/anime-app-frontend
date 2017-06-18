@@ -59,6 +59,8 @@ function clearToastNotification() {
   };
 }
 
+export const SW_INSTALLED = 'SW_INSTALLED';
+
 /**
  * @param {ToastNotification} notification
  * @return {function(*)}

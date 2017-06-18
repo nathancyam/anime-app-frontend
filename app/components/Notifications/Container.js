@@ -4,7 +4,10 @@ import './styles.scss';
 
 const NotificationShape = PropTypes.shape({
   type: PropTypes.oneOf(['error', 'success', 'info', 'warn']),
-  msg: PropTypes.string,
+  msg: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
 });
 
 const propTypes = {
@@ -15,9 +18,11 @@ function Container({ notifications }) {
   return (
     <div className="notifications">
       <ul>
-        {notifications.map((notification, index) => {
-          return <li key={`notify_${index}`} ><Alert {...notification} /></li>
-        })}
+        {notifications.map((notification, index) => (
+          <li key={`notify_${index}`} >
+            <Alert {...notification} />
+          </li>
+        ))}
       </ul>
     </div>
   );

@@ -68,6 +68,15 @@ app.use('/socket.io/*', (req, res) => {
   });
 });
 
+app.use('/sw.js', (req, res) => {
+  const http = require('http');
+  res.set('Content-Type', 'text/javascript');
+  http.get('http://localhost:8081/sw.js', file => {
+    console.log('Got file', file);
+    file.pipe(res);
+  });
+});
+
 httpServer.on('upgrade', (req, res) => {
   console.log(`Upgrade request for sockets`);
   apiProxy.ws(req, res, { target: 'http://localhost:3000/socket.io' });
@@ -75,6 +84,10 @@ httpServer.on('upgrade', (req, res) => {
 
 app.use('*', (req, res) => {
   if (req.baseUrl === '/favicon.ico') {
+    return res.status(404).send();
+  }
+
+  if (req.baseUrl.includes('.jpg') || req.baseUrl.includes('.png')) {
     return res.status(404).send();
   }
 
@@ -116,8 +129,7 @@ if (process.env.NODE_ENV !== 'production') {
     if (err) {
       console.error(err);
     }
-
-    console.log(`Render server listening on port: ${app.get('port')}`);
+    console.log('\x1b[36m%s\x1b[0m', `Render server listening to port: ${app.get('port')}`);
   });
 }
 
@@ -131,7 +143,7 @@ if (process.env.NODE_ENV === 'production') {
         console.error(err.message);
       }
 
-      console.log(`Render server listening on port: ${app.get('port')}`);
+      console.log(`%c Render server port: ${app.get('port')}`, 'color: lightblue');
     });
   }
 }
