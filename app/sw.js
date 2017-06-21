@@ -2,19 +2,6 @@ const staticCacheName = 'anime-app-5';
 const contentCacheName = 'anime-app-content-1';
 
 const latestCaches = [ staticCacheName, contentCacheName ];
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(staticCacheName)
-      .then(cache => {
-        return cache.addAll([
-          '/skeleton',
-          '/build/bundle.js',
-          '/build/styles.css',
-          '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css',
-        ]);
-      })
-  )
-});
 
 self.addEventListener('activate', event => {
   event.waitUntil(
