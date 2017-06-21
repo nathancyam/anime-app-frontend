@@ -1,4 +1,4 @@
-const staticCacheName = 'anime-app-5';
+const staticCacheName = 'anime-app-6';
 const contentCacheName = 'anime-app-content-1';
 
 const latestCaches = [ staticCacheName, contentCacheName ];
@@ -78,7 +78,12 @@ self.addEventListener('fetch', (event) => {
     }
 
     if (requestUrl.pathname === '/') {
-      event.respondWith(caches.match('/skeleton'));
+      event.respondWith(
+        caches.match('/skeleton')
+          .then(res => {
+            return res || fetch('/skeleton');
+          })
+      );
       return;
     }
   }
