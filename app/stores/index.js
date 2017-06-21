@@ -14,6 +14,7 @@ import animeNewsNetwork from '../modules/AnimeNewsNetwork/reducer';
 import torrents from '../modules/Torrent/reducer';
 import torrentServer from '../modules/TorrentServer/reducer';
 import uiMeta, { defaultState as uiDefaultState } from '../modules/Ui/reducer';
+import serviceWorker from '../modules/ServiceWorker/reducer';
 import { authMiddleware } from '../middleware/auth';
 
 export function configureStore(history, initialState = {}) {
@@ -39,6 +40,7 @@ export function configureStore(history, initialState = {}) {
     episodes, torrents,
     torrentServer,
     animeNewsNetwork,
+    serviceWorker,
     filters
   });
 

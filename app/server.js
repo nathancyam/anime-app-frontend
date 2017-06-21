@@ -72,9 +72,13 @@ app.use('/sw.js', (req, res) => {
   const http = require('http');
   res.set('Content-Type', 'text/javascript');
   http.get('http://localhost:8081/sw.js', file => {
-    console.log('Got file', file);
     file.pipe(res);
   });
+});
+
+app.use('/skeleton', (req, res) => {
+  console.log('Hit skeleton');
+  res.send(renderPage('', {}));
 });
 
 httpServer.on('upgrade', (req, res) => {

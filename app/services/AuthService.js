@@ -66,4 +66,16 @@ export default class AuthService extends BaseService {
       console.log(err);
     }
   }
+
+  async saveSettings(settings) {
+    try {
+      const response = await this.fetchApi('/user/settings', {
+        method: 'POST',
+        body: JSON.stringify(settings),
+      });
+      return await response.json();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }

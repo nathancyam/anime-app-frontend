@@ -2,12 +2,15 @@ const staticCacheName = 'anime-app-4';
 const contentCacheName = 'anime-app-content-1';
 
 const latestCaches = [ staticCacheName, contentCacheName ];
-
+// asdfsfafs
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(staticCacheName)
       .then(cache => {
         return cache.addAll([
+          '/skeleton',
+          '/build/bundle.js',
+          '/build/styles.css',
           '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css',
         ]);
       })
@@ -23,6 +26,14 @@ self.addEventListener('activate', event => {
       )
     )
   )
+});
+
+self.addEventListener('push', event => {
+  const json = event.data.json();
+  event.waitUntil(self.registration.showNotification(
+    json.title,
+    { body: json.body, vibrate: [200, 100, 200, 100, 200, 100, 200] }
+  ));
 });
 
 function serveImage(request) {
@@ -63,7 +74,8 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const requestUrl = new URL(request.url);
   const cacheableAPIUrls = [
-    '/api/ann/'
+    '/api/ann/',
+    '/api/anime/'
   ];
 
   if (requestUrl.origin === location.origin) {
@@ -78,9 +90,18 @@ self.addEventListener('fetch', (event) => {
     ) {
       event.respondWith(serveApi(request));
     }
+
+    if (requestUrl.pathname === '/') {
+      event.respondWith(caches.match('/skeleton'));
+    }
   }
 
-  event.respondWith(fetch(request));
+  event.respondWith(
+    caches.match(request)
+      .then(result => {
+        return result || fetch(event.request);
+      })
+  );
 });
 
 self.addEventListener('message', event => {

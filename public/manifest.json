@@ -4,6 +4,7 @@
   "name": "Anime App",
   "short_name": "Anime App",
   "display": "standalone",
+  "gcm_sender_id": 892371082368,
   "icons": [
     {
       "src": "/manifest.png",

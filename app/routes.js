@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router'
 import { requireAuth } from './decorators/auth';
 import Layout from './containers/Layout';
 import TorrentList from './containers/TorrentList';
-import Settings from './views/Settings';
+import Settings from './containers/Settings';
 import AnimeCollection from './containers/AnimeCollection';
 import TorrentServer from './containers/TorrentServer';
 import AnimeItem from './containers/AnimeItem';
