@@ -1,8 +1,7 @@
-const staticCacheName = 'anime-app-4';
+const staticCacheName = 'anime-app-5';
 const contentCacheName = 'anime-app-content-1';
 
 const latestCaches = [ staticCacheName, contentCacheName ];
-// asdfsfafs
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(staticCacheName)
@@ -79,18 +78,21 @@ self.addEventListener('fetch', (event) => {
 
   if (requestUrl.origin === location.origin) {
     if (requestUrl.pathname.startsWith('/media/images/')) {
-      return event.respondWith(serveImage(request));
+      event.respondWith(serveImage(request));
+      return;
     }
 
     if (
       event.request.method === 'GET' &&
       cacheableAPIUrls.filter(url => requestUrl.pathname.startsWith(url)).length !== 0
     ) {
-      return event.respondWith(serveApi(request));
+      event.respondWith(serveApi(request));
+      return;
     }
 
     if (requestUrl.pathname === '/') {
-      return event.respondWith(caches.match('/skeleton'));
+      event.respondWith(caches.match('/skeleton'));
+      return;
     }
   }
 
