@@ -1,7 +1,8 @@
-const staticCacheName = 'anime-app-6';
+const staticCacheName = 'anime-app-7';
 const contentCacheName = 'anime-app-content-1';
+const buildCacheName = 'anime-app-build-1';
 
-const latestCaches = [ staticCacheName, contentCacheName ];
+const latestCaches = [ staticCacheName, contentCacheName, buildCacheName ];
 
 self.addEventListener('activate', event => {
   event.waitUntil(
@@ -77,11 +78,42 @@ self.addEventListener('fetch', (event) => {
       return;
     }
 
+    if (requestUrl.pathname.startsWith('/build')) {
+      event.respondWith(
+        caches.open(buildCacheName)
+          .then(cache => {
+            return cache.match(event.request)
+              .then(res => ({ cache, res }));
+          })
+          .then(({ cache, res }) => {
+            return res || fetch(event.request)
+                .then(res => {
+                  cache.put(event.request, res.clone());
+                  return res;
+                });
+          })
+      );
+      return;
+    }
+
     if (requestUrl.pathname === '/') {
       event.respondWith(
         caches.match('/skeleton')
           .then(res => {
-            return res || fetch('/skeleton');
+            const request = new Request(`${event.request.url}skeleton`, {
+              headers: event.request.headers,
+              method: event.request.method,
+              credentials: event.request.credentials,
+            });
+            return res || fetch(request)
+              .then(res => {
+                return caches.open(staticCacheName)
+                  .then(cache => ({ cache, res }));
+              })
+              .then(({cache, res}) => {
+                cache.put('/skeleton', res.clone());
+                return res;
+              });
           })
       );
       return;
