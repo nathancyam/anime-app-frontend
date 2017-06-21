@@ -24,6 +24,7 @@ deployment:
   production:
     branch: master
     commands:
+      - npm rebuild node-sass
       - yarn run build.prod
       - rsync -rvz --progress -e "ssh -p ${SSH_PORT}" ./yarn.lock $REMOTE_USER@$REMOTE_HOST:/var/www/react-frontend/yarn.lock
       - ssh -p $SSH_PORT -t $REMOTE_USER@$REMOTE_HOST "cd /var/www/react-frontend && yarn install"
