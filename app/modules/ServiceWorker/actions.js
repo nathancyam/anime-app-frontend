@@ -134,13 +134,13 @@ export function bindServiceWorkerEventListeners() {
     }
 
     if (reg.waiting) {
-      return handleWorker(reg.waiting);
+      return handleWorker(reg.waiting, dispatch);
     }
 
     if (reg.installing) {
-      return handleWorker(reg.installing);
+      return handleWorker(reg.installing, dispatch);
     }
 
-    reg.addEventListener('updatefound', () => handleWorker(reg.installing));
+    reg.addEventListener('updatefound', () => handleWorker(reg.installing, dispatch));
   };
 }
