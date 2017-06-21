@@ -108,7 +108,7 @@ app.use('*', (req, res) => {
       fetchData(renderProps, req)
         .then(initialData => {
           try {
-            store = configureStore(memoryHistory, initialData);
+            store = configureStore(memoryHistory, initialData, false);
             const content = renderToString(
               <Provider store={store}>
                 <RouterContext {...renderProps}/>

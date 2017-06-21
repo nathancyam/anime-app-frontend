@@ -7,14 +7,16 @@ export const SW_SAVE_AUTH_KEYS_SUCCESS = 'sw/SAVE_AUTH_KEYS_SUCCESS';
 export const SW_SAVE_AUTH_KEYS_FAILED = 'sw/SAVE_AUTH_KEYS_FAILED';
 export const SW_SAVE_SUBSCRIPTION_OBJECT = 'sw/SW_SAVE_SUBSCRIPTION_OBJECT';
 
-navigator.serviceWorker.addEventListener('controllerchange', () => {
-  window.location.reload();
-});
+if (typeof window !== 'undefined') {
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    window.location.reload();
+  });
 
-Notification.requestPermission(result => {
-  if (result === 'granted') {
-  }
-});
+  Notification.requestPermission(result => {
+    if (result === 'granted') {
+    }
+  });
+}
 
 function urlB64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);

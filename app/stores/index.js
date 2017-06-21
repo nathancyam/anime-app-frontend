@@ -17,7 +17,7 @@ import uiMeta, { defaultState as uiDefaultState } from '../modules/Ui/reducer';
 import serviceWorker from '../modules/ServiceWorker/reducer';
 import { authMiddleware } from '../middleware/auth';
 
-export function configureStore(history, initialState = {}) {
+export function configureStore(history, initialState = {}, isClientSide) {
   let newState = initialState;
   const immutableState = ['anime', 'episodes', 'animeNewsNetwork', 'torrents', 'auth'];
 
@@ -32,7 +32,7 @@ export function configureStore(history, initialState = {}) {
     newState = Object.assign({}, initialState, updateState);
   }
 
-  const reducer = combineReducers({
+  let reducers = {
     routing: routerReducer,
     auth,
     uiMeta,
@@ -40,9 +40,14 @@ export function configureStore(history, initialState = {}) {
     episodes, torrents,
     torrentServer,
     animeNewsNetwork,
-    serviceWorker,
     filters
-  });
+  };
+
+  if (isClientSide) {
+    reducers.serviceWorker = serviceWorker;
+  }
+
+  const reducer = combineReducers(reducers);
 
   return createStore(
     reducer,

@@ -11,7 +11,7 @@ import { routes } from './routes'
 import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 import { saveServiceWorkerRegistrationObject } from './modules/ServiceWorker/actions';
 
-const store = configureStore(browserHistory, window.__INITIAL_DATA__);
+const store = configureStore(browserHistory, window.__INITIAL_DATA__, true);
 const history = syncHistoryWithStore(browserHistory, store);
 
 window.serviceWorkerOption = {

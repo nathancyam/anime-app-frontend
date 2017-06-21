@@ -75,28 +75,26 @@ self.addEventListener('fetch', (event) => {
   const requestUrl = new URL(request.url);
   const cacheableAPIUrls = [
     '/api/ann/',
-    '/api/anime/'
   ];
 
   if (requestUrl.origin === location.origin) {
     if (requestUrl.pathname.startsWith('/media/images/')) {
-      event.respondWith(serveImage(request));
-      return;
+      return event.respondWith(serveImage(request));
     }
 
     if (
       event.request.method === 'GET' &&
       cacheableAPIUrls.filter(url => requestUrl.pathname.startsWith(url)).length !== 0
     ) {
-      event.respondWith(serveApi(request));
+      return event.respondWith(serveApi(request));
     }
 
     if (requestUrl.pathname === '/') {
-      event.respondWith(caches.match('/skeleton'));
+      return event.respondWith(caches.match('/skeleton'));
     }
   }
 
-  event.respondWith(
+  return event.respondWith(
     caches.match(request)
       .then(result => {
         return result || fetch(event.request);
