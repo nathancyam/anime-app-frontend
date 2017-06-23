@@ -28,9 +28,6 @@ export default class Login extends Component {
             <button type="submit" className="btn btn-success">
               <i className="fa fa-sign-in" /> Login
             </button>
-            <a href="/api/auth/anilist" className="btn btn-success">
-              <i className="fa fa-sign-in" /> Login with Anilist
-            </a>
           </form>
         </div>
       </div>

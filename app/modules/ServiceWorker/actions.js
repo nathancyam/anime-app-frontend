@@ -127,6 +127,8 @@ export function enableWebPushNotifications() {
 }
 
 export function bindServiceWorkerEventListeners() {
+  setTimeout(() => reg.update(), 1000 * 60 * 5);
+
   return (dispatch, getState) => {
     const reg = getState().serviceWorker.registrationObj;
     if (!navigator.serviceWorker.controller) {

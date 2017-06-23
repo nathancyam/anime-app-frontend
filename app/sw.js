@@ -1,6 +1,6 @@
 const staticCacheName = 'anime-app-7';
 const contentCacheName = 'anime-app-content-1';
-const buildCacheName = 'anime-app-build-2';
+const buildCacheName = 'anime-app-build-3';
 
 const latestCaches = [ staticCacheName, contentCacheName, buildCacheName ];
 
