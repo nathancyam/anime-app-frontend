@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ListItem from '../components/Anime/ListItem';
 import { factory } from '../services/AnimeCollectionService';
 import { hostname } from '../helpers';

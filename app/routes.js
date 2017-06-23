@@ -9,18 +9,16 @@ import TorrentServer from './containers/TorrentServer';
 import AnimeItem from './containers/AnimeItem';
 import Login from './containers/Login';
 import Logout from './containers/Logout';
-import Register from './containers/Register';
 
 export const routes = (
   <Route path="/" component={Layout}>
-    <Route path="/torrents" name="torrents" component={TorrentList} />
-    <Route path="/torrents/server" name="torrentServer" component={TorrentServer} />
-    <Route path="/anime" name="anime" component={AnimeCollection} />
-    <Route path="/anime/:animeId" name="anime_item" component={AnimeItem} />
+    <Route path="/torrents" name="torrents" component={requireAuth(TorrentList)} />
+    <Route path="/torrents/server" name="torrentServer" component={requireAuth(TorrentServer)} />
+    <Route path="/anime" name="anime" component={requireAuth(AnimeCollection)} />
+    <Route path="/anime/:animeId" name="anime_item" component={requireAuth(AnimeItem)} />
     <Route path="/settings" component={requireAuth(Settings)} />
     <Route path="/login" component={Login} />
     <Route path="/logout" component={Logout} />
-    <Route path="/register" component={Register} />
-    <IndexRoute name="index" component={AnimeCollection} />
+    <IndexRoute name="index" component={requireAuth(AnimeCollection)} />
   </Route>
 );

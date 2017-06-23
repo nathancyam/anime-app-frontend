@@ -4,7 +4,8 @@
 
 "use strict";
 
-import React, { PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export const AddToCollectionButton = ({ onAddEpisodeToCollection, hasEpisode }) => {
   if (hasEpisode) {

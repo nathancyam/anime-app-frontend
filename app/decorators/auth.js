@@ -4,7 +4,7 @@
 
 "use strict";
 
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AuthService from '../services/AuthService';
 import Login from '../views/Login';
@@ -19,9 +19,9 @@ export async function getUser(headers) {
   return await authService.getUser(headers);
 }
 
-export function requireAuth(Component) {
+export function requireAuth(WrappedComponent) {
 
-  class AuthComponent extends React.Component {
+  class AuthComponent extends Component {
 
     constructor(props) {
       super(props);
@@ -35,28 +35,23 @@ export function requireAuth(Component) {
     componentWillReceiveProps() {
       this.checkAuth();
     }
-
-    checkAuth() {
+    
+    checkAuth = () => {
       if (!this.props.auth.get('isLoggedIn')) {
         this.props.onRedirectToLogin();
       }
-    }
+    };
 
     render() {
       if (this.props.auth.get('isLoggedIn')) {
-        return <Component {...this.props} />;
+        return <WrappedComponent {...this.props} />;
       }
 
       return <Login {...this.props} />;
     }
   }
 
-  const mapStateToProps = ({ auth }) => {
-    return {
-      auth
-    }
-  };
-
+  const mapStateToProps = ({ auth }) => ({ auth });
   return connect(mapStateToProps, mapDispatchToProps)(AuthComponent);
 }
 

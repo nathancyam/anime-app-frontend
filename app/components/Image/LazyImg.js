@@ -4,7 +4,8 @@
 
 "use strict";
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { addImageToRegistry } from '../../modules/Ui/actions';
 import { connect } from 'react-redux';
 

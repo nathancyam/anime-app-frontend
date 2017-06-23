@@ -1,9 +1,10 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router';
 import NotificationContainer from '../components/Notifications/Container';
 
-export default class Layout extends Component {
+class Layout extends Component {
 
   render() {
     const isLoggedIn = this.props.auth.get('isLoggedIn');
@@ -48,3 +49,10 @@ export default class Layout extends Component {
     );
   }
 }
+
+Layout.propTypes = {
+  notifications: PropTypes.oneOfType(PropTypes.object, PropTypes.array),
+  auth: PropTypes.object,
+};
+
+export default Layout;

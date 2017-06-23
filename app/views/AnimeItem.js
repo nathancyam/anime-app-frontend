@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Accordion, Panel } from 'react-bootstrap';
 import EpisodeList from '../components/Anime/Item/EpisodeList';
 import ManageAnime from '../components/Anime/Item/Manage';
