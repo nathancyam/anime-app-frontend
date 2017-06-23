@@ -1,8 +1,22 @@
 const staticCacheName = 'anime-app-7';
 const contentCacheName = 'anime-app-content-1';
-const buildCacheName = 'anime-app-build-1';
+const buildCacheName = 'anime-app-build-2';
 
 const latestCaches = [ staticCacheName, contentCacheName, buildCacheName ];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(buildCacheName)
+      .then(cache => {
+        return cache.addAll([
+          '/skeleton',
+          '/build/vendor.bundle.js',
+          '/build/bundle.js',
+          '/build/styles.css',
+        ])
+      })
+  );
+});
 
 self.addEventListener('activate', event => {
   event.waitUntil(
