@@ -1,6 +1,6 @@
 const staticCacheName = 'anime-app-7';
 const contentCacheName = 'anime-app-content-1';
-const buildCacheName = 'anime-app-build-4';
+const buildCacheName = 'anime-app-build-5';
 
 const latestCaches = [ staticCacheName, contentCacheName, buildCacheName ];
 
@@ -90,6 +90,24 @@ self.addEventListener('fetch', (event) => {
     ) {
       event.respondWith(serveApi(request));
       return;
+    }
+
+    if (event.request.method !== 'GET' && requestUrl.pathname.startsWith('/anime')) {
+      event.respondWith(
+        caches.open(staticCacheName)
+          .then(cache => {
+            return cache.delete(event.request)
+              .then(result => ({ cache, result }));
+          })
+          .then(({ cache }) => {
+            return fetch(event.request)
+              .then(res => ({ cache, res }));
+          })
+          .then(({ cache, res }) => {
+            cache.put(event.request, res.clone());
+            return res;
+          })
+      );
     }
 
     if (requestUrl.pathname.startsWith('/build')) {
