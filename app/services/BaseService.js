@@ -13,10 +13,7 @@ export default class {
 
   getJwt() {
     if (typeof document !== 'undefined') {
-      var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-      if (cookieValue) {
-        return cookieValue;
-      }
+      return localStorage.getItem('jwt');
     }
 
     return false;

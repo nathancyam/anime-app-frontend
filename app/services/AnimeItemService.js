@@ -46,7 +46,7 @@ class AnimeItemService extends BaseService {
       episodes: this.makeImmutable(episodes)
     };
 
-    const animeObj = payload.anime.get('anime').find(el => el.get('_id') == this.animeId);
+    const animeObj = payload.anime.get('anime').find(el => el.get('_id') === this.animeId);
     const title = animeObj.get('title');
 
     const secondPromises = [

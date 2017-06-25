@@ -8,6 +8,19 @@ import BaseService from './BaseService';
 
 export default class AuthService extends BaseService {
 
+  constructor(hostname) {
+    super(hostname);
+    this.localStorage = AuthService.getLocalStorage();
+  }
+
+  static getLocalStorage() {
+    if (typeof window !== 'undefined') {
+      return localStorage;
+    }
+
+    return { getItem() {}, setItem() {}, removeItem() {} };
+  }
+
   async getUser(headers = {}) {
     try {
       const response = await this.fetchApi('/user', { headers });
@@ -37,6 +50,8 @@ export default class AuthService extends BaseService {
     json = await response.json();
 
     if (typeof document !== 'undefined') {
+      this.localStorage.setItem('jwt', token);
+      this.localStorage.setItem('current_user', JSON.stringify(json));
       document.cookie = `jwt=${token}`;
     }
 
@@ -48,6 +63,8 @@ export default class AuthService extends BaseService {
       const response = await this.fetchApi('/logout');
       const jsonResponse = await response.json();
       document.cookie = 'jwt=';
+      this.localStorage.removeItem('jwt');
+      this.localStorage.removeItem('current_user');
       return this.makeImmutable(jsonResponse);
     } catch (err) {
       console.error(err);

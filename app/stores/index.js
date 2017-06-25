@@ -16,6 +16,7 @@ import torrentServer from '../modules/TorrentServer/reducer';
 import uiMeta, { defaultState as uiDefaultState } from '../modules/Ui/reducer';
 import serviceWorker from '../modules/ServiceWorker/reducer';
 import { authMiddleware } from '../middleware/auth';
+import idb from '../services/IndexedDbService';
 
 export function configureStore(history, initialState = {}, isClientSide) {
   let newState = initialState;
@@ -40,7 +41,7 @@ export function configureStore(history, initialState = {}, isClientSide) {
     episodes, torrents,
     torrentServer,
     animeNewsNetwork,
-    filters
+    filters,
   };
 
   if (isClientSide) {

@@ -1,5 +1,5 @@
 const staticCacheName = 'anime-app-7';
-const contentCacheName = 'anime-app-content-1';
+const contentCacheName = 'anime-app-content-2';
 const buildCacheName = 'anime-app-build-5';
 
 const latestCaches = [ staticCacheName, contentCacheName, buildCacheName ];
@@ -77,6 +77,10 @@ self.addEventListener('fetch', (event) => {
   const cacheableAPIUrls = [
     '/api/ann/',
   ];
+
+  if (event.request.method === 'POST') {
+    return fetch(event.request);
+  }
 
   if (requestUrl.origin === location.origin) {
     if (requestUrl.pathname.startsWith('/media/images/')) {
@@ -160,7 +164,9 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
+//fasdfsdfsdfs
 self.addEventListener('message', event => {
+  console.log(event);
   const { data: { action }} = event;
 
   switch (action) {

@@ -2,6 +2,7 @@
  * Created by nathanyam on 6/03/2016.
  */
 import ServiceLocator from '../../services';
+import { saveAnime } from '../IndexedDb/actions';
 
 export const FETCH_ANIME = 'FETCH_ANIME';
 export function fetchAnime() {
@@ -10,6 +11,7 @@ export function fetchAnime() {
       .make('AnimeCollection')
       .getAnime()
       .then(result => {
+        dispatch(saveAnime(result));
         dispatch(receivedAnime(result));
       })
   };

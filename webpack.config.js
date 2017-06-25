@@ -9,7 +9,20 @@ const ROOT_PATH = path.resolve(__dirname);
 
 const common = {
   entry: {
-    'bundle': ['babel-polyfill', './app/main.js'],
+    bundle: ['babel-polyfill', './app/main.js'],
+    'vendor.bundle': [
+      'react',
+      'react-dom',
+      'react-bootstrap',
+      'react-redux',
+      'react-router',
+      'react-router-redux',
+      'redux',
+      'redux-thunk',
+      'idb',
+      'immutable',
+      'isomorphic-fetch'
+    ],
   },
   output: {
     filename: '[name].js'

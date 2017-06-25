@@ -16,7 +16,7 @@
 export const authMiddleware = (history) => store => next => action => {
   const authState = store.getState().auth;
   if (!authState.has('current_user') && authState.get('requireAuth')) {
-    console.log('requies auth');
+    console.log('requires auth');
   }
   next(action);
 };

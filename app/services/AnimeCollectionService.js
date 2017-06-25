@@ -3,10 +3,16 @@
  */
 
 import BaseService from './BaseService';
+import idb from './IndexedDbService';
 
 class AnimeCollectionService extends BaseService {
 
   async getAnime() {
+    if (navigator && !navigator.onLine) {
+      const anime = await idb.getAllAnime();
+      return this.makeImmutable(anime);
+    }
+
     try {
       const response = await this.fetchApi('/anime');
       const jsonResponse = await response.json();
@@ -15,7 +21,6 @@ class AnimeCollectionService extends BaseService {
       console.error(error);
     }
   }
-
 }
 
 export const factory = () => {

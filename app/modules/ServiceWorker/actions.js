@@ -8,10 +8,6 @@ export const SW_SAVE_AUTH_KEYS_FAILED = 'sw/SAVE_AUTH_KEYS_FAILED';
 export const SW_SAVE_SUBSCRIPTION_OBJECT = 'sw/SW_SAVE_SUBSCRIPTION_OBJECT';
 
 if (typeof window !== 'undefined') {
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    window.location.reload();
-  });
-
   Notification.requestPermission(result => {
     if (result === 'granted') {
     }
@@ -33,7 +29,7 @@ function urlB64ToUint8Array(base64String) {
   return outputArray;
 }
 
-function handleWorker (worker, dispatch) {
+function handleWorker(worker, dispatch) {
   const payload = {
     type: 'info',
     msg: {
@@ -84,7 +80,6 @@ export function confirmSubscription() {
 
 export function saveAuthKeys(keys) {
   return async (dispatch, getState) => {
-    console.log('State', getState());
     try {
       (new AuthService()).saveSettings({ settings: { keys }});
       dispatch({ type: SW_SAVE_AUTH_KEYS_SUCCESS });
@@ -127,10 +122,14 @@ export function enableWebPushNotifications() {
 }
 
 export function bindServiceWorkerEventListeners() {
-  setTimeout(() => reg.update(), 1000 * 60 * 5);
-
   return (dispatch, getState) => {
     const reg = getState().serviceWorker.registrationObj;
+
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      debugger;
+      window.location.reload();
+    });
+
     if (!navigator.serviceWorker.controller) {
       return;
     }
